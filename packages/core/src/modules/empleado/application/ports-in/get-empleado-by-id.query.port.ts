@@ -1,5 +1,5 @@
 import type { Empleado } from "../../domain";
 
 export interface IGetEmpleadoByIdQuery {
-  execute(id: string): Empleado | null;
+  execute(id: string): Promise<Empleado | null>;
 }

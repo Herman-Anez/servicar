@@ -1,90 +1,70 @@
-# Magic Portfolio
+# Servicar — Frontend (Next.js)
 
-Magic Portfolio is a simple, clean, beginner-friendly portfolio template. It supports an MDX-based content system for projects and blog posts, an about / CV page and a gallery.
+Aplicación web del sistema de gestión de taller de autobuses **Servicar**. Construida sobre [Once UI](https://once-ui.com) para [Next.js](https://nextjs.org).
 
-View the demo [here](https://demo.magic-portfolio.com).
+![Servicar](public/images/og/home.jpg)
 
-![Magic Portfolio](public/images/og/home.jpg)
+## Requisitos
 
-## Getting started
+- Node.js v18.17+
+- pnpm v8+
 
-**1. Clone the repository**
-```
-git clone https://github.com/once-ui-system/magic-portfolio.git
-```
+## Inicio rápido
 
-**2. Install dependencies**
-```
-npm install
-```
-**3. Run dev server**
-```
-npm run dev
+**1. Instalar dependencias** (desde la raíz del monorepo)
+```bash
+pnpm install
 ```
 
-**4. Edit config**
-```
-src/resources/once-ui.config.js
-```
-
-**5. Edit content**
-```
-src/resources/content.js
+**2. Levantar servidor de desarrollo**
+```bash
+cd next
+pnpm dev
 ```
 
-**6. Create blog posts / projects**
+**3. Configurar UI**
 ```
-Add a new .mdx file to src/app/blog/posts or src/app/work/projects
+src/resources/once-ui.config.ts
 ```
 
-Magic Portfolio was built with [Once UI](https://once-ui.com) for [Next.js](https://nextjs.org). It requires Node.js v18.17+.
+**4. Configurar contenido y metadatos**
+```
+src/resources/content.tsx
+```
 
-## Documentation
+## Arquitectura
 
-Docs available at: [docs.once-ui.com](https://docs.once-ui.com/docs/magic-portfolio/quick-start)
+El frontend sigue una arquitectura en capas:
 
-## Features
+```
+src/
+├── app/                  # Rutas Next.js (App Router)
+│   ├── (mecanico)/       # Rutas protegidas del mecánico
+│   ├── admin/            # Rutas protegidas del administrador
+│   ├── login/            # Autenticación
+│   └── ticket/           # Creación y edición de tickets
+├── presentation/
+│   ├── coordinators/     # Navegación entre pantallas
+│   ├── view-models/      # Lógica de cada vista (hooks)
+│   └── views/            # Componentes de UI puros
+├── modules/              # Inicialización de módulos (DI)
+├── lib/                  # Cliente de base de datos (Convex)
+└── resources/            # Configuración y contenido estático
+```
 
-### Once UI
-- All tokens, components & features of [Once UI](https://once-ui.com)
+Depende del paquete interno `@servicar/core` (dominio y casos de uso) que vive en `packages/core/`.
 
-### SEO
-- Automatic open-graph and X image generation with next/og
-- Automatic schema and metadata generation based on the content file
+## Roles de usuario
 
-### Design
-- Responsive layout optimized for all screen sizes
-- Timeless design without heavy animations and motion
-- Endless customization options through [data attributes](https://once-ui.com/docs/theming)
+| Rol | Acceso |
+|-----|--------|
+| **Mecánico** | UI móvil — crea y edita sus propios tickets |
+| **Administrador** | Panel desktop — aprueba, rechaza y reasigna cualquier ticket |
+| **Cliente** | Consulta pública de ticket por ID (sin auth) |
 
-### Content
-- Render sections conditionally based on the content file
-- Enable or disable pages for blog, work, gallery and about / CV
-- Generate and display social links automatically
-- Set up password protection for URLs
+## Stack
 
-### Localization
-- A localized, earlier version of Magic Portfolio is available with the next-intl library
-- To use localization, switch to the 'i18n' branch
-
-## Creators
-
-Lorant One: [Threads](https://www.threads.net/@lorant.one) / [LinkedIn](https://www.linkedin.com/in/lorant-one/)
-
-## Get involved
-
-- Join the Design Engineers Club on [Discord](https://discord.com/invite/5EyAQ4eNdS) and share your project with us!
-- Deployed your docs? Share it on the [Once UI Hub](https://once-ui.com/hub) too! We feature our favorite apps on our landing page.
-
-## License
-
-Distributed under the CC BY-NC 4.0 License.
-- Attribution is required.
-- Commercial usage is not allowed.
-- You can extend the license to [Dopler CC](https://dopler.app/license) by purchasing a [Once UI Pro](https://once-ui.com/pricing) license.
-
-See `LICENSE.txt` for more information.
-
-## Deploy with Vercel
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fonce-ui-system%2Fmagic-portfolio&project-name=portfolio&repository-name=portfolio&redirect-url=https%3A%2F%2Fgithub.com%2Fonce-ui-system%2Fmagic-portfolio&demo-title=Magic%20Portfolio&demo-description=Showcase%20your%20designers%20or%20developer%20portfolio&demo-url=https%3A%2F%2Fdemo.magic-portfolio.com&demo-image=%2F%2Fraw.githubusercontent.com%2Fonce-ui-system%2Fmagic-portfolio%2Fmain%2Fpublic%2Fimages%2Fog%2Fhome.jpg)
+- Next.js 16, React 19, TypeScript
+- Once UI (`@once-ui-system/core`) — componentes y tokens de diseño
+- Convex — base de datos en tiempo real
+- Biome — linter y formatter

@@ -5,27 +5,28 @@ import { mockTicketToEntity, entityToMockTicket, entityToMockHistorial } from ".
 export class MockTicketRepository implements ITicketRepository {
   constructor(private readonly store: MockStore) {}
 
-  getAll(): Ticket[] {
-    return this.store.getTickets().map(mockTicketToEntity);
+  getAll(): Promise<Ticket[]> {
+    return Promise.resolve(this.store.getTickets().map(mockTicketToEntity));
   }
 
-  getById(id: string): Ticket | null {
+  getById(id: string): Promise<Ticket | null> {
     const raw = this.store.getTicketById(id);
-    return raw ? mockTicketToEntity(raw) : null;
+    return Promise.resolve(raw ? mockTicketToEntity(raw) : null);
   }
 
-  getByEstado(estado: TicketEstado): Ticket[] {
-    return this.store.getTicketsByEstado(estado).map(mockTicketToEntity);
+  getByEstado(estado: TicketEstado): Promise<Ticket[]> {
+    return Promise.resolve(this.store.getTicketsByEstado(estado).map(mockTicketToEntity));
   }
 
-  getByCreador(creadorId: string): Ticket[] {
-    return this.store.getTicketsByCreador(creadorId).map(mockTicketToEntity);
+  getByCreador(creadorId: string): Promise<Ticket[]> {
+    return Promise.resolve(this.store.getTicketsByCreador(creadorId).map(mockTicketToEntity));
   }
 
-  save(ticket: Ticket): void {
+  save(ticket: Ticket): Promise<void> {
     this.store.upsertTicket(entityToMockTicket(ticket));
     for (const entry of ticket.pendingHistorial) {
       this.store.appendHistorial(entityToMockHistorial(entry));
     }
+    return Promise.resolve();
   }
 }

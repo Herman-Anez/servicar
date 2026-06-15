@@ -10,7 +10,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@servicar/core": "*",
+    "@servicar/core": "workspace:*",
+    "@servicar/persistence-pocketbase": "workspace:*",
+    "pocketbase": "^0.21.0",
     "@mdx-js/loader": "^3.1.0",
     "@next/mdx": "^16.0.10",
     "@once-ui-system/core": "latest",

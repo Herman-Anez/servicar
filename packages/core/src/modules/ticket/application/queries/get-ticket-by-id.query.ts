@@ -5,7 +5,7 @@ import type { IGetTicketByIdQuery } from "../ports-in/get-ticket-by-id.query.por
 export class GetTicketByIdQuery implements IGetTicketByIdQuery {
   constructor(private readonly ticketRepo: ITicketRepository) {}
 
-  execute(id: string): Ticket | null {
+  execute(id: string): Promise<Ticket | null> {
     return this.ticketRepo.getById(id);
   }
 }

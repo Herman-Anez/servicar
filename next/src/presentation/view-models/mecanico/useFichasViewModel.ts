@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useStoreReactive } from "@/presentation/hooks/useStoreReactive";
-import { getMockSession } from "@/lib/mock/hooks";
+import { authSession } from "@/lib/auth";
 import { ticketModule } from "@/modules/ticket/infrastructure/ticket-module";
 import { empleadoModule } from "@/modules/empleado/infrastructure/empleado-module";
 import type { Ticket } from "@servicar/core";
@@ -22,13 +22,23 @@ export interface FichasVM {
 }
 
 export function useFichasViewModel(coordinator: IMecanicoCoordinator): FichasVM {
-  useStoreReactive();
+  const refreshKey = useStoreReactive();
   const [tab, setTab] = useState<FichaTab>("requiere_cambios");
+  const [empleado, setEmpleado] = useState<Empleado | null>(null);
+  const [misTickets, setMisTickets] = useState<Ticket[]>([]);
 
-  const session = getMockSession();
-  const empleado = session ? empleadoModule.getEmpleadoById.execute(session.empleadoId) : null;
+  const session = authSession.getSession();
 
-  const misTickets = empleado ? ticketModule.getTicketsPorCreador.execute(empleado.id) : [];
+  useEffect(() => {
+    if (!session) { setEmpleado(null); setMisTickets([]); return; }
+    empleadoModule.getEmpleadoById.execute(session.empleadoId).then((emp) => {
+      setEmpleado(emp);
+      if (emp) ticketModule.getTicketsPorCreador.execute(emp.id).then(setMisTickets);
+      else setMisTickets([]);
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session?.empleadoId, refreshKey]);
+
   const corregir   = misTickets.filter((t) => t.estado === "requiere_cambios");
   const enRevision = misTickets.filter((t) => t.estado === "pendiente_revision");
   const shown = tab === "requiere_cambios" ? corregir : enRevision;

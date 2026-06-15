@@ -199,16 +199,16 @@ m.equals(new Matricula("4829-KXL")) // true
 Interfaces que el dominio define y que la infraestructura debe implementar. El dominio solo conoce la interfaz, nunca la implementación concreta.
 
 ```typescript
-// ITicketRepository — un repositorio por AR
-getAll(): Ticket[]
-getById(id: string): Ticket | null
-getByEstado(estado: TicketEstado): Ticket[]
-getByCreador(creadorId: string): Ticket[]
-save(ticket: Ticket): void  // persiste ticket + drena ticket.pendingHistorial
+// ITicketRepository — un repositorio por AR (todos async para compatibilidad HTTP)
+getAll(): Promise<Ticket[]>
+getById(id: string): Promise<Ticket | null>
+getByEstado(estado: TicketEstado): Promise<Ticket[]>
+getByCreador(creadorId: string): Promise<Ticket[]>
+save(ticket: Ticket): Promise<void>  // persiste ticket + drena ticket.pendingHistorial
 
 // IHistorialRepository — read model (solo lectura)
 // HistorialEntry solo se ESCRIBE a través de ITicketRepository.save()
-getByTicket(ticketId: string): HistorialEntry[]
+getByTicket(ticketId: string): Promise<HistorialEntry[]>
 ```
 
 ---
@@ -232,15 +232,15 @@ interface CambiarEstadoDTO { ticketId, empleadoId, nuevoEstado, notaAdmin? }
 Interfaces que los use cases y queries implementan. La capa de presentación (ViewModels) solo conoce estas interfaces — nunca instancia directamente un `CrearTicketUseCase`.
 
 ```typescript
-interface ICrearTicketUseCase   { execute(dto: CrearTicketDTO): string }
-interface IEditarTicketUseCase  { execute(dto: EditarTicketDTO): void }
-interface ICambiarEstadoUseCase { execute(dto: CambiarEstadoDTO): void }
+interface ICrearTicketUseCase   { execute(dto: CrearTicketDTO): Promise<string> }
+interface IEditarTicketUseCase  { execute(dto: EditarTicketDTO): Promise<void> }
+interface ICambiarEstadoUseCase { execute(dto: CambiarEstadoDTO): Promise<void> }
 
-interface IGetTicketsQuery           { execute(): Ticket[] }
-interface IGetTicketByIdQuery        { execute(id: string): Ticket | null }
-interface IGetTicketsPorEstadoQuery  { execute(estado: TicketEstado): Ticket[] }
-interface IGetTicketsPorCreadorQuery { execute(creadorId: string): Ticket[] }
-interface IGetHistorialQuery         { execute(ticketId: string): HistorialEntry[] }
+interface IGetTicketsQuery           { execute(): Promise<Ticket[]> }
+interface IGetTicketByIdQuery        { execute(id: string): Promise<Ticket | null> }
+interface IGetTicketsPorEstadoQuery  { execute(estado: TicketEstado): Promise<Ticket[]> }
+interface IGetTicketsPorCreadorQuery { execute(creadorId: string): Promise<Ticket[]> }
+interface IGetHistorialQuery         { execute(ticketId: string): Promise<HistorialEntry[]> }
 ```
 
 #### Use Cases
@@ -252,12 +252,13 @@ Cada clase recibe sus dependencias por constructor (inyección de dependencias).
 class CambiarEstadoUseCase implements ICambiarEstadoUseCase {
   constructor(private ticketRepo: ITicketRepository) {}   // solo ticketRepo
 
-  execute(dto: CambiarEstadoDTO): void {
-    const ticket = this.ticketRepo.getById(dto.ticketId);
+  async execute(dto: CambiarEstadoDTO): Promise<void> {
+    const ticket = await this.ticketRepo.getById(dto.ticketId);
+    if (!ticket) throw new Error(`Ticket ${dto.ticketId} no encontrado.`);
     // AR valida transición Y emite HistorialEntry internamente
     const actualizado = ticket.cambiarEstado(dto.nuevoEstado, dto.empleadoId, dto.notaAdmin);
     // save() persiste ticket + drena actualizado.pendingHistorial
-    this.ticketRepo.save(actualizado);
+    await this.ticketRepo.save(actualizado);
   }
 }
 ```
@@ -286,20 +287,25 @@ entityToMockTicket(ticket: Ticket): MockTicket      // Ticket → MockTicket
 entityToMockHistorial(entry: HistorialEntry): MockHistorial
 ```
 
-`MockTicketRepository.save()` persiste el ticket **y** drena `ticket.pendingHistorial`:
+`MockTicketRepository.save()` persiste el ticket **y** drena `ticket.pendingHistorial`. Todos los métodos envuelven en `Promise.resolve()` para cumplir las interfaces async:
 
 ```typescript
-save(ticket: Ticket): void {
+save(ticket: Ticket): Promise<void> {
   this.store.upsertTicket(entityToMockTicket(ticket));
   for (const entry of ticket.pendingHistorial) {
     this.store.appendHistorial(entityToMockHistorial(entry));
   }
+  return Promise.resolve();
+}
+
+getAll(): Promise<Ticket[]> {
+  return Promise.resolve(this.store.getTickets().map(mockTicketToEntity));
 }
 ```
 
-`MockHistorialRepository` es **solo lectura** — solo implementa `getByTicket()`.
+`MockHistorialRepository` es **solo lectura** — solo implementa `getByTicket(): Promise<HistorialEntry[]>`.
 
-**Para migrar a Convex:** crear `ConvexTicketRepository implements ITicketRepository` en `persistence/convex/`. Solo se cambia `ticket-module.ts` — el resto del sistema no se toca.
+**Adaptador PocketBase (`persistence/pocketbase/`):** `PbTicketRepository implements ITicketRepository`. Lee de `PbStore` (caché snapshot), escribe a PocketBase (HTTP) y luego actualiza caché optimistamente. `PbStore.init()` carga todo al iniciar y activa subscripciones SSE para cambios en tiempo real. Para activar: cambiar imports en `ticket-module.ts` y `empleado-module.ts` — el dominio y Views no se tocan.
 
 #### Service Locator (`ticket-module.ts`)
 
@@ -376,22 +382,43 @@ presentation/views/
 
 #### ViewModel ✅
 
-Hook React que: llama `useStoreReactive()` para reactivity, resuelve sesión via `getMockSession()` + `empleadoModule`, orquesta `ticketModule`, transforma y devuelve el estado como interfaz plana para la View.
+Hook React que: llama `useStoreReactive()` para reactivity, resuelve sesión via `authSession.getSession()` + `empleadoModule`, orquesta `ticketModule`, transforma y devuelve el estado como interfaz plana para la View.
 
 ```typescript
-// Patrón estándar
+// Patrón estándar — async con useEffect + useState + refreshKey
 export function useColaViewModel(coordinator: IAdminCoordinator): ColaVM {
-  useStoreReactive();                                              // suscripción al store
-  const session  = getMockSession();
-  const empleado = session ? empleadoModule.getEmpleadoById.execute(session.empleadoId) : null;
-  const cola     = ticketModule.getTicketsPorEstado.execute("pendiente_revision");
-  return {
-    empleado, cola,
-    onDecision: (id, decision) =>
-      ticketModule.cambiarEstado.execute({ ticketId: id, empleadoId: empleado!.id, nuevoEstado: decision }),
-    onVerHistorial: (id) => coordinator.goToHistorial(id),
+  const refreshKey = useStoreReactive();   // número que incrementa en cada notify()
+  const session = authSession.getSession(); // SessionPayload | null — desde @/lib/auth
+
+  const [empleado, setEmpleado] = useState<Empleado | null>(null);
+  const [cola, setCola] = useState<Ticket[]>([]);
+
+  useEffect(() => {
+    if (!session) { setEmpleado(null); return; }
+    empleadoModule.getEmpleadoById.execute(session.empleadoId).then(setEmpleado);
+  }, [session?.empleadoId, refreshKey]);
+
+  useEffect(() => {
+    ticketModule.getTicketsPorEstado.execute("pendiente_revision").then(setCola);
+  }, [refreshKey]);
+
+  const onDecision = async (id: string, decision: TicketEstado) => {
+    await ticketModule.cambiarEstado.execute({
+      ticketId: id, empleadoId: empleado!.id, nuevoEstado: decision,
+    });
   };
+
+  return { empleado, cola, onDecision, onVerHistorial: (id) => coordinator.goToHistorial(id) };
 }
+```
+
+**Layouts con `loading`:** `useMecanicoLayoutViewModel` y `useAdminLayoutViewModel` exponen `loading: boolean` (inicia en `true`, pasa a `false` tras el primer fetch del empleado). Los layouts consumen esto para no redirigir a `/login` antes de que la sesión async resuelva:
+
+```typescript
+useEffect(() => {
+  if (vm.loading) return;            // esperar al fetch inicial
+  if (!vm.empleado) coordinator.goToLogin();
+}, [vm.empleado, vm.loading, coordinator]);
 ```
 
 #### Page (thin shell) ✅
@@ -471,13 +498,16 @@ Si un archivo en `domain/` o `application/` necesita:
 |---|---|---|
 | `shared/domain` | ✅ Completo | Incluye `AggregateRoot` marker |
 | `ticket/domain` | ✅ Completo | `Ticket` y `Empleado` extienden `AggregateRoot`; `Ticket` emite `pendingHistorial` |
-| `ticket/application` | ✅ Completo | Use cases de mutación solo reciben `ITicketRepository`; `IHistorialRepository` solo en queries |
-| `ticket/infrastructure/persistence/mock` | ✅ Completo | `MockTicketRepository.save()` drena `pendingHistorial`; `MockHistorialRepository` solo lectura |
+| `ticket/application` | ✅ Completo | Todos los puertos retornan `Promise<>`. Use cases `async/await`. Solo `ITicketRepository` en mutaciones |
 | `empleado/domain` | ✅ Completo | `Empleado extends AggregateRoot` |
-| `empleado/application` | ✅ Completo | `AutenticarEmpleadoUseCase` + 2 queries |
-| `empleado/infrastructure/persistence/mock` | ✅ Completo | |
+| `empleado/application` | ✅ Completo | `AutenticarEmpleadoUseCase` + 2 queries, todos async |
+| `@servicar/persistence-mock` | ✅ Completo | `Promise.resolve()` wrappers; `MockTicketRepository.save()` drena `pendingHistorial` |
+| `@servicar/persistence-pocketbase` | ✅ Disponible | `PbStore` + PB repositories + `PbAuthService` + seed script. Pendiente de conectar en service locators |
+| Auth session (`IAuthSessionService`) | ✅ Completo | Puerto + `MockSessionService` + `PbSessionService` + singleton `authSession`. Swap en 2 líneas |
 | `presentation/coordinators` | ✅ Completo | `AdminCoordinator` + `MecanicoCoordinator` + interfaces |
-| `presentation/hooks` | ✅ Completo | `useStoreReactive` |
+| `presentation/hooks` | ✅ Completo | `useStoreReactive` retorna `refreshKey: number` |
 | `presentation/views` | ✅ Completo | Admin (Cola/Tickets/Historial/Layout) + Mecánico (Dashboard/Taller/Fichas/Layout) + Ticket (Nuevo/Editar) + shared `EstadoChip` |
-| `presentation/view-models` | ✅ Completo | Un ViewModel por página/layout |
+| `presentation/view-models` | ✅ Completo | Patrón `useEffect`/`useState`/`refreshKey`. `authSession` para sesión. `loading` en layouts |
 | Pages → thin shells | ✅ Completo | Todas las pages migradas; `lib/db` solo queda en `login/page.tsx` |
+| Tests `@servicar/core` | ✅ 29 tests | Entidades (14), `CrearTicket` (6), `CambiarEstado` (7). Vitest, cero DOM |
+| Tests `@servicar/persistence-mock` | ✅ 47 tests | `MockStore` (28), `MockTicketRepository` (12), `MockEmpleadoRepository` (9). Incluye test de integración end-to-end |

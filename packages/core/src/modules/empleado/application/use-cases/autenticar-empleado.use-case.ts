@@ -5,7 +5,7 @@ import type { IAutenticarEmpleadoUseCase } from "../ports-in/autenticar-empleado
 export class AutenticarEmpleadoUseCase implements IAutenticarEmpleadoUseCase {
   constructor(private readonly empleadoRepo: IEmpleadoRepository) {}
 
-  execute(dto: AutenticarEmpleadoDTO): Empleado | null {
+  execute(dto: AutenticarEmpleadoDTO): Promise<Empleado | null> {
     return this.empleadoRepo.getByAuthId(dto.authId);
   }
 }

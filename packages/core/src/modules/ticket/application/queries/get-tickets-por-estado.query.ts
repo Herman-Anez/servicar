@@ -6,7 +6,7 @@ import type { IGetTicketsPorEstadoQuery } from "../ports-in/get-tickets-por-esta
 export class GetTicketsPorEstadoQuery implements IGetTicketsPorEstadoQuery {
   constructor(private readonly ticketRepo: ITicketRepository) {}
 
-  execute(estado: TicketEstado): Ticket[] {
+  execute(estado: TicketEstado): Promise<Ticket[]> {
     return this.ticketRepo.getByEstado(estado);
   }
 }

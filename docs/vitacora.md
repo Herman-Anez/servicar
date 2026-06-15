@@ -715,13 +715,316 @@ TypeScript: 0 errores.
 
 ---
 
+### Limpieza de assets — `next/public/` ✅
+
+Eliminados 21 archivos del template Magic Portfolio que no pertenecen a Servicar:
+- `public/gallery/` (13 imágenes)
+- `public/images/avatar.jpg`, `public/images/projects/` (7 archivos)
+- `public/servicar-logo-2.svg`, `public/servicar-logo.jpg`, `public/trademarks/` (3 archivos)
+- `public/images/og/home.jpg` reemplazado con el logo oficial de Servicar
+
+`next/README.md` reescrito — documenta el frontend de Servicar (stack, arquitectura, roles, inicio rápido).
+
+---
+
+### Fix pnpm workspace ✅
+
+**Problema 1 — `ERR_PNPM_FETCH_404` para `@servicar/core`:**
+- Causa: no existía `pnpm-workspace.yaml` en la raíz; pnpm ignora el campo `workspaces` de `package.json`.
+- Fix: creado `/workspaces/1/servicar/pnpm-workspace.yaml` con `packages: ["packages/*", "persistence/*", "next"]`.
+
+**Problema 2 — `ERR_PNPM_WORKSPACE_PKG_NOT_FOUND`:**
+- Causa: `next/pnpm-workspace.yaml` hacía que pnpm tratara `next/` como workspace root independiente.
+- Fix: eliminado `next/pnpm-workspace.yaml`. El bloque `allowBuilds` fue movido al yaml de raíz.
+
+**Protocolo workspace:**
+- `"@servicar/core": "workspace:*"` en `next/package.json` y `persistence/mock/package.json` (antes `"*"` apuntaba a npm registry).
+
+---
+
+### `@servicar/persistence-pocketbase` ✅
+
+**Motivación:** reemplazar el mock de localStorage con PocketBase como backend real y servicio de auth. El usuario levantará su propia instancia de PocketBase.
+
+**Decisión de arquitectura — interfaces async:**
+
+Todos los ports de repositorio eran síncronos. Cualquier backend real (HTTP) es async. Se migró todo el stack a `Promise<>`:
+
+| Capa | Cambio |
+|---|---|
+| `ITicketRepository`, `IEmpleadoRepository`, `IHistorialRepository` | Todos los métodos ahora retornan `Promise<>` |
+| Puertos de aplicación (9 query ports + 4 use-case ports) | `execute()` retorna `Promise<>` |
+| Implementaciones de queries y use-cases en `@servicar/core` | `async`/`await` |
+| Mock repositories en `@servicar/persistence-mock` | Envueltos en `Promise.resolve()` — comportamiento idéntico |
+
+**Nuevo package creado** — `persistence/pocketbase/` (`@servicar/persistence-pocketbase`):
+
+```
+persistence/pocketbase/
+├── package.json               ← deps: pocketbase ^0.21, @servicar/core workspace:*
+├── tsconfig.json
+└── src/
+    ├── pb-client.ts           ← singleton PocketBase (URL: http://127.0.0.1:8090)
+    ├── pb-store.ts            ← caché snapshot + subscripciones SSE + notify()
+    ├── index.ts
+    ├── auth/pb-auth.service.ts   ← login/logout vía PB auth
+    ├── ticket/
+    │   ├── pb-ticket.repository.ts    ← ITicketRepository
+    │   ├── pb-historial.repository.ts ← IHistorialRepository
+    │   └── pb-ticket.mapper.ts
+    └── empleado/
+        ├── pb-empleado.repository.ts  ← IEmpleadoRepository
+        └── pb-empleado.mapper.ts
+```
+
+**Patrón PbStore (snapshot cache):**
+
+`init()` carga todo desde PocketBase en paralelo y activa subscripciones SSE. A partir de ahí los reads son síncronos (desde caché) y los writes son async optimistas. `subscribe(fn)` replica la API de `MockStore` para reactivity en React.
+
+**Colecciones PocketBase requeridas:**
+- `users` (nativa) con campos extra `nombre` (text) y `rol` (select: `mecanico`|`admin`)
+- `tickets`: `matricula`, `categoria`, `titulo`, `descripcion`, `estado`, `creadorId`, `fechaUltimaModificacion` (number), `notaAdmin`, `bahia`
+- `historial_ediciones`: `ticketId`, `empleadoId`, `tipoAccion`, `detallesCambio`
+
+**Documentación:** `persistence/pocketbase/README.md` — cubre colecciones requeridas, cada módulo en detalle, cómo conectar en Next.js, diferencias respecto al mock.
+
+---
+
+### View models — migración a async ✅
+
+**Problema:** con las interfaces ahora async, los view models que hacían llamadas síncronas en el cuerpo del render rompían — `execute()` retorna una Promise, no el dato.
+
+**Solución:** patrón `useEffect` + `useState` + `refreshKey`:
+
+```typescript
+// useStoreReactive ahora retorna un número que incrementa en cada notify()
+const refreshKey = useStoreReactive();
+
+const [empleado, setEmpleado] = useState<Empleado | null>(null);
+const [tickets, setTickets] = useState<Ticket[]>([]);
+
+useEffect(() => {
+  if (!session) { setEmpleado(null); return; }
+  empleadoModule.getEmpleadoById.execute(session.empleadoId).then(setEmpleado);
+}, [session?.empleadoId, refreshKey]);
+
+useEffect(() => {
+  ticketModule.getTickets.execute().then(setTickets);
+}, [refreshKey]);
+```
+
+`refreshKey` como dependencia de `useEffect` fuerza re-fetch cada vez que `MockStore` (o en el futuro `PbStore`) llama `notify()`.
+
+Todos los 10 view models actualizados: `useDashboardViewModel`, `useTallerViewModel`, `useFichasViewModel`, `useMecanicoLayoutViewModel`, `useAdminLayoutViewModel`, `useColaViewModel`, `useTicketsViewModel`, `useHistorialViewModel`, `useNuevoTicketViewModel`, `useEditarTicketViewModel`.
+
+Los event handlers que llaman use cases de mutación (`onSubmit`, `onConfirm`, `onAction`, `onFinalizar`) se volvieron `async`.
+
+---
+
+### Bug fix — bucle infinito en login ✅
+
+**Síntoma:** entrar a `/login` causaba un loop de navegación infinita.
+
+**Causa:** los layouts (`MecanicoLayout`, `AdminLayout`) tienen un `useEffect` que redirige a `/login` si `vm.empleado === null`. Con las interfaces async, `empleado` arranca como `null` en el primer render y se resuelve en el siguiente microtask. Pero el `useEffect` del layout corre en la fase de efectos del primer render — **antes** de que la Promise del view model resuelva. Resultado: ve `null`, redirige a `/login`. Desde `/login` la sesión es válida → redirige al panel → layout monta → `empleado = null` → loop.
+
+**Fix:** `loading: boolean` añadido a `MecanicoLayoutVM` y `AdminLayoutVM`. El estado arranca en `true` y se pone en `false` una vez que la fetch del empleado resuelve. Los layouts ahora hacen `if (vm.loading) return` antes de decidir si redirigir.
+
+```typescript
+// useMecanicoLayoutViewModel.ts
+const [loading, setLoading] = useState(true);
+
+useEffect(() => {
+  setLoading(true);
+  if (!session) { setEmpleado(null); setLoading(false); return; }
+  empleadoModule.getEmpleadoById.execute(session.empleadoId).then((emp) => {
+    setEmpleado(emp);
+    setLoading(false);
+  });
+}, [session?.empleadoId, refreshKey]);
+
+// (mecanico)/layout.tsx
+useEffect(() => {
+  if (vm.loading) return;              // ← guard añadido
+  if (!vm.empleado) coordinator.goToLogin();
+}, [vm.empleado, vm.loading, coordinator]);
+```
+
+TypeScript: 0 errores en todo el proyecto.
+
+---
+
+### Capa de autenticación — `IAuthSessionService` ✅
+
+**Motivación:** los 10 view models importaban `getMockSession`/`clearMockSession` directamente de `@/lib/mock/hooks` — acoplando la presentación a la implementación mock. Cambiar a PocketBase habría requerido editar 10 archivos.
+
+**Puerto de sesión** (`next/src/lib/auth/session.port.ts`):
+```typescript
+interface SessionPayload       { empleadoId: string }
+interface IAuthSessionService  {
+  getSession(): SessionPayload | null;
+  setSession(payload: SessionPayload): void;
+  clearSession(): void;
+}
+```
+
+**Adaptador mock** (`next/src/lib/auth/mock-session.service.ts`):
+- `MockSessionService implements IAuthSessionService` — envuelve localStorage
+- SSR-safe: retorna `null` si `window === undefined`
+
+**Singleton** (`next/src/lib/auth/index.ts`):
+- `export const authSession: IAuthSessionService = new MockSessionService()`
+- Para activar PocketBase: 2 líneas comentadas/descomentadas
+
+**Migración de ViewModels** — los 10 archivos cambiaron:
+- `getMockSession()` → `authSession.getSession()`
+- `clearMockSession()` → `authSession.clearSession()`
+
+TypeScript: 0 errores.
+
+---
+
+### `PbSessionService` ✅
+
+**Archivo:** `next/src/lib/auth/pb-session.service.ts`
+
+Implementa `IAuthSessionService` usando `pb.authStore`:
+- `getSession()` — lee `pb.authStore.isValid + model?.id`
+- `setSession()` — no-op (PocketBase popula `authStore` automáticamente en `authWithPassword`)
+- `clearSession()` — `pb.authStore.clear()`
+
+Dependencias añadidas a `next/package.json`:
+- `"pocketbase": "^0.21.0"`
+- `"@servicar/persistence-pocketbase": "workspace:*"`
+
+Para activar: descomentar 3 líneas en `next/src/lib/auth/index.ts`.
+
+---
+
+### Seed PocketBase ✅
+
+**Archivo:** `persistence/pocketbase/seed.ts`
+
+Script TypeScript ejecutable con `npx tsx`. Uso:
+```bash
+PB_URL=http://127.0.0.1:8090 PB_ADMIN_EMAIL=admin@test.com PB_ADMIN_PASS=password \
+  npx tsx persistence/pocketbase/seed.ts
+```
+
+Lo que hace:
+1. Autentica como superuser de PocketBase
+2. Crea `tickets` e `historial_ediciones` si no existen (schema completo con tipos y selects)
+3. Crea 3 empleados en `users`: Juan Pérez, M. Rodriguez, Admin Taller — password `Password1234!`
+4. Crea 7 tickets (espejo de `MOCK_TICKETS`) cubriendo todos los estados
+5. Crea 2 entradas de historial para `tk_001`
+
+Si un empleado ya existe por email, lo salta y reutiliza su id.
+
+Requisito previo manual: añadir campos `nombre` (text) y `rol` (select: `mecanico`|`admin`) a la colección `users` desde la Admin UI de PocketBase antes de correr el seed.
+
+---
+
+### Tests unitarios — `@servicar/core` ✅
+
+Añadido Vitest a `packages/core`. **29 tests, 0 fallos.**
+
+```
+packages/core/
+├── vitest.config.ts
+└── src/__tests__/
+    ├── ticket.entity.test.ts           (14 tests)
+    ├── crear-ticket.use-case.test.ts   ( 6 tests)
+    └── cambiar-estado.use-case.test.ts ( 7 tests)
+```
+
+Qué cubren:
+- `Ticket.create()` — estado inicial `pendiente_revision`, `pendingHistorial` con `CREACION`, validaciones de matrícula/título/descripción vacíos
+- `Ticket.cambiarEstado()` — todas las transiciones válidas, transición inválida, `requiere_cambios` sin nota, inmutabilidad del original
+- `Ticket.editar()` — campos actualizados, `EDICION_TEXTO`, matrícula vacía lanza, inmutabilidad
+- `CrearTicketUseCase` — id devuelto, ticket persistido, estado inicial, propagación de errores de dominio
+- `CambiarEstadoUseCase` — aprobación, requiere_cambios con nota, ticket inexistente, transición inválida, flujo completo `pendiente→aprobado→en_progreso→finalizado`
+
+Cero DOM, cero localStorage, cero React. Repo stub de 5 líneas en cada test.
+
+```bash
+pnpm --filter @servicar/core test
+pnpm --filter @servicar/core test:watch
+```
+
+---
+
+### Tests de integración — `@servicar/persistence-mock` ✅
+
+Añadido Vitest a `persistence/mock`. **47 tests, 0 fallos.**
+
+```
+persistence/mock/
+├── vitest.config.ts
+└── src/__tests__/
+    ├── mock-store.test.ts               (28 tests)
+    ├── mock-ticket-repository.test.ts   (12 tests)
+    └── mock-empleado-repository.test.ts ( 9 tests)
+```
+
+Qué cubren:
+- `MockStore` — CRUD completo, `upsertTicket` (inserción y actualización), `crearTicket`/`editarTicket`/`cambiarEstado` con su historial, `getHistorialByTicket` ordenado, `getEmpleadoByAuth`, suscriptores + unsubscribe, `reset()`
+- `MockTicketRepository` — mapeo `Ticket` ↔ `MockTicket`, `save()` drena `pendingHistorial`, acumulación de historial en saves sucesivos, devuelve instancias `Ticket` (no objetos planos)
+- `MockEmpleadoRepository` — lookup por `id` y `authId`, mapeo de `identificadorAutenticacion→authId`, `email`
+- Test de integración real: `CambiarEstadoUseCase → MockTicketRepository → MockStore` sin ningún mock
+
+En entorno Node.js (sin `window`), `MockStore` usa los arrays seed directamente — sin localStorage, sin setup extra.
+
+```bash
+pnpm --filter @servicar/persistence-mock test
+```
+
+---
+
+### Conexión PocketBase — infraestructura y seed ✅
+
+**Contexto:** el proyecto corre en un devcontainer de VSCode. PocketBase está en otro contenedor accesible por red local en `http://192.168.0.84:8090`.
+
+**Problemas encontrados y resueltos:**
+
+1. **Puerto incorrecto** — se asumía puerto 80; PocketBase corre en el 8090. Verificado con `curl`.
+
+2. **`pb-client.ts` hardcodeaba `127.0.0.1:8090`** — Fix: leer `process.env.PB_URL` antes del fallback:
+   ```typescript
+   const baseUrl = url ?? process.env.PB_URL ?? "http://127.0.0.1:8090";
+   ```
+   `seed.ts` ya lo hacía así — ambos quedan consistentes.
+
+3. **API de auth obsoleta** — PocketBase v0.23+ eliminó `/api/admins/`. `pb.admins.authWithPassword()` retornaba 404. Fix en `seed.ts`:
+   ```typescript
+   // antes:
+   await pb.admins.authWithPassword(ADMIN_EMAIL, ADMIN_PASSWORD);
+   // después:
+   await pb.collection("_superusers").authWithPassword(ADMIN_EMAIL, ADMIN_PASSWORD);
+   ```
+
+**Archivos modificados:**
+- `persistence/pocketbase/src/pb-client.ts` — lee `PB_URL` del entorno
+- `persistence/pocketbase/seed.ts` — usa `_superusers` para auth
+- `next/.env.local` — `PB_URL=http://192.168.0.84:8090`, `NEXT_PUBLIC_USE_MOCK=false`
+
+**Seed ejecutado exitosamente:**
+- Colecciones creadas: `tickets`, `historial_ediciones`
+- Empleados: Juan Pérez (mecanico), M. Rodriguez (mecanico), Admin Taller (admin) — password `Password1234!`
+- Tickets: 7 (todos los estados cubiertos)
+- Historial: 2 entradas
+
+---
+
 ## Próximo
 
-### Convex (futuro)
-- [ ] Crear `persistence/convex/` con `ConvexTicketRepository` y `ConvexEmpleadoRepository`
-- [ ] Reemplazar import en `ticket-module.ts` y `empleado-module.ts` — 2 líneas cada uno
-- [ ] Dominio (`@servicar/core`) y UI sin tocar
+### PocketBase — conectar al frontend (pendiente)
+- [x] Package `@servicar/persistence-pocketbase` creado
+- [x] `PbSessionService` creado y listo para activar
+- [x] Seed ejecutado — colecciones y datos en PocketBase real
+- [x] `pb-client.ts` lee `PB_URL` del entorno
+- [x] `next/.env.local` apunta a `http://192.168.0.84:8090`
+- [ ] En `ticket-module.ts` y `empleado-module.ts`: cambiar repos de `@servicar/persistence-mock` a `@servicar/persistence-pocketbase`
+- [ ] En `useStoreReactive.ts`: suscribir a `pbStore` en lugar de `mockStore`
+- [ ] Activar `PbSessionService` en `next/src/lib/auth/index.ts` (descomentar 3 líneas)
 
 ### Funcionalidades pendientes
-- [ ] Portal cliente `/ticket/[id]` — público, sin auth
-- [ ] Offline/drafts → sync a Convex
+- [ ] Portal cliente `/ticket/[id]` — público, sin auth, lookup por ID exacto

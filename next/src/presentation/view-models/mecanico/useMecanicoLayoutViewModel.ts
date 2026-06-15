@@ -1,30 +1,42 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useStoreReactive } from "@/presentation/hooks/useStoreReactive";
-import { getMockSession, clearMockSession } from "@/lib/mock/hooks";
+import { authSession } from "@/lib/auth";
 import { empleadoModule } from "@/modules/empleado/infrastructure/empleado-module";
 import type { Empleado } from "@servicar/core";
 import type { IMecanicoCoordinator } from "@/presentation/coordinators";
 
 export interface MecanicoLayoutVM {
   empleado: Empleado | null;
+  loading: boolean;
   showProfile: boolean;
   setShowProfile: (v: boolean) => void;
   onLogout: () => void;
 }
 
 export function useMecanicoLayoutViewModel(coordinator: IMecanicoCoordinator): MecanicoLayoutVM {
-  useStoreReactive();
+  const refreshKey = useStoreReactive();
   const [showProfile, setShowProfile] = useState(false);
+  const [empleado, setEmpleado] = useState<Empleado | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  const session = getMockSession();
-  const empleado = session ? empleadoModule.getEmpleadoById.execute(session.empleadoId) : null;
+  const session = authSession.getSession();
+
+  useEffect(() => {
+    setLoading(true);
+    if (!session) { setEmpleado(null); setLoading(false); return; }
+    empleadoModule.getEmpleadoById.execute(session.empleadoId).then((emp) => {
+      setEmpleado(emp);
+      setLoading(false);
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session?.empleadoId, refreshKey]);
 
   const onLogout = () => {
-    clearMockSession();
+    authSession.clearSession();
     coordinator.goToLogin();
   };
 
-  return { empleado, showProfile, setShowProfile, onLogout };
+  return { empleado, loading, showProfile, setShowProfile, onLogout };
 }

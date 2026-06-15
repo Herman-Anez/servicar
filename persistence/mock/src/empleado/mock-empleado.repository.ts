@@ -5,17 +5,17 @@ import { mockEmpleadoToEntity } from "./mock-empleado.mapper";
 export class MockEmpleadoRepository implements IEmpleadoRepository {
   constructor(private readonly store: MockStore) {}
 
-  getAll(): Empleado[] {
-    return this.store.getEmpleados().map(mockEmpleadoToEntity);
+  getAll(): Promise<Empleado[]> {
+    return Promise.resolve(this.store.getEmpleados().map(mockEmpleadoToEntity));
   }
 
-  getById(id: string): Empleado | null {
+  getById(id: string): Promise<Empleado | null> {
     const raw = this.store.getEmpleadoById(id);
-    return raw ? mockEmpleadoToEntity(raw) : null;
+    return Promise.resolve(raw ? mockEmpleadoToEntity(raw) : null);
   }
 
-  getByAuthId(authId: string): Empleado | null {
+  getByAuthId(authId: string): Promise<Empleado | null> {
     const raw = this.store.getEmpleadoByAuth(authId);
-    return raw ? mockEmpleadoToEntity(raw) : null;
+    return Promise.resolve(raw ? mockEmpleadoToEntity(raw) : null);
   }
 }

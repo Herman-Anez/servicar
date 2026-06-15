@@ -1,7 +1,8 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { useStoreReactive } from "@/presentation/hooks/useStoreReactive";
-import { getMockSession } from "@/lib/mock/hooks";
+import { authSession } from "@/lib/auth";
 import { ticketModule } from "@/modules/ticket/infrastructure/ticket-module";
 import { empleadoModule } from "@/modules/empleado/infrastructure/empleado-module";
 import type { Ticket } from "@servicar/core";
@@ -19,12 +20,22 @@ export interface DashboardVM {
 }
 
 export function useDashboardViewModel(coordinator: IMecanicoCoordinator): DashboardVM {
-  useStoreReactive();
+  const refreshKey = useStoreReactive();
 
-  const session = getMockSession();
-  const empleado = session ? empleadoModule.getEmpleadoById.execute(session.empleadoId) : null;
+  const [empleado, setEmpleado] = useState<Empleado | null>(null);
+  const [misTickets, setMisTickets] = useState<Ticket[]>([]);
 
-  const misTickets = empleado ? ticketModule.getTicketsPorCreador.execute(empleado.id) : [];
+  const session = authSession.getSession();
+
+  useEffect(() => {
+    if (!session) { setEmpleado(null); setMisTickets([]); return; }
+    empleadoModule.getEmpleadoById.execute(session.empleadoId).then((emp) => {
+      setEmpleado(emp);
+      if (emp) ticketModule.getTicketsPorCreador.execute(emp.id).then(setMisTickets);
+      else setMisTickets([]);
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session?.empleadoId, refreshKey]);
 
   const requierenAccion = misTickets.filter((t) => t.estado === "requiere_cambios").length;
   const enRevision = misTickets.filter((t) => t.estado === "pendiente_revision").length;

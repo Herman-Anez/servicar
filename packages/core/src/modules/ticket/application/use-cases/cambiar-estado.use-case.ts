@@ -5,11 +5,11 @@ import type { ICambiarEstadoUseCase } from "../ports-in/cambiar-estado.use-case.
 export class CambiarEstadoUseCase implements ICambiarEstadoUseCase {
   constructor(private readonly ticketRepo: ITicketRepository) {}
 
-  execute(dto: CambiarEstadoDTO): void {
-    const ticket = this.ticketRepo.getById(dto.ticketId);
+  async execute(dto: CambiarEstadoDTO): Promise<void> {
+    const ticket = await this.ticketRepo.getById(dto.ticketId);
     if (!ticket) throw new Error(`Ticket ${dto.ticketId} no encontrado.`);
 
     const actualizado = ticket.cambiarEstado(dto.nuevoEstado, dto.empleadoId, dto.notaAdmin);
-    this.ticketRepo.save(actualizado);
+    await this.ticketRepo.save(actualizado);
   }
 }
