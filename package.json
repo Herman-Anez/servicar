@@ -1,0 +1,9 @@
+{
+  "name": "servicar",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "persistence/*",
+    "next"
+  ]
+}

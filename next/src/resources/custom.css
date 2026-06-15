@@ -1,0 +1,138 @@
+/*
+ * Servicar — Design System: Modern Pulse
+ * Tokens MD3 exactos del DESIGN.md + overrides sobre Once UI
+ */
+
+/* ── Tokens MD3 como variables globales ─────────────────────────────── */
+:root {
+  --sp-primary:                  #bc0100;
+  --sp-on-primary:               #ffffff;
+  --sp-primary-container:        #eb0000;
+  --sp-on-primary-container:     #fffbff;
+  --sp-secondary:                #b72114;
+  --sp-on-secondary:             #ffffff;
+  --sp-secondary-container:      #ff5540;
+  --sp-on-secondary-container:   #5c0100;
+  --sp-background:               #fff8f7;
+  --sp-on-background:            #2d1413;
+  --sp-surface:                  #fff8f7;
+  --sp-surface-dim:              #fecfcb;
+  --sp-surface-bright:           #fff8f7;
+  --sp-surface-container-lowest: #ffffff;
+  --sp-surface-container-low:    #fff0ef;
+  --sp-surface-container:        #ffe9e7;
+  --sp-surface-container-high:   #ffe2df;
+  --sp-surface-container-highest:#ffdad7;
+  --sp-on-surface:               #2d1413;
+  --sp-on-surface-variant:       #603e39;
+  --sp-outline:                  #956d67;
+  --sp-outline-variant:          #ebbbb4;
+  --sp-error:                    #ba1a1a;
+  --sp-inverse-surface:          #452927;
+  --sp-inverse-on-surface:       #ffedeb;
+}
+
+/* ── Once UI override: page background cálido ───────────────────────── */
+[data-theme="light"] {
+  --page-background:          var(--sp-background);
+  --surface-background:       var(--sp-surface-container-low);
+}
+
+/* ── Scrollbar warm ─────────────────────────────────────────────────── */
+::-webkit-scrollbar        { width: 6px; height: 6px; }
+::-webkit-scrollbar-track  { background: var(--sp-surface-container); }
+::-webkit-scrollbar-thumb  { background: var(--sp-outline-variant); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--sp-outline); }
+
+/* ── Utilidades de diseño reutilizables ─────────────────────────────── */
+.sp-card {
+  background: var(--sp-surface-container-lowest);
+  border: 1px solid var(--sp-outline-variant);
+  border-radius: 12px;
+}
+
+.sp-input {
+  background: var(--sp-surface-container-low);
+  border: none;
+  border-radius: 8px;
+  color: var(--sp-on-surface);
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  padding: 12px 12px 12px 44px;
+  width: 100%;
+  outline: none;
+  box-shadow: 0 0 0 1px transparent;
+  transition: box-shadow 0.15s;
+}
+.sp-input::placeholder { color: var(--sp-outline); }
+.sp-input:focus { box-shadow: 0 0 0 2px var(--sp-primary); }
+
+.sp-btn-primary {
+  background: var(--sp-primary);
+  color: var(--sp-on-primary);
+  border: none;
+  border-radius: 8px;
+  padding: 14px 24px;
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: opacity 0.15s, transform 0.1s;
+}
+.sp-btn-primary:hover   { opacity: 0.92; }
+.sp-btn-primary:active  { transform: scale(0.98); }
+.sp-btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.sp-btn-ghost {
+  background: transparent;
+  border: 1px solid var(--sp-outline-variant);
+  color: var(--sp-on-surface-variant);
+  border-radius: 8px;
+  padding: 7px 14px;
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.15s;
+}
+.sp-btn-ghost:hover { background: var(--sp-surface-container); }
+
+/* Sidebar nav item states */
+.sp-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 16px;
+  color: var(--sp-on-surface-variant);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 400;
+  border-right: 3px solid transparent;
+  transition: all 0.15s;
+  cursor: pointer;
+  background: transparent;
+  border-left: none;
+  border-top: none;
+  border-bottom: none;
+  width: 100%;
+  text-align: left;
+}
+.sp-nav-item:hover {
+  background: var(--sp-surface-container-high);
+  color: var(--sp-primary);
+}
+.sp-nav-item.active {
+  color: var(--sp-primary);
+  font-weight: 700;
+  border-right-color: var(--sp-primary);
+  background: #bc010010;
+}

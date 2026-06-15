@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SERVICAR Admin - Triage Inbox</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"on-tertiary-fixed-variant": "#4e4447", "on-secondary-fixed": "#410100", "surface-bright": "#fff8f7", "on-tertiary-fixed": "#211a1c", "on-secondary-container": "#5c0100", "surface-container-highest": "#ffdad7", "on-primary": "#ffffff", "primary-fixed": "#ffdad4", "on-tertiary": "#ffffff", "primary-fixed-dim": "#ffb4a8", "surface-container": "#ffe9e7", primary: "#bc0100", "on-surface": "#2d1413", surface: "#fff8f7", "on-secondary-fixed-variant": "#930300", "inverse-on-surface": "#ffedeb", "on-error-container": "#93000a", "on-error": "#ffffff", "error-container": "#ffdad6", "secondary-fixed-dim": "#ffb4a8", "surface-container-high": "#ffe2df", secondary: "#b72114", "on-background": "#2d1413", "surface-variant": "#ffdad7", "surface-container-low": "#fff0ef", "on-primary-fixed-variant": "#930100", "secondary-fixed": "#ffdad4", "tertiary-fixed-dim": "#d1c3c6", "surface-dim": "#fecfcb", background: "#fff8f7", error: "#ba1a1a", "tertiary-container": "#7d7275", outline: "#956d67", "on-tertiary-container": "#fffbff", "tertiary-fixed": "#eddfe2", "inverse-surface": "#452927", tertiary: "#63595c", "surface-tint": "#c00100", "outline-variant": "#ebbbb4", "on-secondary": "#ffffff", "primary-container": "#eb0000", "on-primary-container": "#fffbff", "secondary-container": "#ff5540", "inverse-primary": "#ffb4a8", "surface-container-lowest": "#ffffff", "on-surface-variant": "#603e39", "on-primary-fixed": "#410000"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, spacing: {gutter: "16px", base: "2", md: "16px", "margin-desktop": "40px", sm: "12px", lg: "24px", xl: "32px", xs: "8px", "margin-mobile": "16px", margin: "24px", xxs: "4px"}, fontFamily: {"headline-md": ["Inter"], "headline-lg-mobile": ["Manrope"], "headline-lg": ["Inter"], "body-lg": ["Inter"], "label-md": ["Inter"], "label-sm": ["Inter"], "body-md": ["Inter"], "display-lg": ["Manrope"]}, fontSize: {"headline-md": ["24px", {lineHeight: "32px", fontWeight: "600"}], "headline-lg-mobile": ["28px", {lineHeight: "36px", fontWeight: "600"}], "headline-lg": ["32px", {lineHeight: "40px", fontWeight: "700"}], "body-lg": ["16px", {lineHeight: "24px", fontWeight: "400"}], "label-md": ["12px", {lineHeight: "16px", letterSpacing: "0.5px", fontWeight: "500"}], "label-sm": ["12px", {lineHeight: "16px", fontWeight: "600"}], "body-md": ["14px", {lineHeight: "20px", fontWeight: "400"}], "display-lg": ["48px", {lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700"}]}}}};</script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .trust-banner-gradient {
+            background: linear-gradient(135deg, #f0f3ff 0%, #e7eeff 100%);
+        }
+        .card-shadow {
+            box-shadow: 0px 4px 20px rgba(15, 82, 186, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-background font-body-md text-on-background">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low dark:bg-surface-container-lowest shadow-sm flex flex-col py-6 transition-all duration-200 ease-in-out z-50">
+<div class="px-6 mb-10">
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim tracking-tight">SERVICAR</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant opacity-70">Admin Panel</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-secondary-container hover:bg-surface-container-high transition-colors hover:text-primary" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-primary font-bold border-r-4 border-primary bg-primary-container/10 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="assignment_late">assignment_late</span>
+<span class="font-body-md text-body-md">Triage</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-secondary-container hover:bg-surface-container-high transition-colors hover:text-primary" href="#">
+<span class="material-symbols-outlined" data-icon="build">build</span>
+<span class="font-body-md text-body-md">Tickets</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-secondary-container hover:bg-surface-container-high transition-colors hover:text-primary" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-body-md text-body-md">Personnel</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-secondary-container hover:bg-surface-container-high transition-colors hover:text-primary" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-body-md text-body-md">Audit Logs</span>
+</a>
+</nav>
+<div class="px-4 mt-auto">
+<button class="w-full py-3 px-4 bg-primary text-on-primary rounded-xl font-label-md text-label-md shadow-lg hover:scale-[1.02] active:scale-95 transition-transform flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                New Ticket
+            </button>
+</div>
+</aside>
+<!-- TopAppBar -->
+<header class="flex justify-between items-center h-16 px-gutter ml-64 w-[calc(100%-16rem)] docked full-width top-0 sticky backdrop-blur-md bg-surface/70 border-b border-outline-variant z-40">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 font-label-md text-label-md focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Search tickets, license plates..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors scale-95 active:scale-90" data-icon="notifications">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors scale-95 active:scale-90" data-icon="settings">settings</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors scale-95 active:scale-90" data-icon="help">help</button>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="text-right hidden lg:block">
+<p class="font-label-md text-label-md font-bold text-on-surface">Admin User</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Fleet Manager</p>
+</div>
+<img alt="Administrator Profile" class="h-10 w-10 rounded-full border-2 border-primary-container object-cover" data-alt="A professional headshot of a middle-aged male administrator wearing a crisp white shirt and a dark blue tie. The background is a blurred office setting with cool, daylight illumination. The image has a sharp, clean Corporate Modern look, emphasizing reliability and professional expertise in a corporate environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKqULrzirbGG0wf053ttRCUBz5-vmuBEU7cEMdsjaUVkpb-CX8x70mTn7KAJ9ScVKVPPT9bD5nNJAvlywwg2A3AUd-ibyal6QjUEFN79r7k_Dzq8Xtj4i6OI3YBudb6eS4e_AkijNzybcOJyV3ui2YLYt9i7AQ2xVnGFhDX7fOWZcL3GRdHDVEmN4H2jn_Sc7iGUq2JRFW2ANkmXScCEADuZ2fGMlEu34wpCQltiLWFjeufwgiZBmbWH2faIInXlu-8V5mjhJGuGoQ"/>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 p-margin-desktop min-h-[calc(100vh-4rem)]">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md mb-lg">
+<div>
+<nav class="flex items-center gap-2 mb-2 text-on-surface-variant font-label-sm text-label-sm">
+<span>Admin Panel</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-bold">Triage Inbox</span>
+</nav>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Triage Inbox</h2>
+<p class="text-on-surface-variant mt-1">Review and approve maintenance requests from mechanics across all stations.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container transition-colors font-label-md text-label-md">
+<span class="material-symbols-outlined">filter_list</span>
+                    Filter
+                </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container transition-colors font-label-md text-label-md">
+<span class="material-symbols-outlined">download</span>
+                    Export CSV
+                </button>
+</div>
+</div>
+<!-- Trust/Status Banner -->
+<div class="trust-banner-gradient border border-primary/10 rounded-xl p-4 mb-md flex items-center gap-4">
+<div class="h-10 w-10 rounded-full bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">security</span>
+</div>
+<div>
+<p class="font-label-md text-label-md font-bold text-on-primary-fixed-variant">Secure Triage Environment</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">All maintenance approvals are digitally signed and recorded in the audit trail.</p>
+</div>
+<div class="ml-auto flex items-center gap-2">
+<span class="flex h-2 w-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-primary font-bold">LIVE UPDATES</span>
+</div>
+</div>
+<!-- Bento Grid Stats Section -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-md mb-lg">
+<div class="bg-surface-container-lowest p-md rounded-xl card-shadow border border-outline-variant/30">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-2">Pending Triage</p>
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-headline-md text-on-surface">24</h3>
+<span class="bg-error-container text-on-error-container px-2 py-1 rounded text-[10px] font-bold">+12%</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-xl card-shadow border border-outline-variant/30">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-2">Avg. Response</p>
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-headline-md text-on-surface">1.2h</h3>
+<span class="bg-secondary-container text-secondary px-2 py-1 rounded text-[10px] font-bold">STEADY</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-xl card-shadow border border-outline-variant/30">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-2">Approved Today</p>
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-headline-md text-on-surface">148</h3>
+<span class="bg-primary-fixed text-on-primary-fixed-variant px-2 py-1 rounded text-[10px] font-bold">HIGH</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-xl card-shadow border border-outline-variant/30">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-2">Active Mechanics</p>
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-headline-md text-on-surface">32</h3>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed-variant px-2 py-1 rounded text-[10px] font-bold">ONLINE</span>
+</div>
+</div>
+</div>
+<!-- Triage Table -->
+<div class="bg-surface-container-lowest rounded-xl card-shadow border border-outline-variant/30 overflow-hidden">
+<div class="p-gutter border-b border-outline-variant/30 flex items-center justify-between">
+<h4 class="font-headline-md text-headline-md text-on-surface">Recent Requests</h4>
+<div class="flex gap-2">
+<span class="bg-primary-container/10 text-primary px-3 py-1 rounded-full text-label-sm font-bold">24 TOTAL PENDING</span>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container/50">
+<th class="px-gutter py-4 font-label-md text-label-md text-on-surface-variant">Ticket ID</th>
+<th class="px-gutter py-4 font-label-md text-label-md text-on-surface-variant">License Plate</th>
+<th class="px-gutter py-4 font-label-md text-label-md text-on-surface-variant">Category</th>
+<th class="px-gutter py-4 font-label-md text-label-md text-on-surface-variant">Mechanic Name</th>
+<th class="px-gutter py-4 font-label-md text-label-md text-on-surface-variant text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-gutter py-4">
+<span class="font-label-md text-label-md font-bold text-primary">#TC-8892</span>
+<p class="text-[10px] text-on-surface-variant uppercase mt-1">2 mins ago</p>
+</td>
+<td class="px-gutter py-4">
+<span class="px-3 py-1 bg-surface-container-highest rounded text-label-sm font-mono font-bold text-on-surface">6642-LLP</span>
+</td>
+<td class="px-gutter py-4">
+<span class="bg-secondary-container/30 text-secondary px-3 py-1 rounded-full text-label-sm">Engine Systems</span>
+</td>
+<td class="px-gutter py-4">
+<div class="flex items-center gap-2">
+<div class="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-xs">JR</div>
+<span class="font-label-md text-label-md text-on-surface">Javier Rodriguez</span>
+</div>
+</td>
+<td class="px-gutter py-4 text-right">
+<div class="flex items-center justify-end gap-3">
+<button class="px-4 py-2 rounded-lg border border-outline text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-md text-label-md" onclick="this.closest('tr').remove()">Rechazar</button>
+<button class="px-4 py-2 rounded-lg bg-primary text-on-primary hover:bg-primary/90 transition-all shadow-sm font-label-md text-label-md" onclick="this.closest('tr').remove()">Aprobar</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-gutter py-4">
+<span class="font-label-md text-label-md font-bold text-primary">#TC-8891</span>
+<p class="text-[10px] text-on-surface-variant uppercase mt-1">15 mins ago</p>
+</td>
+<td class="px-gutter py-4">
+<span class="px-3 py-1 bg-surface-container-highest rounded text-label-sm font-mono font-bold text-on-surface">4120-KKB</span>
+</td>
+<td class="px-gutter py-4">
+<span class="bg-error-container/20 text-error px-3 py-1 rounded-full text-label-sm">Brake Failure</span>
+</td>
+<td class="px-gutter py-4">
+<div class="flex items-center gap-2">
+<div class="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-xs">MS</div>
+<span class="font-label-md text-label-md text-on-surface">Marta Sanchez</span>
+</div>
+</td>
+<td class="px-gutter py-4 text-right">
+<div class="flex items-center justify-end gap-3">
+<button class="px-4 py-2 rounded-lg border border-outline text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-md text-label-md">Rechazar</button>
+<button class="px-4 py-2 rounded-lg bg-primary text-on-primary hover:bg-primary/90 transition-all shadow-sm font-label-md text-label-md">Aprobar</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-gutter py-4">
+<span class="font-label-md text-label-md font-bold text-primary">#TC-8889</span>
+<p class="text-[10px] text-on-surface-variant uppercase mt-1">45 mins ago</p>
+</td>
+<td class="px-gutter py-4">
+<span class="px-3 py-1 bg-surface-container-highest rounded text-label-sm font-mono font-bold text-on-surface">9012-VVR</span>
+</td>
+<td class="px-gutter py-4">
+<span class="bg-surface-container-high text-on-surface-variant px-3 py-1 rounded-full text-label-sm">Routine Check</span>
+</td>
+<td class="px-gutter py-4">
+<div class="flex items-center gap-2">
+<div class="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-xs">CP</div>
+<span class="font-label-md text-label-md text-on-surface">Carlos Perez</span>
+</div>
+</td>
+<td class="px-gutter py-4 text-right">
+<div class="flex items-center justify-end gap-3">
+<button class="px-4 py-2 rounded-lg border border-outline text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-md text-label-md">Rechazar</button>
+<button class="px-4 py-2 rounded-lg bg-primary text-on-primary hover:bg-primary/90 transition-all shadow-sm font-label-md text-label-md">Aprobar</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-gutter py-4">
+<span class="font-label-md text-label-md font-bold text-primary">#TC-8885</span>
+<p class="text-[10px] text-on-surface-variant uppercase mt-1">1 hour ago</p>
+</td>
+<td class="px-gutter py-4">
+<span class="px-3 py-1 bg-surface-container-highest rounded text-label-sm font-mono font-bold text-on-surface">5531-JST</span>
+</td>
+<td class="px-gutter py-4">
+<span class="bg-primary-fixed text-on-primary-fixed-variant px-3 py-1 rounded-full text-label-sm">Transmission</span>
+</td>
+<td class="px-gutter py-4">
+<div class="flex items-center gap-2">
+<div class="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-xs">LG</div>
+<span class="font-label-md text-label-md text-on-surface">Lucia Garcia</span>
+</div>
+</td>
+<td class="px-gutter py-4 text-right">
+<div class="flex items-center justify-end gap-3">
+<button class="px-4 py-2 rounded-lg border border-outline text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-md text-label-md">Rechazar</button>
+<button class="px-4 py-2 rounded-lg bg-primary text-on-primary hover:bg-primary/90 transition-all shadow-sm font-label-md text-label-md">Aprobar</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer/Pagination -->
+<div class="p-gutter border-t border-outline-variant/30 flex items-center justify-between">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Showing 4 of 24 pending tickets</p>
+<div class="flex gap-2">
+<button class="h-8 w-8 rounded flex items-center justify-center border border-outline-variant hover:bg-surface-container text-on-surface-variant disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="h-8 w-8 rounded flex items-center justify-center border border-outline-variant bg-primary-container/20 text-primary font-bold text-label-sm">1</button>
+<button class="h-8 w-8 rounded flex items-center justify-center border border-outline-variant hover:bg-surface-container text-on-surface-variant text-label-sm">2</button>
+<button class="h-8 w-8 rounded flex items-center justify-center border border-outline-variant hover:bg-surface-container text-on-surface-variant text-label-sm">3</button>
+<button class="h-8 w-8 rounded flex items-center justify-center border border-outline-variant hover:bg-surface-container text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- System Status / Atmospheric Element -->
+<div class="mt-lg grid grid-cols-1 lg:grid-cols-3 gap-md">
+<div class="lg:col-span-2 bg-surface-container-low/50 rounded-xl p-md border border-outline-variant/20 flex items-center gap-gutter">
+<div class="relative h-24 w-24 flex-shrink-0">
+<svg class="h-full w-full" viewbox="0 0 36 36">
+<path class="stroke-surface-container-highest fill-none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" stroke-width="3"></path>
+<path class="stroke-primary fill-none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" stroke-dasharray="85, 100" stroke-width="3"></path>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center text-primary">
+<span class="font-bold text-lg">85%</span>
+</div>
+</div>
+<div>
+<h5 class="font-label-md text-label-md font-bold text-on-surface">Workshop Efficiency</h5>
+<p class="font-body-md text-body-md text-on-surface-variant">Service stations are currently operating at 85% capacity. Approval delay is minimal (avg 12 mins).</p>
+<button class="mt-3 text-primary font-bold font-label-sm text-label-sm hover:underline">View Capacity Report →</button>
+</div>
+</div>
+<div class="bg-surface-container-low/50 rounded-xl p-md border border-outline-variant/20">
+<div class="flex items-center gap-3 mb-2 text-primary">
+<span class="material-symbols-outlined">info</span>
+<h5 class="font-label-md text-label-md font-bold">Admin Notice</h5>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">System maintenance scheduled for tonight at 02:00 AM. Triage logs will be backed up automatically.</p>
+</div>
+</div>
+</main>
+<script>
+        // Simple UI Micro-interactions
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const effect = document.createElement('div');
+                effect.className = 'fixed top-4 right-4 bg-primary text-on-primary px-6 py-3 rounded-xl shadow-2xl z-[100] transform transition-all duration-500 opacity-0 translate-y-4 font-label-md';
+                effect.innerHTML = 'Action processed successfully';
+                document.body.appendChild(effect);
+                
+                requestAnimationFrame(() => {
+                    effect.classList.remove('opacity-0', 'translate-y-4');
+                });
+
+                setTimeout(() => {
+                    effect.classList.add('opacity-0', 'translate-y-4');
+                    setTimeout(() => effect.remove(), 500);
+                }, 2000);
+            });
+        });
+
+        // Search Bar Focus Effect
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('ring-2', 'ring-primary/20');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('ring-2', 'ring-primary/20');
+        });
+    </script>
+</body></html>

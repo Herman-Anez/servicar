@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SERVICAR Admin - Ticket Dashboard</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"on-tertiary-fixed-variant": "#4e4447", "on-secondary-fixed": "#410100", "surface-bright": "#fff8f7", "on-tertiary-fixed": "#211a1c", "on-secondary-container": "#5c0100", "surface-container-highest": "#ffdad7", "on-primary": "#ffffff", "primary-fixed": "#ffdad4", "on-tertiary": "#ffffff", "primary-fixed-dim": "#ffb4a8", "surface-container": "#ffe9e7", primary: "#bc0100", "on-surface": "#2d1413", surface: "#fff8f7", "on-secondary-fixed-variant": "#930300", "inverse-on-surface": "#ffedeb", "on-error-container": "#93000a", "on-error": "#ffffff", "error-container": "#ffdad6", "secondary-fixed-dim": "#ffb4a8", "surface-container-high": "#ffe2df", secondary: "#b72114", "on-background": "#2d1413", "surface-variant": "#ffdad7", "surface-container-low": "#fff0ef", "on-primary-fixed-variant": "#930100", "secondary-fixed": "#ffdad4", "tertiary-fixed-dim": "#d1c3c6", "surface-dim": "#fecfcb", background: "#fff8f7", error: "#ba1a1a", "tertiary-container": "#7d7275", outline: "#956d67", "on-tertiary-container": "#fffbff", "tertiary-fixed": "#eddfe2", "inverse-surface": "#452927", tertiary: "#63595c", "surface-tint": "#c00100", "outline-variant": "#ebbbb4", "on-secondary": "#ffffff", "primary-container": "#eb0000", "on-primary-container": "#fffbff", "secondary-container": "#ff5540", "inverse-primary": "#ffb4a8", "surface-container-lowest": "#ffffff", "on-surface-variant": "#603e39", "on-primary-fixed": "#410000"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, spacing: {gutter: "16px", base: "2", md: "16px", "margin-desktop": "40px", sm: "12px", lg: "24px", xl: "32px", xs: "8px", "margin-mobile": "16px", margin: "24px", xxs: "4px"}, fontFamily: {"headline-md": ["Inter"], "headline-lg": ["Inter"], "body-lg": ["Inter"], "label-md": ["Inter"], "label-sm": ["Inter"], "body-md": ["Inter"], "display-lg": ["Manrope"]}, fontSize: {"headline-md": ["24px", {lineHeight: "32px", fontWeight: "600"}], "headline-lg": ["32px", {lineHeight: "40px", fontWeight: "700"}], "body-lg": ["16px", {lineHeight: "24px", fontWeight: "400"}], "label-md": ["12px", {lineHeight: "16px", letterSpacing: "0.5px", fontWeight: "500"}], "label-sm": ["12px", {lineHeight: "16px", fontWeight: "600"}], "body-md": ["14px", {lineHeight: "20px", fontWeight: "400"}], "display-lg": ["48px", {lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700"}]}}}};</script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Manrope:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: #f9f9ff; }
+        .glass-nav { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        .kanban-column { min-height: calc(100vh - 320px); }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #c3c6d5; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #737784; }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- SideNavBar Shell -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low dark:bg-surface-container-lowest shadow-sm flex flex-col py-6 z-50">
+<div class="px-6 mb-8">
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">SERVICAR</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant opacity-70">Admin Panel</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-secondary-container hover:bg-surface-container-high transition-colors font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-primary font-bold border-r-4 border-primary bg-primary-container/10 font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">assignment_late</span> Triage
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-secondary-container hover:bg-surface-container-high transition-colors font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">build</span> Tickets
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-secondary-container hover:bg-surface-container-high transition-colors font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">group</span> Personnel
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-secondary-container hover:bg-surface-container-high transition-colors font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">history</span> Audit Logs
+            </a>
+</nav>
+<div class="px-4 mt-auto">
+<button class="w-full py-3 px-4 bg-primary text-on-primary rounded-xl font-label-md text-label-md flex items-center justify-center gap-2 shadow-md active:scale-95 transition-transform">
+<span class="material-symbols-outlined" style="font-size: 20px;">add</span> New Ticket
+            </button>
+</div>
+</aside>
+<!-- TopAppBar Shell -->
+<header class="flex justify-between items-center h-16 px-gutter ml-64 w-[calc(100%-16rem)] sticky top-0 z-40 backdrop-blur-md bg-surface/70 border-b border-outline-variant">
+<div class="flex items-center flex-1 max-w-xl">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container border-none rounded-full py-2 pl-10 pr-4 font-label-md text-label-md focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Search plates, mechanics, or ticket IDs..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors scale-95 active:scale-90">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors scale-95 active:scale-90">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors scale-95 active:scale-90">
+<span class="material-symbols-outlined">help</span>
+</button>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant"></div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="font-label-md text-label-md font-bold text-on-surface">Admin User</p>
+<p class="text-[10px] font-label-sm text-on-surface-variant uppercase tracking-wider">Super Administrator</p>
+</div>
+<img alt="Administrator Profile" class="h-10 w-10 rounded-full border-2 border-primary-container object-cover" data-alt="A professional headshot of a senior administrator in a high-tech workshop office environment. The person is wearing a crisp white shirt and navy blazer, looking confident and approachable. The lighting is bright and modern, emphasizing a clean corporate aesthetic with soft bokeh highlighting a sleek data center background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgJTB86EVZK4fgdBXeyS6TeljpHTPwk4AFYHqnLFM3RqWVgtnoOBkLWK76uzDT7Ly5Cd7VmXZXJVk35oU2WXSiDDH54HO3HIlKejc2pPAuOq9lRSlCEodOqbXaf9ID-fVxIlI84EleV1Lo2tRm31LN-t7ULXwaIoBdTfluV-OdsiQHBnx00y3FhpS3C15nz295hnfrA951aXznBSX6-8OX-sfSTx9oXoAXo9G8Bg1Ad00YTODohbLC5N9UHTuxRyWTCRwkhcqjcaw9"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 p-margin-desktop min-h-[calc(100vh-64px)]">
+<!-- Header & Quick Filters -->
+<div class="mb-lg flex flex-col md:flex-row md:items-end justify-between gap-md">
+<div>
+<nav class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm mb-2">
+<span>Workshop</span>
+<span class="material-symbols-outlined" style="font-size: 14px;">chevron_right</span>
+<span class="text-primary font-bold">Ticket Dashboard</span>
+</nav>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Operational Overview</h2>
+<div class="flex items-center gap-4 mt-2">
+<span class="flex items-center gap-1.5 px-3 py-1 bg-primary-container/10 text-primary-container font-label-sm text-label-sm rounded-full border border-primary-container/20">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+                        Live: 42 Tickets Active
+                    </span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Updated 2 minutes ago</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex bg-surface-container rounded-lg p-1">
+<button class="px-4 py-2 bg-surface-container-lowest shadow-sm rounded-md font-label-md text-label-md text-primary font-bold transition-all">Kanban View</button>
+<button class="px-4 py-2 text-on-surface-variant hover:text-on-surface transition-all font-label-md text-label-md">Table View</button>
+</div>
+<button class="flex items-center gap-2 px-4 py-2 border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">filter_list</span>
+                    Advanced Filters
+                </button>
+</div>
+</div>
+<!-- Filter Chips Row -->
+<div class="flex flex-wrap gap-3 mb-8">
+<div class="flex items-center gap-2 bg-surface-container-high px-3 py-1.5 rounded-lg border border-outline-variant/30">
+<span class="text-on-surface-variant font-label-sm text-label-sm">Plate:</span>
+<select class="bg-transparent border-none p-0 font-label-sm text-label-sm focus:ring-0 text-on-surface font-bold">
+<option>All Plates</option>
+<option>ABC-123</option>
+<option>XYZ-789</option>
+</select>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-high px-3 py-1.5 rounded-lg border border-outline-variant/30">
+<span class="text-on-surface-variant font-label-sm text-label-sm">Mechanic:</span>
+<select class="bg-transparent border-none p-0 font-label-sm text-label-sm focus:ring-0 text-on-surface font-bold">
+<option>All Staff</option>
+<option>Robert J.</option>
+<option>Maria G.</option>
+</select>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-high px-3 py-1.5 rounded-lg border border-outline-variant/30">
+<span class="text-on-surface-variant font-label-sm text-label-sm">Category:</span>
+<select class="bg-transparent border-none p-0 font-label-sm text-label-sm focus:ring-0 text-on-surface font-bold">
+<option>All Categories</option>
+<option>Engine Repair</option>
+<option>Bodywork</option>
+</select>
+</div>
+<button class="px-4 py-1.5 text-primary font-label-sm text-label-sm hover:underline">Clear all filters</button>
+</div>
+<!-- Trust/Security Banner -->
+<div class="mb-md p-4 bg-primary-container/5 rounded-xl border border-primary-container/20 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">security</span>
+<p class="font-label-sm text-label-sm text-on-primary-fixed-variant">System encrypted. All workshop operations are being logged in real-time for compliance and quality audit.</p>
+</div>
+<!-- Kanban Board -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Column: Activos -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between px-2">
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Activos</h3>
+<span class="bg-primary-container text-on-primary-container text-[10px] font-bold px-2 py-0.5 rounded-full">14</span>
+</div>
+<button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined">more_horiz</span></button>
+</div>
+<div class="kanban-column flex flex-col gap-4 p-2 bg-surface-container-low rounded-xl">
+<!-- Kanban Card 1 -->
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-[0px_4px_20px_rgba(15,82,186,0.05)] border border-outline-variant/30 group hover:border-primary transition-all cursor-pointer">
+<div class="flex justify-between items-start mb-3">
+<span class="font-label-sm text-label-sm text-primary font-bold">#TK-8902</span>
+<span class="px-2 py-0.5 bg-secondary-container/30 text-secondary text-[10px] font-bold rounded uppercase">Mechanical</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-[18px] mb-1 group-hover:text-primary transition-colors">Engine Diagnostics</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm mb-4">Plate: <strong>ABC-1234</strong> (Toyota Hilux)</p>
+<div class="flex items-center justify-between mt-auto pt-4 border-t border-outline-variant/20">
+<div class="flex items-center gap-2">
+<img alt="Mechanic avatar" class="w-6 h-6 rounded-full" data-alt="A closeup portrait of a professional mechanic in blue overalls, working in a bright, modern workshop environment. The lighting is natural and high-clarity, showing a clean workspace with advanced automotive tools in the background. The visual style is focused on professional expertise and reliability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBPDMxyU5bcbEZGwseo89-Z0LJ-lQeNPHJEVa1AeVnzzFyymrdo5cCLtXsUR6PP9msMEQ4xtkYCvkWeMdoKevYM1nmuyPFEfqHTvswR7AtLXpu-Vbl2za2goITv9GkTfBKX8t_iy_g2QcPDWzzjksajg3DWCGlSmIzZZaiqPwJNtqWZkhDZoUP4en--qUQ0i0tvkIm3_n_5pgIxc8nUoTVU09dFJ9garF9ZYsfGjjKDn-1INqI_EKKhT0uZ5X8wt1h1DPHQFrsKUGA"/>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Robert J.</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" style="font-size: 16px;">schedule</span>
+<span class="font-label-sm text-label-sm">2h 15m</span>
+</div>
+</div>
+</div>
+<!-- Kanban Card 2 -->
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-[0px_4px_20px_rgba(15,82,186,0.05)] border border-outline-variant/30 group hover:border-primary transition-all cursor-pointer">
+<div class="flex justify-between items-start mb-3">
+<span class="font-label-sm text-label-sm text-primary font-bold">#TK-8910</span>
+<span class="px-2 py-0.5 bg-error-container/30 text-error text-[10px] font-bold rounded uppercase">Express Service</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-[18px] mb-1 group-hover:text-primary transition-colors">Oil &amp; Filter Change</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm mb-4">Plate: <strong>DFR-9921</strong> (VW Amarok)</p>
+<div class="flex items-center justify-between mt-auto pt-4 border-t border-outline-variant/20">
+<div class="flex items-center gap-2">
+<img alt="Mechanic avatar" class="w-6 h-6 rounded-full" data-alt="A portrait of a skilled female automotive technician in a modern, organized workshop. She is wearing professional technician gear, and the scene is illuminated with clean, cool-toned lighting that highlights technical precision. In the background, sophisticated diagnostic equipment and vehicle parts are visible in a soft blur." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6rwArkT4dRkjmES0yesWDgly4087IJgZuCcwqUT66cdp1t70tphFfJnFbR7Angf8r_jZ7VAtIhv9A9fqYNVtSnFpqCk_lkgFGB9TvY1aDau6IiN_Nrwp_DRRvt3mhfXOHv3G4O0h7kaYA9CbAbvMtNRrVCO8MtjrFWSi37iO7mhdJePxOUJhzkiME1aee9lBZ51tW4Q5LKGersS_f9i7HfuQeVDmQhwEd4XjID4FpuV0Up6OtnVpWpx9sG1_JlPOS_ysxUw88oNz8"/>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Maria G.</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" style="font-size: 16px;">schedule</span>
+<span class="font-label-sm text-label-sm">45m</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column: Bloqueados -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between px-2">
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-error"></div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Bloqueados</h3>
+<span class="bg-error-container text-on-error-container text-[10px] font-bold px-2 py-0.5 rounded-full">5</span>
+</div>
+<button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined">more_horiz</span></button>
+</div>
+<div class="kanban-column flex flex-col gap-4 p-2 bg-surface-container-low rounded-xl">
+<!-- Kanban Card 3 (Blocked) -->
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-[0px_4px_20px_rgba(15,82,186,0.05)] border-l-4 border-l-error border-y border-r border-outline-variant/30 group hover:bg-error-container/5 transition-all cursor-pointer">
+<div class="flex justify-between items-start mb-3">
+<span class="font-label-sm text-label-sm text-error font-bold">#TK-8742</span>
+<span class="px-2 py-0.5 bg-surface-container text-on-surface-variant text-[10px] font-bold rounded uppercase">Awaiting Parts</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-[18px] mb-1 group-hover:text-error transition-colors">Brake System Overhaul</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm mb-4">Plate: <strong>LMN-5050</strong> (Ford Ranger)</p>
+<div class="flex items-center gap-2 mb-4 p-2 bg-error-container/20 rounded-lg">
+<span class="material-symbols-outlined text-error" style="font-size: 18px;">warning</span>
+<span class="font-label-sm text-label-sm text-on-error-container">Front rotors out of stock. ETA: 24h.</span>
+</div>
+<div class="flex items-center justify-between mt-auto pt-4 border-t border-outline-variant/20">
+<div class="flex items-center gap-2">
+<img alt="Mechanic avatar" class="w-6 h-6 rounded-full" data-alt="A high-resolution portrait of a professional male technician in a clean, high-tech automotive environment. The lighting is crisp and cool, creating a sense of serious expertise and security. The technician is focused and professional, with a background of specialized car maintenance bays and sleek industrial design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5Xou5WI-KZDbnEXJOQ51-0hYaI7x2WFTOZlbPCqsEuDKlAnEKXJK8VMKxhvt_szinabYrITE5K1nMOsMmaDNjxsQR1e_UAZbgcdWjjbM0kvG1zTyPL8Oaf98WEzB2W1omvIaUgmYPUxu_1avAHh_LV7mZrlQK9b-vKpzFHY1cj2GhC9zV4EIclzKyKA2VP3JMl5cb3AF9_MAq1BLcsdwLDKqN0d0xVhsv_gseyXgfvTDD_qGUDjor9Kia1XMXty2NHiBRkerTd490"/>
+<span class="font-label-sm text-label-sm text-on-surface-variant">David K.</span>
+</div>
+<div class="flex items-center gap-1 text-error">
+<span class="material-symbols-outlined" style="font-size: 16px;">error_outline</span>
+<span class="font-label-sm text-label-sm">High Priority</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column: Finalizados -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between px-2">
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-on-tertiary-container"></div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Finalizados</h3>
+<span class="bg-surface-container-highest text-on-surface-variant text-[10px] font-bold px-2 py-0.5 rounded-full">23 Today</span>
+</div>
+<button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined">more_horiz</span></button>
+</div>
+<div class="kanban-column flex flex-col gap-4 p-2 bg-surface-container-low rounded-xl">
+<!-- Kanban Card 4 (Finished) -->
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-[0px_4px_20px_rgba(15,82,186,0.05)] border border-outline-variant/30 opacity-75 hover:opacity-100 transition-all cursor-pointer">
+<div class="flex justify-between items-start mb-3">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-bold">#TK-8856</span>
+<span class="px-2 py-0.5 bg-on-tertiary-fixed text-on-tertiary text-[10px] font-bold rounded uppercase">Completed</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-[18px] mb-1">Transmission Fluid Flush</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm mb-4">Plate: <strong>WXS-1122</strong> (Nissan Frontier)</p>
+<div class="flex items-center justify-between mt-auto pt-4 border-t border-outline-variant/20">
+<div class="flex items-center gap-2">
+<img alt="Mechanic avatar" class="w-6 h-6 rounded-full" data-alt="A portrait of a senior female engineer in a modern automotive research and repair center. The atmosphere is quiet and focused, with premium lighting accentuating technical detail and clean surfaces. The style is professional and secure, reflecting high-stakes data and engineering management." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbw5d5cEkaAmFXzSSsmBSpfaWncbItYyK6jQCZ88UVz1IJUo1CNO5vTSZgLGMBKFdjHt2hs7MBpuogLxYVe4sfk8InYqYBuOoqjJNolNtj-kt1DRg8PBCLYGBaIMdVevzKARj22i4COPvickxP9WL08Q2oTxor8scSzByXYLmpfkDBx4nAjmMOcrtIKufQQgAIinHNShw2uamG2ibABuW1bAp8gIcHYQ70KpkU_lyGbO9HrsOtS4EcRXs5oS02LJRFuY3h27mkBtgG"/>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Elena M.</span>
+</div>
+<div class="flex items-center gap-1 text-tertiary">
+<span class="material-symbols-outlined" style="font-size: 16px; font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-sm text-label-sm">Ready for Delivery</span>
+</div>
+</div>
+</div>
+<!-- Kanban Card 5 (Finished) -->
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-[0px_4px_20px_rgba(15,82,186,0.05)] border border-outline-variant/30 opacity-75 hover:opacity-100 transition-all cursor-pointer">
+<div class="flex justify-between items-start mb-3">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-bold">#TK-8850</span>
+<span class="px-2 py-0.5 bg-on-tertiary-fixed text-on-tertiary text-[10px] font-bold rounded uppercase">Completed</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-[18px] mb-1">Tire Rotation &amp; Balance</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm mb-4">Plate: <strong>BGH-6632</strong> (Chevy S10)</p>
+<div class="flex items-center justify-between mt-auto pt-4 border-t border-outline-variant/20">
+<div class="flex items-center gap-2">
+<img alt="Mechanic avatar" class="w-6 h-6 rounded-full" data-alt="Close-up portrait of a skilled mechanic in an industrial but clean workshop setting. Soft directional lighting creates a professional and expert atmosphere. The overall style is modern corporate, focusing on technical excellence and high-quality service." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGVDc9_qAzUVLPY1TbKy-SLUYlaPQvch2qyGQ3K_XsvbFMkpMVyPlDMbiLkdL3F5XqiDh59RBjY7nJ1uXJPP1bZPDUtP9UqfcVG2BE-U83J7JJbdWVvkH67nkVLyKICtSbKrY38I4l82q2sikn34uk69H4-ozUgI-R6DkphWMDAzObzS2RfJKqKK8aUna-wJb_z58iNfIKWL9xSFUY_JiYEBRtOosvW-Ib0ycx1Yxu5sBpeWts9ck8AV9HdhoKLHl_sjxmt7K1mxQV"/>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Robert J.</span>
+</div>
+<div class="flex items-center gap-1 text-tertiary">
+<span class="material-symbols-outlined" style="font-size: 16px; font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-sm text-label-sm">Quality Checked</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB Tooltip Triggered Interaction (Minimal JS) -->
+<div class="fixed bottom-margin-desktop right-margin-desktop flex flex-col gap-2 z-[100]" id="toast-container"></div>
+<script>
+        // Micro-interactions for cards
+        document.querySelectorAll('.kanban-column > div').forEach(card => {
+            card.addEventListener('click', () => {
+                showToast(`Opening Ticket Details for ${card.querySelector('span').innerText}`);
+            });
+        });
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'bg-inverse-surface text-inverse-on-surface px-6 py-3 rounded-lg shadow-xl font-label-md text-label-md flex items-center gap-3 animate-bounce';
+            toast.innerHTML = `<span class="material-symbols-outlined text-primary-fixed">info</span> ${message}`;
+            document.getElementById('toast-container').appendChild(toast);
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-4', 'transition-all', 'duration-500');
+                setTimeout(() => toast.remove(), 500);
+            }, 3000);
+        }
+
+        // Live updating simulation for "real-time" feel
+        setInterval(() => {
+            const liveCounter = document.querySelector('.animate-pulse').parentElement;
+            liveCounter.classList.add('bg-primary-container/30');
+            setTimeout(() => liveCounter.classList.remove('bg-primary-container/30'), 500);
+        }, 5000);
+    </script>
+</body></html>
