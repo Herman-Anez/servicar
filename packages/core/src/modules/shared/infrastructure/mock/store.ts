@@ -159,10 +159,6 @@ export class MockStore {
     return this.empleados.find((e) => e._id === id) ?? null;
   }
 
-  getEmpleadoByAuth(authId: string) {
-    return this.empleados.find((e) => e.identificadorAutenticacion === authId) ?? null;
-  }
-
   // ── Historial ─────────────────────────────────────────────
 
   getHistorialByTicket(ticketId: string) {

@@ -7,6 +7,5 @@ export function mockEmpleadoToEntity(raw: MockEmpleado): Empleado {
     nombre: raw.nombre,
     email: raw.email,
     rol: raw.rol,
-    authId: raw.identificadorAutenticacion,
   });
 }

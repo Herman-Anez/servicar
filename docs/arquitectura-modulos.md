@@ -85,22 +85,33 @@ src/
 │   │       │   (futuro: convex/)      ← adaptador Convex — mismo slot
 │   │       └── ticket-module.ts       ← service locator / DI manual
 │   │
+│   ├── auth/                          ← Bounded Context: Auth ✅
+│   │   ├── domain/
+│   │   │   ├── entities/
+│   │   │   │   └── sesion.entity.ts  ← Sesion VO: { empleadoId, rol } — no extiende AggregateRoot
+│   │   │   ├── ports/
+│   │   │   │   └── auth.provider.port.ts ← IAuthProvider { autenticar(email, pwd): Promise<{...}|null> }
+│   │   │   └── index.ts
+│   │   ├── application/
+│   │   │   ├── dtos/autenticar.dto.ts
+│   │   │   ├── ports-in/autenticar.use-case.port.ts ← IAutenticarUseCase
+│   │   │   ├── use-cases/autenticar.use-case.ts
+│   │   │   └── index.ts
+│   │   └── infrastructure/
+│   │       ├── mock/mock-auth.provider.ts     ← busca por email en MockStore, ignora password
+│   │       └── pocketbase/pb-auth.provider.ts ← authWithPassword vía PocketBase
+│   │
 │   └── empleado/                      ← Bounded Context: Empleado ✅
 │       ├── domain/
 │       │   ├── entities/
-│       │   │   └── empleado.entity.ts ← Empleado (reconstitute + getters)
+│       │   │   └── empleado.entity.ts ← Empleado: { id, nombre, email, rol } — sin authId
 │       │   ├── ports/
-│       │   │   └── empleado.repository.port.ts ← IEmpleadoRepository
+│       │   │   └── empleado.repository.port.ts ← IEmpleadoRepository { getAll, getById }
 │       │   └── index.ts
 │       ├── application/
-│       │   ├── dtos/
-│       │   │   └── autenticar-empleado.dto.ts
 │       │   ├── ports-in/
-│       │   │   ├── autenticar-empleado.use-case.port.ts
 │       │   │   ├── get-empleado-by-id.query.port.ts
 │       │   │   └── get-empleados.query.port.ts
-│       │   ├── use-cases/
-│       │   │   └── autenticar-empleado.use-case.ts
 │       │   ├── queries/
 │       │   │   ├── get-empleado-by-id.query.ts
 │       │   │   └── get-empleados.query.ts
@@ -496,18 +507,20 @@ Si un archivo en `domain/` o `application/` necesita:
 
 | Capa | Estado | Notas |
 |---|---|---|
-| `shared/domain` | ✅ Completo | Incluye `AggregateRoot` marker |
-| `ticket/domain` | ✅ Completo | `Ticket` y `Empleado` extienden `AggregateRoot`; `Ticket` emite `pendingHistorial` |
-| `ticket/application` | ✅ Completo | Todos los puertos retornan `Promise<>`. Use cases `async/await`. Solo `ITicketRepository` en mutaciones |
-| `empleado/domain` | ✅ Completo | `Empleado extends AggregateRoot` |
-| `empleado/application` | ✅ Completo | `AutenticarEmpleadoUseCase` + 2 queries, todos async |
-| `@servicar/persistence-mock` | ✅ Completo | `Promise.resolve()` wrappers; `MockTicketRepository.save()` drena `pendingHistorial` |
-| `@servicar/persistence-pocketbase` | ✅ Disponible | `PbStore` + PB repositories + `PbAuthService` + seed script. Pendiente de conectar en service locators |
-| Auth session (`IAuthSessionService`) | ✅ Completo | Puerto + `MockSessionService` + `PbSessionService` + singleton `authSession`. Swap en 2 líneas |
+| `shared/domain` | ✅ Completo | Incluye `AggregateRoot` marker, `Rol`, `TicketEstado`, `TicketCategoria` |
+| `auth/domain` | ✅ Completo | `Sesion` VO (sin AR), `IAuthProvider` |
+| `auth/application` | ✅ Completo | `AutenticarUseCase`, `IAutenticarUseCase`, `AutenticarDTO` |
+| `auth/infrastructure` | ✅ Completo | `MockAuthProvider` (email lookup) + `PbAuthProvider` (authWithPassword) |
+| `ticket/domain` | ✅ Completo | `Ticket` emite `pendingHistorial`; `Empleado` extiende `AggregateRoot` |
+| `ticket/application` | ✅ Completo | Todos los puertos retornan `Promise<>`. Solo `ITicketRepository` en mutaciones |
+| `ticket/infrastructure` | ✅ Completo | Mock (localStorage) + PocketBase (PbStore). Pendiente conectar PB en service locator |
+| `empleado/domain` | ✅ Completo | `Empleado`: id, nombre, email, rol — sin authId |
+| `empleado/application` | ✅ Completo | 2 queries (`GetEmpleadoById`, `GetEmpleados`). Auth movida a módulo `auth` |
+| `empleado/infrastructure` | ✅ Completo | Mock + PocketBase. `isMock` condicional en `empleado-module.ts` |
+| Auth session (`IAuthSessionService`) | ✅ Completo | Puerto + `MockSessionService` + `PbSessionService` + singleton `authSession`. Swap en 3 líneas |
 | `presentation/coordinators` | ✅ Completo | `AdminCoordinator` + `MecanicoCoordinator` + interfaces |
 | `presentation/hooks` | ✅ Completo | `useStoreReactive` retorna `refreshKey: number` |
 | `presentation/views` | ✅ Completo | Admin (Cola/Tickets/Historial/Layout) + Mecánico (Dashboard/Taller/Fichas/Layout) + Ticket (Nuevo/Editar) + shared `EstadoChip` |
 | `presentation/view-models` | ✅ Completo | Patrón `useEffect`/`useState`/`refreshKey`. `authSession` para sesión. `loading` en layouts |
-| Pages → thin shells | ✅ Completo | Todas las pages migradas; `lib/db` solo queda en `login/page.tsx` |
-| Tests `@servicar/core` | ✅ 29 tests | Entidades (14), `CrearTicket` (6), `CambiarEstado` (7). Vitest, cero DOM |
-| Tests `@servicar/persistence-mock` | ✅ 47 tests | `MockStore` (28), `MockTicketRepository` (12), `MockEmpleadoRepository` (9). Incluye test de integración end-to-end |
+| Pages → thin shells | ✅ Completo | Todas las pages migradas; `lib/db` solo queda en `login/page.tsx` y `hooks.ts` |
+| Tests `@servicar/core` | ✅ **76 tests** | Entidades (14), use cases (17), auth (6), mock-store (26), repos (13). Vitest, cero DOM |

@@ -13,9 +13,4 @@ export class MockEmpleadoRepository implements IEmpleadoRepository {
     const raw = this.store.getEmpleadoById(id);
     return Promise.resolve(raw ? mockEmpleadoToEntity(raw) : null);
   }
-
-  getByAuthId(authId: string): Promise<Empleado | null> {
-    const raw = this.store.getEmpleadoByAuth(authId);
-    return Promise.resolve(raw ? mockEmpleadoToEntity(raw) : null);
-  }
 }

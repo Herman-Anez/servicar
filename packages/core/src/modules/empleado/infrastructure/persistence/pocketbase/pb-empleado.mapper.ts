@@ -16,6 +16,5 @@ export function pbUserToEmpleado(raw: PbUser): Empleado {
     nombre: raw.nombre,
     email:  raw.email,
     rol:    raw.rol,
-    authId: raw.id, // In PocketBase, entity ID equals auth ID for users
   });
 }

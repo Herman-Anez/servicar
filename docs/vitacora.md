@@ -1067,17 +1067,68 @@ TypeScript: 0 errores en todo el proyecto.
 
 ---
 
+---
+
+### Módulo `auth` — separación de responsabilidades ✅
+
+**Motivación:** `AutenticarEmpleadoUseCase` vivía en `empleado/application/` y `IEmpleadoRepository` exponía `getByAuthId()`. Un empleado sabe *quién es* (nombre, email, rol) — no *cómo se verifica su identidad*. La autenticación es una responsabilidad distinta que merecía su propio bounded context.
+
+**Estructura creada en `packages/core/src/modules/auth/`:**
+
+```
+auth/
+├── domain/
+│   ├── entities/sesion.entity.ts   ← Sesion VO: { empleadoId, rol } — no extiende AggregateRoot, sin repositorio
+│   ├── ports/auth.provider.port.ts ← IAuthProvider { autenticar(email, password): Promise<{...}|null> }
+│   └── index.ts
+├── application/
+│   ├── dtos/autenticar.dto.ts
+│   ├── ports-in/autenticar.use-case.port.ts  ← IAutenticarUseCase
+│   ├── use-cases/autenticar.use-case.ts      ← AutenticarUseCase
+│   └── index.ts
+└── infrastructure/
+    ├── mock/mock-auth.provider.ts      ← busca por email en MockStore (ignora password)
+    └── pocketbase/pb-auth.provider.ts  ← authWithPassword vía PocketBase (reemplaza PbAuthService)
+
+next/src/modules/auth/infrastructure/auth-module.ts  ← service locator nuevo
+```
+
+**Archivos eliminados:**
+- `packages/core/src/modules/empleado/application/use-cases/autenticar-empleado.use-case.ts`
+- `packages/core/src/modules/empleado/application/dtos/autenticar-empleado.dto.ts`
+- `packages/core/src/modules/empleado/application/ports-in/autenticar-empleado.use-case.port.ts`
+- `packages/core/src/modules/shared/infrastructure/pocketbase/auth/pb-auth.service.ts` (reemplazado por `PbAuthProvider`)
+
+**Archivos modificados:**
+- `empleado.entity.ts` — eliminado `authId` de `EmpleadoProps` y getter
+- `empleado.repository.port.ts` — eliminado `getByAuthId()`
+- `mock-empleado.mapper.ts` + `mock-empleado.repository.ts` — eliminado `authId` + `getByAuthId`
+- `pb-empleado.mapper.ts` + `pb-empleado.repository.ts` — idem
+- `store.ts` — eliminado `getEmpleadoByAuth()`
+- `next/src/lib/mock/hooks.ts` — `useMockSignIn` ahora es async, toma `(email, password)` en lugar de `authId`
+- `next/src/app/login/page.tsx` — eliminado mapa `EMAIL_TO_AUTH`, quick-access usa `emp.email`
+- `packages/core/src/index.ts` — exporta módulo `auth` (domain + application + infraestructura)
+
+**Tests:**
+- Eliminados tests de `getByAuthId` en `mock-empleado-repository.test.ts` y `mock-store.test.ts`
+- Creados `__tests__/auth/autenticar.use-case.test.ts` (3 tests) y `__tests__/auth/mock-auth.provider.test.ts` (3 tests)
+- Total: **76 tests, 0 fallos** (todo en `@servicar/core`)
+
+---
+
 ## Próximo
 
 ### PocketBase — conectar al frontend (pendiente)
 - [x] Package `@servicar/persistence-pocketbase` migrado a `@servicar/core`
 - [x] `PbSessionService` creado y listo para activar
+- [x] `PbAuthProvider` creado — reemplaza `PbAuthService`
 - [x] Seed ejecutado — colecciones y datos en PocketBase real
 - [x] `pb-client.ts` lee `PB_URL` del entorno
 - [x] `next/.env.local` apunta a `http://192.168.0.84:8090`
 - [ ] En `ticket-module.ts` y `empleado-module.ts`: cambiar repos de mock a PocketBase
 - [ ] En `useStoreReactive.ts`: suscribir a `pbStore` en lugar de `mockStore`
-- [ ] Activar `PbSessionService` en `next/src/lib/auth/index.ts` (descomentar 3 líneas)
+- [ ] En `next/src/lib/auth/index.ts`: descomentar las 3 líneas de `PbSessionService`
+- [ ] `auth-module.ts` ya usa `PbAuthProvider` cuando `NEXT_PUBLIC_USE_MOCK=false` — sin cambios adicionales
 
 ### Funcionalidades pendientes
 - [ ] Portal cliente `/ticket/[id]` — público, sin auth, lookup por ID exacto

@@ -38,32 +38,7 @@ describe("getById()", () => {
   });
 });
 
-describe("getByAuthId()", () => {
-  it("devuelve el empleado por su authId", async () => {
-    const e = await repo.getByAuthId("auth_admin");
-    expect(e).not.toBeNull();
-    expect(e!.rol).toBe("admin");
-    expect(e!.nombre).toBe("Admin Taller");
-  });
-
-  it("devuelve null para authId inexistente", async () => {
-    expect(await repo.getByAuthId("no_existe")).toBeNull();
-  });
-
-  it("mecánico por authId", async () => {
-    const e = await repo.getByAuthId("auth_rodriguez");
-    expect(e).not.toBeNull();
-    expect(e!.rol).toBe("mecanico");
-  });
-});
-
 describe("mapeo de campos", () => {
-  it("authId queda mapeado desde identificadorAutenticacion", async () => {
-    const e = await repo.getById("emp_juan");
-    // En el mock, authId = identificadorAutenticacion
-    expect(e!.authId).toBe("auth_juan");
-  });
-
   it("email queda mapeado correctamente", async () => {
     const e = await repo.getById("emp_juan");
     expect(e!.email).toBe("juan.perez@servicar.com");

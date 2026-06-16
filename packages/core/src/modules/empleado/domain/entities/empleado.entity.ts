@@ -6,7 +6,6 @@ export interface EmpleadoProps {
   nombre: string;
   email: string;
   rol: Rol;
-  authId: string;
 }
 
 export class Empleado extends AggregateRoot {
@@ -22,7 +21,6 @@ export class Empleado extends AggregateRoot {
   get nombre() { return this.props.nombre; }
   get email()  { return this.props.email; }
   get rol()    { return this.props.rol; }
-  get authId() { return this.props.authId; }
 
   toPlainObject(): EmpleadoProps {
     return { ...this.props };

@@ -7,6 +7,7 @@ import { useEffect, useReducer, useCallback } from "react";
 import { mockStore } from "@servicar/persistence-mock";
 import type { TicketEstado, TicketCategoria } from "@servicar/persistence-mock";
 import { authSession } from "@/lib/auth";
+import { authModule } from "../../modules/auth/infrastructure/auth-module";
 
 // Fuerza re-render cuando el store notifica cambios
 function useStoreVersion() {
@@ -109,11 +110,11 @@ export function useMockCambiarEstado() {
 }
 
 export function useMockSignIn() {
-  return useCallback((authId: string) => {
-    const empleado = mockStore.getEmpleadoByAuth(authId);
-    if (!empleado) throw new Error("Credenciales inválidas");
-    authSession.setSession({ empleadoId: empleado._id });
-    return empleado;
+  return useCallback(async (email: string, password: string) => {
+    const sesion = await authModule.autenticar.execute({ email, password });
+    if (!sesion) return null;
+    authSession.setSession({ empleadoId: sesion.empleadoId });
+    return sesion;
   }, []);
 }
 

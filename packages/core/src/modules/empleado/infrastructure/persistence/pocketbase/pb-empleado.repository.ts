@@ -13,9 +13,4 @@ export class PbEmpleadoRepository implements IEmpleadoRepository {
     const raw = this.store.getUserById(id);
     return raw ? pbUserToEmpleado(raw) : null;
   }
-
-  // In PocketBase, auth ID equals the user record ID
-  async getByAuthId(authId: string): Promise<Empleado | null> {
-    return this.getById(authId);
-  }
 }

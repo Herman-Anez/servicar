@@ -175,18 +175,6 @@ describe("getEmpleadoById()", () => {
   });
 });
 
-describe("getEmpleadoByAuth()", () => {
-  it("devuelve el empleado por authId", () => {
-    const e = store.getEmpleadoByAuth("auth_admin");
-    expect(e).not.toBeNull();
-    expect(e!.rol).toBe("admin");
-  });
-
-  it("devuelve null para authId inexistente", () => {
-    expect(store.getEmpleadoByAuth("no_existe")).toBeNull();
-  });
-});
-
 // ---------------------------------------------------------------------------
 // Suscriptores
 // ---------------------------------------------------------------------------
