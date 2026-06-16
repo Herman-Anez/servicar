@@ -14,6 +14,7 @@ import {
   SpacingToken,
 } from "@once-ui-system/core";
 import { RouteGuard, Providers } from "@/components";
+import { StoreProvider } from "@/lib/StoreProvider";
 import { baseURL, effects, fonts, style, dataStyle, home } from "@/resources";
 
 export async function generateMetadata() {
@@ -136,7 +137,9 @@ export default async function RootLayout({
           </RevealFx>
           <Flex zIndex={0} fillWidth horizontal="center" flex={1}>
             <Flex horizontal="center" fillWidth minHeight="0">
-              <RouteGuard>{children}</RouteGuard>
+              <RouteGuard>
+                <StoreProvider>{children}</StoreProvider>
+              </RouteGuard>
             </Flex>
           </Flex>
         </Column>

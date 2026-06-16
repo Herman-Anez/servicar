@@ -1,6 +1,9 @@
 "use client";
 
+import { appStore, isMock } from "@/lib/store";
 import { mockStore, MockTicketRepository, MockHistorialRepository } from "@servicar/persistence-mock";
+import { PbTicketRepository, PbHistorialRepository } from "@servicar/persistence-pocketbase";
+import type { PbStore } from "@servicar/persistence-pocketbase";
 import {
   CrearTicketUseCase,
   EditarTicketUseCase,
@@ -20,8 +23,10 @@ import {
   type IGetHistorialQuery,
 } from "@servicar/core";
 
-const ticketRepo    = new MockTicketRepository(mockStore);
-const historialRepo = new MockHistorialRepository(mockStore);
+const store = appStore as PbStore;
+
+const ticketRepo    = isMock ? new MockTicketRepository(mockStore)    : new PbTicketRepository(store);
+const historialRepo = isMock ? new MockHistorialRepository(mockStore) : new PbHistorialRepository(store);
 
 export const ticketModule = {
   crearTicket:          new CrearTicketUseCase(ticketRepo)        as ICrearTicketUseCase,

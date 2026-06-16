@@ -1,0 +1,22 @@
+**/.git
+**/.gitignore
+**/node_modules
+**/.next
+**/.env
+**/.env.local
+**/.env.*.local
+**/dist
+**/build
+
+# Dev artifacts
+graphify-out
+react-prototipo
+docs
+*.md
+!next/README.md
+
+# Test files
+**/__tests__
+**/vitest.config.ts
+**/*.test.ts
+**/*.spec.ts

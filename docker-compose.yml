@@ -1,0 +1,55 @@
+services:
+
+  # ── Proxy reverso — único punto de entrada público ────────────────────────
+  nginx:
+    image: nginx:1.27-alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./infra/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - next
+      - pocketbase
+    restart: unless-stopped
+
+  # ── PocketBase — solo red interna, nunca expuesto al host ─────────────────
+  pocketbase:
+    build:
+      context: .
+      dockerfile: infra/pocketbase.Dockerfile
+      args:
+        PB_VERSION: "0.23.4"
+    image: servicar-pocketbase:latest
+    container_name: servicar-pocketbase
+    # Sin ports: → solo accesible desde la red interna de Docker
+    volumes:
+      - pb_data:/pb/pb_data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8090/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+  # ── Next.js ───────────────────────────────────────────────────────────────
+  next:
+    build:
+      context: .
+      dockerfile: next/Dockerfile
+      args:
+        # El browser accede a PocketBase a través de nginx en /pb/
+        # Debe ser la URL pública del servidor (la que ve el navegador).
+        # Ejemplo: http://192.168.1.100/pb  o  https://app.mi-dominio.com/pb
+        NEXT_PUBLIC_PB_URL: ${PUBLIC_URL:?Variable PUBLIC_URL requerida}/pb
+        NEXT_PUBLIC_USE_MOCK: "false"
+    image: servicar-next:latest
+    container_name: servicar-next
+    # Sin ports: → solo accesible a través de nginx
+    environment:
+      NODE_ENV: production
+    restart: unless-stopped
+
+volumes:
+  pb_data:
+    driver: local
