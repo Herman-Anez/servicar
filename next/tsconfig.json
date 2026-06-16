@@ -28,7 +28,8 @@
     "paths": {
       "@/*": ["./src/*"],
       "@servicar/core": ["../packages/core/src/index.ts"],
-      "@servicar/persistence-mock": ["../persistence/mock/src/index.ts"]
+      "@servicar/persistence-mock": ["../packages/core/src/index.ts"],
+      "@servicar/persistence-pocketbase": ["../packages/core/src/index.ts"]
     },
     "target": "ES2017"
   },

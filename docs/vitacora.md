@@ -1014,15 +1014,68 @@ pnpm --filter @servicar/persistence-mock test
 
 ---
 
+---
+
+## 2026-06-16
+
+### Migración persistence → `@servicar/core` ✅
+
+**Motivación:** los packages `@servicar/persistence-mock` y `@servicar/persistence-pocketbase` vivían en `persistence/` como workspaces independientes. Se consolidan dentro de `packages/core` para simplificar el monorepo.
+
+**Estructura creada en `packages/core/src/modules/`:**
+
+```
+shared/infrastructure/
+  mock/         ← data.ts, store.ts
+  pocketbase/
+    pb-client.ts, pb-store.ts
+    auth/pb-auth.service.ts
+
+ticket/infrastructure/persistence/
+  mock/         ← mock-ticket.mapper.ts, mock-ticket.repository.ts, mock-historial.repository.ts
+  pocketbase/   ← pb-ticket.mapper.ts, pb-ticket.repository.ts, pb-historial.repository.ts
+
+empleado/infrastructure/persistence/
+  mock/         ← mock-empleado.mapper.ts, mock-empleado.repository.ts
+  pocketbase/   ← pb-empleado.mapper.ts, pb-empleado.repository.ts
+```
+
+**Tests movidos:** `persistence/mock/src/__tests__/` → `packages/core/src/__tests__/persistence/mock/`. 76 tests, 0 fallos.
+
+**Imports actualizados:**
+- Imports dentro de los archivos movidos: rutas relativas recalculadas
+- `packages/core/src/index.ts`: agrega barrels de toda la infraestructura
+- `packages/core/package.json`: agrega `pocketbase ^0.21.0` como dependency
+- `next/tsconfig.json`: `@servicar/persistence-mock` y `@servicar/persistence-pocketbase` ambos apuntan a `../packages/core/src/index.ts` → cero cambios en `next/src/`
+- `next/package.json`: eliminado `@servicar/persistence-pocketbase: workspace:*`
+- `pnpm-workspace.yaml`: eliminado `persistence/*`
+
+**Eliminado:** `persistence/mock/` y `persistence/pocketbase/` (directorios completos).
+
+TypeScript: 0 errores en todo el proyecto.
+
+---
+
+### Grafo de conocimiento actualizado ✅
+
+`/graphify --update` ejecutado tras la migración de persistence:
+- 27 archivos eliminados purgados del grafo (paquetes `persistence/mock` y `persistence/pocketbase`)
+- 23 archivos nuevos extraídos (infraestructura movida a `packages/core/src/modules/`)
+- `build_merge()`: 121 nodos nuevos, 243 edges nuevas, 26 nodos removidos
+- Grafo final: **883 nodos, 1765 edges, 49 comunidades**
+- Outputs: `graphify-out/graph.html`, `graphify-out/graph.json`, `graphify-out/GRAPH_REPORT.md`
+
+---
+
 ## Próximo
 
 ### PocketBase — conectar al frontend (pendiente)
-- [x] Package `@servicar/persistence-pocketbase` creado
+- [x] Package `@servicar/persistence-pocketbase` migrado a `@servicar/core`
 - [x] `PbSessionService` creado y listo para activar
 - [x] Seed ejecutado — colecciones y datos en PocketBase real
 - [x] `pb-client.ts` lee `PB_URL` del entorno
 - [x] `next/.env.local` apunta a `http://192.168.0.84:8090`
-- [ ] En `ticket-module.ts` y `empleado-module.ts`: cambiar repos de `@servicar/persistence-mock` a `@servicar/persistence-pocketbase`
+- [ ] En `ticket-module.ts` y `empleado-module.ts`: cambiar repos de mock a PocketBase
 - [ ] En `useStoreReactive.ts`: suscribir a `pbStore` en lugar de `mockStore`
 - [ ] Activar `PbSessionService` en `next/src/lib/auth/index.ts` (descomentar 3 líneas)
 
