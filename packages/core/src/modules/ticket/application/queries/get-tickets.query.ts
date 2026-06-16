@@ -5,7 +5,7 @@ import type { IGetTicketsQuery } from "../ports-in/get-tickets.query.port";
 export class GetTicketsQuery implements IGetTicketsQuery {
   constructor(private readonly ticketRepo: ITicketRepository) {}
 
-  execute(): Ticket[] {
+  execute(): Promise<Ticket[]> {
     return this.ticketRepo.getAll();
   }
 }

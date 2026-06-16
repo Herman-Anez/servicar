@@ -1,4 +1,4 @@
-."use client";
+"use client";
 
 import { Column, Row, Text, Icon, IconButton, Avatar } from "@once-ui-system/core";
 import type { AdminLayoutVM } from "@/presentation/view-models/admin/useAdminLayoutViewModel";

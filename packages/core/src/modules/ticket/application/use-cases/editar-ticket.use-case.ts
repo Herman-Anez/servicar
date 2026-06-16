@@ -5,11 +5,11 @@ import type { IEditarTicketUseCase } from "../ports-in/editar-ticket.use-case.po
 export class EditarTicketUseCase implements IEditarTicketUseCase {
   constructor(private readonly ticketRepo: ITicketRepository) {}
 
-  execute(dto: EditarTicketDTO): void {
-    const ticket = this.ticketRepo.getById(dto.ticketId);
+  async execute(dto: EditarTicketDTO): Promise<void> {
+    const ticket = await this.ticketRepo.getById(dto.ticketId);
     if (!ticket) throw new Error(`Ticket ${dto.ticketId} no encontrado.`);
 
     const actualizado = ticket.editar(dto.campos, dto.empleadoId);
-    this.ticketRepo.save(actualizado);
+    await this.ticketRepo.save(actualizado);
   }
 }

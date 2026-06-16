@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useStoreReactive } from "@/presentation/hooks/useStoreReactive";
-import { getMockSession } from "@/lib/mock/hooks";
+import { authSession } from "@/lib/auth";
 import { ticketModule } from "@/modules/ticket/infrastructure/ticket-module";
 import { empleadoModule } from "@/modules/empleado/infrastructure/empleado-module";
 import type { Ticket, HistorialEntry } from "@servicar/core";
@@ -25,23 +25,41 @@ export interface HistorialVM {
 }
 
 export function useHistorialViewModel(ticketId: string, coordinator: IAdminCoordinator): HistorialVM {
-  useStoreReactive();
+  const refreshKey = useStoreReactive();
   const [tab, setTab] = useState<HistorialTab>("detalles");
+  const [empleadoSession, setEmpleadoSession] = useState<Empleado | null>(null);
+  const [ticket, setTicket] = useState<Ticket | null>(null);
+  const [historial, setHistorial] = useState<HistorialEntry[]>([]);
+  const [todosEmpleados, setTodosEmpleados] = useState<Empleado[]>([]);
 
-  const session = getMockSession();
-  const empleado = session ? empleadoModule.getEmpleadoById.execute(session.empleadoId) : null;
+  const session = authSession.getSession();
 
-  const ticket = ticketModule.getTicketById.execute(ticketId);
-  const historial = ticketModule.getHistorial.execute(ticketId);
-  const todosEmpleados = empleadoModule.getEmpleados.execute();
+  useEffect(() => {
+    if (!session) { setEmpleadoSession(null); return; }
+    empleadoModule.getEmpleadoById.execute(session.empleadoId).then(setEmpleadoSession);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session?.empleadoId, refreshKey]);
+
+  useEffect(() => {
+    Promise.all([
+      ticketModule.getTicketById.execute(ticketId),
+      ticketModule.getHistorial.execute(ticketId),
+      empleadoModule.getEmpleados.execute(),
+    ]).then(([t, h, empleados]) => {
+      setTicket(t);
+      setHistorial(h);
+      setTodosEmpleados(empleados);
+    });
+  }, [ticketId, refreshKey]);
+
   const empleadoMap = Object.fromEntries(todosEmpleados.map((e) => [e.id, e]));
   const creador = ticket ? empleadoMap[ticket.creadorId] : undefined;
 
   const onBack = () => coordinator.goBack();
   const onEditar = () => { if (ticket) coordinator.goToEditarTicket(ticket.id); };
-  const onFinalizar = () => {
-    if (!ticket || !empleado) return;
-    ticketModule.cambiarEstado.execute({ ticketId: ticket.id, empleadoId: empleado.id, nuevoEstado: "finalizado" as TicketEstado });
+  const onFinalizar = async () => {
+    if (!ticket || !empleadoSession) return;
+    await ticketModule.cambiarEstado.execute({ ticketId: ticket.id, empleadoId: empleadoSession.id, nuevoEstado: "finalizado" as TicketEstado });
   };
 
   return { ticket, historial, empleadoMap, creador, tab, setTab, onBack, onEditar, onFinalizar };

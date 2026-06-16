@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useStoreReactive } from "@/presentation/hooks/useStoreReactive";
-import { getMockSession } from "@/lib/mock/hooks";
+import { authSession } from "@/lib/auth";
 import { ticketModule } from "@/modules/ticket/infrastructure/ticket-module";
 import { empleadoModule } from "@/modules/empleado/infrastructure/empleado-module";
 import type { Ticket } from "@servicar/core";
@@ -33,14 +33,31 @@ export interface ColaVM {
 }
 
 export function useColaViewModel(coordinator: IAdminCoordinator): ColaVM {
-  useStoreReactive();
+  const refreshKey = useStoreReactive();
   const [pending, setPending] = useState<PendingAction | null>(null);
   const [processing, setProcessing] = useState(false);
+  const [empleado, setEmpleado] = useState<Empleado | null>(null);
+  const [todosTickets, setTodosTickets] = useState<Ticket[]>([]);
+  const [todosEmpleados, setTodosEmpleados] = useState<Empleado[]>([]);
 
-  const session = getMockSession();
-  const empleado = session ? empleadoModule.getEmpleadoById.execute(session.empleadoId) : null;
+  const session = authSession.getSession();
 
-  const todosTickets = ticketModule.getTickets.execute();
+  useEffect(() => {
+    if (!session) { setEmpleado(null); return; }
+    empleadoModule.getEmpleadoById.execute(session.empleadoId).then(setEmpleado);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session?.empleadoId, refreshKey]);
+
+  useEffect(() => {
+    Promise.all([
+      ticketModule.getTickets.execute(),
+      empleadoModule.getEmpleados.execute(),
+    ]).then(([tickets, empleados]) => {
+      setTodosTickets(tickets);
+      setTodosEmpleados(empleados);
+    });
+  }, [refreshKey]);
+
   const cola = todosTickets
     .filter((t) => t.estado === "pendiente_revision")
     .sort((a, b) => a.creationTime - b.creationTime);
@@ -54,7 +71,6 @@ export function useColaViewModel(coordinator: IAdminCoordinator): ColaVM {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [todosTickets.length]);
 
-  const todosEmpleados = empleadoModule.getEmpleados.execute();
   const mecanicos = todosEmpleados.filter((e) => e.rol === "mecanico").length;
   const empleadoMap = Object.fromEntries(todosEmpleados.map((e) => [e.id, e]));
 
@@ -69,17 +85,20 @@ export function useColaViewModel(coordinator: IAdminCoordinator): ColaVM {
     setPending({ ticket, action, nota: "" });
   };
 
-  const onConfirm = () => {
+  const onConfirm = async () => {
     if (!pending || !empleado) return;
     setProcessing(true);
     const { ticket, action, nota } = pending;
-    if (action === "aprobar") {
-      ticketModule.cambiarEstado.execute({ ticketId: ticket.id, empleadoId: empleado.id, nuevoEstado: "aprobado" });
-    } else {
-      ticketModule.cambiarEstado.execute({ ticketId: ticket.id, empleadoId: empleado.id, nuevoEstado: "requiere_cambios", notaAdmin: nota || undefined });
+    try {
+      if (action === "aprobar") {
+        await ticketModule.cambiarEstado.execute({ ticketId: ticket.id, empleadoId: empleado.id, nuevoEstado: "aprobado" });
+      } else {
+        await ticketModule.cambiarEstado.execute({ ticketId: ticket.id, empleadoId: empleado.id, nuevoEstado: "requiere_cambios", notaAdmin: nota || undefined });
+      }
+    } finally {
+      setPending(null);
+      setProcessing(false);
     }
-    setPending(null);
-    setProcessing(false);
   };
 
   const onCancelPending = () => setPending(null);

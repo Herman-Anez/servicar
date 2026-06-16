@@ -13,15 +13,16 @@ Documento de orientación para agentes. Lee esto antes de tocar cualquier archiv
 - **Administrador** — desktop, aprueba / rechaza / reasigna cualquier ticket
 - **Cliente** — portal público read-only, busca ticket por ID (sin auth)
 
-**Stack de producción planeado:** Next.js 15 + Convex (BaaS) + Vercel. **Hoy:** Next.js con capa mock (localStorage) mientras se conecta Convex.
+**Stack de producción planeado:** Next.js 15 + PocketBase (BaaS self-hosted) + Vercel. **Hoy:** Next.js con capa mock (localStorage). PocketBase ya está seedeado y listo — falta cablear los repositorios.
 
 ---
 
 ## Repositorio
 
 ```
-servicar/                           ← workspace root (npm workspaces)
-├── package.json                    ← { "workspaces": ["packages/*", "next"] }
+servicar/                           ← workspace root (pnpm workspaces)
+├── pnpm-workspace.yaml             ← packages: ["packages/*", "next"]
+├── package.json
 ├── docs/               ← documentación del proyecto
 │   ├── context.md              ← este archivo
 │   ├── arquitectura-modulos.md ← detalle técnico DDD+Hexagonal+MVVM-C
@@ -30,33 +31,42 @@ servicar/                           ← workspace root (npm workspaces)
 │   ├── global-vision.md        ← reglas de negocio y glosario
 │   └── ddd-hexagonal-refactor.md ← propuesta original de estructura
 ├── packages/
-│   └── core/                   ← @servicar/core — dominio + aplicación (framework-agnostic)
-│       ├── package.json
+│   └── core/                   ← @servicar/core — dominio + aplicación + infraestructura (framework-agnostic)
+│       ├── package.json        ← deps: pocketbase ^0.21
 │       ├── tsconfig.json
 │       └── src/
-│           ├── index.ts        ← barrel: exporta todo el dominio y aplicación
+│           ├── index.ts        ← barrel: exporta todo (dominio, aplicación, infraestructura mock + PB)
 │           └── modules/
-│               ├── shared/domain/
-│               ├── ticket/domain/ + application/
-│               └── empleado/domain/ + application/
-├── persistence/
-│   └── mock/                   ← @servicar/persistence-mock — localStorage + seed + repos
-│       ├── package.json
-│       ├── tsconfig.json       ← alias @servicar/core → ../../packages/core/src/index.ts
-│       └── src/
-│           ├── index.ts
-│           ├── data.ts         ← MockTicket, MockEmpleado, MockHistorial, seed arrays
-│           ├── store.ts        ← MockStore + singleton mockStore
-│           ├── ticket/         ← MockTicketRepository, MockHistorialRepository, mapper
-│           └── empleado/       ← MockEmpleadoRepository, mapper
+│               ├── shared/
+│               │   ├── domain/         ← AggregateRoot, Rol, TicketEstado, TicketCategoria
+│               │   └── infrastructure/
+│               │       ├── mock/       ← data.ts, store.ts (MockStore)
+│               │       └── pocketbase/ ← pb-client.ts, pb-store.ts
+│               ├── auth/               ← Bounded Context: Auth
+│               │   ├── domain/         ← Sesion VO, IAuthProvider
+│               │   ├── application/    ← AutenticarUseCase, IAutenticarUseCase, AutenticarDTO
+│               │   └── infrastructure/
+│               │       ├── mock/       ← MockAuthProvider
+│               │       └── pocketbase/ ← PbAuthProvider
+│               ├── ticket/
+│               │   ├── domain/ + application/
+│               │   └── infrastructure/persistence/{mock,pocketbase}/
+│               └── empleado/
+│                   ├── domain/ + application/
+│                   └── infrastructure/persistence/{mock,pocketbase}/
 ├── react-prototipo/    ← prototipo UI (no tocar, solo referencia)
 └── next/               ← app de producción (aquí se trabaja)
-    └── package.json    ← { "name": "@servicar/next", deps: "@servicar/core", "@servicar/persistence-mock" }
+    └── package.json    ← { "name": "@servicar/next", deps: "@servicar/core workspace:*", "pocketbase" }
 ```
 
-**Working directory activo:** `/home/hermandev/Documents/proyectos/1/servicar/next`
+**Working directory activo:** `/workspaces/1/servicar/next`
 
-**Resolución `@servicar/core`:** alias en `next/tsconfig.json` → `../packages/core/src/index.ts`. TypeScript resuelve sin necesidad de `npm install` ni symlinks.
+**Resolución de aliases** (`next/tsconfig.json`):
+- `@servicar/core` → `../packages/core/src/index.ts`
+- `@servicar/persistence-mock` → `../packages/core/src/index.ts` (alias de compatibilidad)
+- `@servicar/persistence-pocketbase` → `../packages/core/src/index.ts` (alias de compatibilidad)
+
+Los tres apuntan al mismo barrel. TypeScript resuelve sin build steps. Los tres nombres son intercambiables — preferir `@servicar/core` en código nuevo.
 
 ---
 
@@ -101,19 +111,17 @@ La migración arquitectónica está completa. Un solo camino activo:
 ```
 page.tsx (thin shell)
   → Coordinator (IAdminCoordinator / IMecanicoCoordinator)
-  → ViewModel hook
-      → ticketModule / empleadoModule (service locators en next/src/modules/)
-      → use cases / queries  ← @servicar/core (application layer)
-      → ITicketRepository    ← @servicar/core (port)
-      → MockTicketRepository ← next/src/modules/*/infrastructure/ (adaptador)
-      → MockStore            ← next/src/lib/mock/store.ts
+  → ViewModel hook (useEffect + useState + refreshKey)
+      → ticketModule / empleadoModule / authModule (service locators en next/src/modules/)
+      → use cases / queries  ← @servicar/core (application layer, async)
+      → ITicketRepository    ← @servicar/core (port, métodos retornan Promise<>)
+      → MockTicketRepository ← @servicar/core (Promise.resolve)
+      → MockStore            ← @servicar/core (shared/infrastructure/mock/store.ts)
 ```
 
-**`@servicar/core`** (`packages/core/`) — dominio + aplicación. Cero dependencias de React, Next.js, o browser APIs. Una futura app Vue importa esto directamente.
+**`@servicar/core`** (`packages/core/`) — dominio + aplicación + infraestructura (mock y PocketBase). Todo en un solo package. Cero dependencias de React, Next.js, o browser APIs.
 
-**`@servicar/persistence-mock`** (`persistence/mock/`) — adaptadores de persistencia en localStorage. Contiene `MockStore`, seed data, repositorios, mappers. Sin React. Cuando llegue Convex, se crea `persistence/convex/` en paralelo — core y UI no se tocan.
-
-**`next/src/modules/`** — solo service locators (`ticket-module.ts`, `empleado-module.ts`). Importan de `@servicar/core` (use cases) y `@servicar/persistence-mock` (repositorios). Para migrar a Convex: cambiar los imports de repositorios en estos 2 archivos.
+**`next/src/modules/`** — solo service locators (`ticket-module.ts`, `empleado-module.ts`, `auth-module.ts`). Importan de `@servicar/core`. Para migrar a PocketBase: cambiar el flag `NEXT_PUBLIC_USE_MOCK=false` — los service locators ya tienen la lógica condicional.
 
 **`next/src/presentation/`** contiene coordinators, ViewModels y Views. Views son JSX puro (solo props). ViewModels son hooks de React que usan los módulos. Thin shells (`page.tsx`) ensamblan todo.
 
@@ -143,15 +151,23 @@ src/
 │       ├── nuevo/page.tsx        ← thin shell → NuevoTicketView
 │       └── [id]/editar/page.tsx  ← thin shell → EditarTicketView
 │
-├── lib/                          ← legacy — solo hooks.ts permanece
+├── lib/
+│   ├── db.ts                     ← fachada legacy (re-exporta desde @servicar/persistence-mock y @servicar/core). No usar en código nuevo.
+│   ├── auth/
+│   │   ├── session.port.ts       ← IAuthSessionService + SessionPayload (puerto de sesión)
+│   │   ├── mock-session.service.ts ← MockSessionService implements IAuthSessionService (localStorage)
+│   │   ├── pb-session.service.ts ← PbSessionService implements IAuthSessionService (pb.authStore)
+│   │   └── index.ts              ← authSession singleton (hoy = MockSessionService, swap = 2 líneas)
 │   └── mock/
-│       └── hooks.ts              ← React hooks sobre MockStore (único archivo con "use client" fuera de app/)
+│       └── hooks.ts              ← React hooks sobre MockStore (único "use client" fuera de app/)
 │
 ├── modules/                      ← SOLO service locators
+│   ├── auth/infrastructure/
+│   │   └── auth-module.ts        ← AutenticarUseCase + MockAuthProvider | PbAuthProvider
 │   ├── ticket/infrastructure/
-│   │   └── ticket-module.ts      ← importa use cases de @servicar/core + repos de @servicar/persistence-mock
+│   │   └── ticket-module.ts      ← importa use cases + repos de @servicar/core
 │   └── empleado/infrastructure/
-│       └── empleado-module.ts    ← importa use cases de @servicar/core + repo de @servicar/persistence-mock
+│       └── empleado-module.ts    ← importa queries + repo de @servicar/core
 │
 ├── presentation/                 ← MVVM-C (cross-cutting)
 │   ├── coordinators/
@@ -171,11 +187,15 @@ src/
 │   └── hooks/
 │       └── useStoreReactive.ts   ← useReducer + mockStore.subscribe para reactivity
 │
-├── components/                   ← Once UI shell (RouteGuard, Providers, etc.)
-└── resources/
-    ├── custom.css                ← tokens --sp-* + clases .sp-*
-    ├── icons.ts                  ← iconLibrary para Once UI (react-icons)
-    └── once-ui.config.ts         ← tema, rutas, fuentes
+├── components/                   ← Once UI shell (RouteGuard, Providers, Header, Footer, ThemeToggle)
+├── resources/
+│   ├── custom.css                ← tokens --sp-* + clases .sp-*
+│   ├── icons.ts                  ← iconLibrary para Once UI (react-icons)
+│   ├── once-ui.config.ts         ← tema, rutas, fuentes
+│   ├── content.tsx               ← metadatos del sitio (remanente template Once UI)
+│   └── index.ts                  ← barrel resources
+├── types/                        ← tipos del template Once UI (config.types, content.types)
+└── utils/                        ← helpers del template (formatDate, utils)
 ```
 
 ---
@@ -205,11 +225,13 @@ Tamaños: login 260×102px, admin sidebar 180×71px, mecánico topbar 100×39px,
 
 Tres usuarios accesibles desde el panel de acceso rápido en `/login`:
 
-| Nombre | Rol | Email | authId |
-|---|---|---|---|
-| Juan Pérez | mecanico | juan.perez@servicar.com | auth_juan |
-| M. Rodriguez | mecanico | m.rodriguez@servicar.com | auth_rodriguez |
-| Admin Taller | admin | admin@servicar.com | auth_admin |
+| Nombre | Rol | Email |
+|---|---|---|
+| Juan Pérez | mecanico | juan.perez@servicar.com |
+| M. Rodriguez | mecanico | m.rodriguez@servicar.com |
+| Admin Taller | admin | admin@servicar.com |
+
+El panel de acceso rápido llama `signIn(emp.email, "")` — `MockAuthProvider` ignora el password en dev.
 
 7 tickets seed que cubren todos los estados. Persisten en localStorage entre recargas.
 
@@ -220,18 +242,17 @@ Tres usuarios accesibles desde el panel de acceso rápido en `/login`:
 ### Imports
 
 ```typescript
-// ✅ Tipos y lógica de dominio/aplicación — desde @servicar/core
-import type { Ticket, TicketEstado, Empleado } from "@servicar/core";
-import type { ICrearTicketUseCase, IGetTicketsQuery } from "@servicar/core";
-import { CrearTicketUseCase, GetTicketsQuery } from "@servicar/core";
-
-// ✅ Tipos de persistence (Mock*, seed data, mockStore) — desde @servicar/persistence-mock
-import type { MockTicket, MockEmpleado } from "@servicar/persistence-mock";
-import { mockStore, MockTicketRepository } from "@servicar/persistence-mock";
+// ✅ Tipos y lógica de dominio/aplicación/infraestructura — siempre desde @servicar/core
+import type { Ticket, TicketEstado, Empleado, Sesion } from "@servicar/core";
+import type { ICrearTicketUseCase, IGetTicketsQuery, IAutenticarUseCase } from "@servicar/core";
+import { CrearTicketUseCase, GetTicketsQuery, MockAuthProvider } from "@servicar/core";
+import type { MockTicket, MockEmpleado } from "@servicar/core";
+import { mockStore, MockTicketRepository } from "@servicar/core";
 
 // ✅ Service locators — desde modules de next
 import { ticketModule }   from "@/modules/ticket/infrastructure/ticket-module";
 import { empleadoModule } from "@/modules/empleado/infrastructure/empleado-module";
+import { authModule }     from "@/modules/auth/infrastructure/auth-module";
 
 // ✅ Coordinators — interfaces en ViewModels, clases concretas en thin shells
 import type { IAdminCoordinator }    from "@/presentation/coordinators";
@@ -244,14 +265,14 @@ import { useTickets } from "@/lib/db";   // lib/db obsoleto, no usar en código 
 ### Regla de dependencia
 
 ```
-@servicar/core            — solo TypeScript puro, cero browser/React
-  └── shared/domain ← ticket/domain + application ← empleado/domain + application
-
-@servicar/persistence-mock — localStorage + seed data, cero React
-  └── depende de @servicar/core (implementa sus puertos)
+@servicar/core            — TypeScript puro, cero browser/React
+  └── shared/domain
+      ← auth/domain + application + infrastructure
+      ← ticket/domain + application + infrastructure
+      ← empleado/domain + application + infrastructure
 
 next/src/
-  └── modules/*/infrastructure/   ← service locators: @servicar/core + @servicar/persistence-mock
+  └── modules/*/infrastructure/   ← service locators: instancian desde @servicar/core
   └── lib/mock/hooks.ts           ← único punto de React sobre MockStore
   └── presentation/coordinators/  ← solo IRouter + interfaces propias
   └── presentation/view-models/   ← importa modules + coordinators
@@ -259,11 +280,60 @@ next/src/
   └── app/*/page.tsx              ← thin shell: Coordinator + ViewModel + View
 ```
 
-`@servicar/core` y `@servicar/persistence-mock` nunca importan React. Si tienen `"use client"` o `import { useState }`, es un error.
+`@servicar/core` nunca importa React. Si tiene `"use client"` o `import { useState }`, es un error.
+
+### Auth — dos capas independientes
+
+**Capa 1 — Verificación de credenciales** (`auth-module.ts` + `IAuthProvider`):
+- `authModule.autenticar.execute({ email, password })` → `Sesion | null`
+- `Sesion` es un value object: `{ empleadoId: string, rol: Rol }` — no tiene repositorio
+- En mock: `MockAuthProvider` busca por email en MockStore, ignora password
+- En PocketBase: `PbAuthProvider` llama `pb.collection("users").authWithPassword()`
+
+**Capa 2 — Sesión de browser** (`IAuthSessionService` en `next/src/lib/auth/`):
+- Guarda/lee `{ empleadoId }` en localStorage (mock) o en `pb.authStore` (PocketBase)
+- Los ViewModels usan `authSession` para saber si hay sesión activa
+
+```typescript
+import { authSession } from "@/lib/auth";
+import { authModule } from "@/modules/auth/infrastructure/auth-module";
+
+// Login:
+const sesion = await authModule.autenticar.execute({ email, password });
+if (sesion) authSession.setSession({ empleadoId: sesion.empleadoId });
+
+// Verificar sesión en ViewModel:
+const session = authSession.getSession();  // SessionPayload | null
+authSession.clearSession();                // logout
+```
+
+Para cambiar de mock a PocketBase: descomentar 3 líneas en `auth/index.ts` (sesión en pb.authStore):
+```typescript
+// import { getPocketBase } from "@servicar/core";
+// import { PbSessionService } from "./pb-session.service";
+// export const authSession: IAuthSessionService = new PbSessionService(getPocketBase());
+export const authSession: IAuthSessionService = new MockSessionService();
+```
+
+El `auth-module.ts` ya usa `PbAuthProvider` cuando `NEXT_PUBLIC_USE_MOCK=false` — sin cambios adicionales.
+
+`SessionPayload = { empleadoId: string }` — la sesión solo guarda el ID. El `Empleado` completo se resuelve en el ViewModel con `empleadoModule.getEmpleadoById.execute(session.empleadoId)`.
+
+---
 
 ### MockStore — reactividad
 
-`useStoreVersion()` en `hooks.ts` suscribe al `mockStore` (de `@servicar/persistence-mock`) y fuerza re-render en cada `notify()`. Toda mutación debe terminar con `mockStore.notify()`. Si el store cambia pero la UI no actualiza, este es el lugar a revisar.
+`useStoreReactive()` en `presentation/hooks/useStoreReactive.ts` suscribe al `mockStore` y devuelve un `number` (`refreshKey`) que incrementa en cada `notify()`. Los ViewModels usan ese `refreshKey` como dependencia de `useEffect` para re-fetch async cuando el store cambia:
+
+```typescript
+const refreshKey = useStoreReactive();
+const [tickets, setTickets] = useState<Ticket[]>([]);
+useEffect(() => {
+  ticketModule.getTickets.execute().then(setTickets);
+}, [refreshKey]);
+```
+
+Toda mutación termina con `mockStore.notify()`. Si el store cambia pero la UI no actualiza, revisar: (1) que `notify()` se llame, (2) que `refreshKey` esté en el array de dependencias del `useEffect`.
 
 ### Z-index reference
 
@@ -283,12 +353,35 @@ mecánico overlay:  z-index 5   ← DEBE ser < 10
 - **Portal cliente `/ticket/[id]`** — público, sin auth, lookup por ID exacto. Próxima tarea.
 - Módulo offline/drafts (postergado intencionalmente)
 
-### Futuro — Convex
+### Tests
 
-Cuando haya cuenta Convex:
-1. Crear `persistence/convex/` con `ConvexTicketRepository` y `ConvexEmpleadoRepository`
-2. Cambiar imports en `ticket-module.ts` y `empleado-module.ts` (de `@servicar/persistence-mock` a `@servicar/persistence-convex`)
-3. `@servicar/core` y toda la UI: sin tocar
+```bash
+pnpm --filter @servicar/core test   # 76 tests — entidades, use cases, auth, store, repos
+```
+
+Todo en `@servicar/core`. Desglose:
+- `__tests__/` — entidades (14), crear-ticket (6), cambiar-estado (7), editar-ticket (4)
+- `__tests__/auth/` — `autenticar.use-case.test.ts` (3), `mock-auth.provider.test.ts` (3)
+- `__tests__/persistence/mock/` — `mock-store.test.ts` (26), `mock-ticket-repository.test.ts` (12), `mock-empleado-repository.test.ts` (3)
+
+---
+
+### PocketBase — pasos para conectar
+
+**Infraestructura:** PocketBase corre en `http://192.168.0.84:8090` (red local, devcontainer tiene acceso directo). `next/.env.local` ya tiene `PB_URL=http://192.168.0.84:8090`.
+
+**Nota v0.23+:** PocketBase v0.23+ usa `pb.collection("_superusers").authWithPassword()` — el método `pb.admins.authWithPassword()` ya no existe.
+
+Estado actual:
+- [x] `@servicar/core` incluye infraestructura PocketBase (repos, `PbStore`, `PbAuthProvider`)
+- [x] `PbSessionService` creado y listo para activar
+- [x] `PbAuthProvider` listo — se activa automáticamente con `NEXT_PUBLIC_USE_MOCK=false`
+- [x] Seed ejecutado — colecciones `tickets` + `historial_ediciones` + 3 empleados + 7 tickets en PB real
+- [x] `pb-client.ts` lee `NEXT_PUBLIC_PB_URL` del entorno
+- [x] `next/.env.local` → `NEXT_PUBLIC_PB_URL=http://192.168.0.84:8090`, `NEXT_PUBLIC_USE_MOCK=false`
+- [ ] En `ticket-module.ts` y `empleado-module.ts`: cambiar repos de Mock a PocketBase (condicional por `isMock` ya está en empleado-module; ticket-module necesita igual tratamiento)
+- [ ] En `useStoreReactive.ts`: suscribir a `pbStore` en lugar de `mockStore`
+- [ ] En `next/src/lib/auth/index.ts`: descomentar las 3 líneas de `PbSessionService`
 
 ---
 

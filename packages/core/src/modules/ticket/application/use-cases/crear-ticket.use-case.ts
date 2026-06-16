@@ -6,9 +6,9 @@ import type { ICrearTicketUseCase } from "../ports-in/crear-ticket.use-case.port
 export class CrearTicketUseCase implements ICrearTicketUseCase {
   constructor(private readonly ticketRepo: ITicketRepository) {}
 
-  execute(dto: CrearTicketDTO): string {
+  async execute(dto: CrearTicketDTO): Promise<string> {
     const ticket = Ticket.create(dto); // emite CREACION en pendingHistorial
-    this.ticketRepo.save(ticket);      // persiste ticket + drena pendingHistorial
+    await this.ticketRepo.save(ticket); // persiste ticket + drena pendingHistorial
     return ticket.id;
   }
 }

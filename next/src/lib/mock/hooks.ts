@@ -6,6 +6,8 @@
 import { useEffect, useReducer, useCallback } from "react";
 import { mockStore } from "@servicar/persistence-mock";
 import type { TicketEstado, TicketCategoria } from "@servicar/persistence-mock";
+import { authSession } from "@/lib/auth";
+import { authModule } from "../../modules/auth/infrastructure/auth-module";
 
 // Fuerza re-render cuando el store notifica cambios
 function useStoreVersion() {
@@ -15,24 +17,16 @@ function useStoreVersion() {
 
 // ── Sesión mock ────────────────────────────────────────────────────────────
 
-const SESSION_KEY = "servicar_mock_session";
-
 export function getMockSession() {
-  if (typeof window === "undefined") return null;
-  try {
-    const s = localStorage.getItem(SESSION_KEY);
-    return s ? JSON.parse(s) : null;
-  } catch {
-    return null;
-  }
+  return authSession.getSession();
 }
 
 export function setMockSession(empleadoId: string) {
-  localStorage.setItem(SESSION_KEY, JSON.stringify({ empleadoId }));
+  authSession.setSession({ empleadoId });
 }
 
 export function clearMockSession() {
-  localStorage.removeItem(SESSION_KEY);
+  authSession.clearSession();
   mockStore.notify();
 }
 
@@ -116,11 +110,11 @@ export function useMockCambiarEstado() {
 }
 
 export function useMockSignIn() {
-  return useCallback((authId: string) => {
-    const empleado = mockStore.getEmpleadoByAuth(authId);
-    if (!empleado) throw new Error("Credenciales inválidas");
-    setMockSession(empleado._id);
-    return empleado;
+  return useCallback(async (email: string, password: string) => {
+    const sesion = await authModule.autenticar.execute({ email, password });
+    if (!sesion) return null;
+    authSession.setSession({ empleadoId: sesion.empleadoId });
+    return sesion;
   }, []);
 }
 

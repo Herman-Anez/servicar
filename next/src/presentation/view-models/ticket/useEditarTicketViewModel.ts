@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useStoreReactive } from "@/presentation/hooks/useStoreReactive";
-import { getMockSession } from "@/lib/mock/hooks";
+import { authSession } from "@/lib/auth";
 import { ticketModule } from "@/modules/ticket/infrastructure/ticket-module";
 import { empleadoModule } from "@/modules/empleado/infrastructure/empleado-module";
 import type { Ticket } from "@servicar/core";
@@ -34,29 +34,39 @@ export interface EditarTicketVM {
 }
 
 export function useEditarTicketViewModel(ticketId: string, coordinator: IMecanicoCoordinator): EditarTicketVM {
-  useStoreReactive();
+  const refreshKey = useStoreReactive();
 
-  const session = getMockSession();
-  const empleado = session ? empleadoModule.getEmpleadoById.execute(session.empleadoId) : null;
-  const ticket = ticketModule.getTicketById.execute(ticketId);
-
+  const [empleado, setEmpleado] = useState<Empleado | null>(null);
+  const [ticket, setTicket] = useState<Ticket | null>(null);
   const [form, setForm] = useState<EditarTicketFormState>({
-    matricula: ticket?.matricula ?? "",
-    categoria: ticket?.categoria ?? "mantenimiento",
-    titulo: ticket?.titulo ?? "",
-    descripcion: ticket?.descripcion ?? "",
+    matricula: "",
+    categoria: "mantenimiento",
+    titulo: "",
+    descripcion: "",
   });
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
   const [initialized, setInitialized] = useState(false);
 
+  const session = authSession.getSession();
+
   useEffect(() => {
-    if (ticket && !initialized) {
-      setForm({ matricula: ticket.matricula, categoria: ticket.categoria, titulo: ticket.titulo, descripcion: ticket.descripcion });
-      setInitialized(true);
-    }
-  }, [ticket?.id]);
+    if (!session) { setEmpleado(null); return; }
+    empleadoModule.getEmpleadoById.execute(session.empleadoId).then(setEmpleado);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session?.empleadoId, refreshKey]);
+
+  useEffect(() => {
+    ticketModule.getTicketById.execute(ticketId).then((t) => {
+      setTicket(t);
+      if (t && !initialized) {
+        setForm({ matricula: t.matricula, categoria: t.categoria, titulo: t.titulo, descripcion: t.descripcion });
+        setInitialized(true);
+      }
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ticketId, refreshKey]);
 
   const viewState: EditarTicketViewState = !ticket
     ? "loading"
@@ -84,7 +94,7 @@ export function useEditarTicketViewModel(ticketId: string, coordinator: IMecanic
     return "";
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const err = validate();
     if (err) { setError(err); return; }
     if (!empleado || !ticket) return;
@@ -92,7 +102,7 @@ export function useEditarTicketViewModel(ticketId: string, coordinator: IMecanic
     setError("");
     setSubmitting(true);
     try {
-      ticketModule.editarTicket.execute({
+      await ticketModule.editarTicket.execute({
         ticketId: ticket.id,
         empleadoId: empleado.id,
         campos: { matricula: form.matricula.trim(), categoria: form.categoria, titulo: form.titulo.trim(), descripcion: form.descripcion.trim() },

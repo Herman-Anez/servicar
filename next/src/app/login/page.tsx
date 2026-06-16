@@ -4,10 +4,6 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSignIn, useAuth, MOCK_EMPLEADOS } from "@/lib/db";
 
-const EMAIL_TO_AUTH: Record<string, string> = Object.fromEntries(
-  MOCK_EMPLEADOS.map((e) => [e.email, e.identificadorAutenticacion])
-);
-
 const ShieldIcon = () => (
   <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
     <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
@@ -50,25 +46,24 @@ export default function LoginPage() {
     }
   }, [isAuthenticated, empleado, router]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     if (!email.trim() || !password.trim()) { setError("Completa todos los campos."); return; }
-    const authId = EMAIL_TO_AUTH[email.trim().toLowerCase()];
-    if (!authId) { setError("Email no reconocido."); return; }
     setLoading(true);
     try {
-      const emp = signIn(authId);
-      router.replace(emp.rol === "admin" ? "/admin/cola" : "/dashboard");
+      const sesion = await signIn(email.trim().toLowerCase(), password);
+      if (!sesion) { setError("Credenciales inválidas."); setLoading(false); return; }
+      router.replace(sesion.rol === "admin" ? "/admin/cola" : "/dashboard");
     } catch {
       setError("Credenciales inválidas.");
       setLoading(false);
     }
   };
 
-  const loginAs = (authId: string) => {
-    const emp = signIn(authId);
-    router.replace(emp.rol === "admin" ? "/admin/cola" : "/dashboard");
+  const loginAs = async (email: string) => {
+    const sesion = await signIn(email, "");
+    if (sesion) router.replace(sesion.rol === "admin" ? "/admin/cola" : "/dashboard");
   };
 
   return (
@@ -206,7 +201,7 @@ export default function LoginPage() {
             {MOCK_EMPLEADOS.map((emp) => (
               <button
                 key={emp._id}
-                onClick={() => loginAs(emp.identificadorAutenticacion)}
+                onClick={() => loginAs(emp.email)}
                 style={{
                   display: "flex", alignItems: "center", justifyContent: "space-between",
                   padding: "8px 12px", borderRadius: 8, cursor: "pointer",

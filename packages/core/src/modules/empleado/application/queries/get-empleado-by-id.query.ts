@@ -4,7 +4,7 @@ import type { IGetEmpleadoByIdQuery } from "../ports-in/get-empleado-by-id.query
 export class GetEmpleadoByIdQuery implements IGetEmpleadoByIdQuery {
   constructor(private readonly empleadoRepo: IEmpleadoRepository) {}
 
-  execute(id: string): Empleado | null {
+  execute(id: string): Promise<Empleado | null> {
     return this.empleadoRepo.getById(id);
   }
 }

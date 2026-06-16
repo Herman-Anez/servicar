@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useStoreReactive } from "@/presentation/hooks/useStoreReactive";
-import { getMockSession } from "@/lib/mock/hooks";
+import { authSession } from "@/lib/auth";
 import { ticketModule } from "@/modules/ticket/infrastructure/ticket-module";
 import { empleadoModule } from "@/modules/empleado/infrastructure/empleado-module";
 import type { Ticket } from "@servicar/core";
@@ -31,22 +31,37 @@ function isActivo(estado: TicketEstado) {
 }
 
 export function useTicketsViewModel(coordinator: IAdminCoordinator): TicketsVM {
-  useStoreReactive();
+  const refreshKey = useStoreReactive();
   const [busqueda, setBusqueda] = useState("");
   const [filtroCat, setFiltroCat] = useState("");
+  const [empleado, setEmpleado] = useState<Empleado | null>(null);
+  const [todosTickets, setTodosTickets] = useState<Ticket[]>([]);
+  const [todosEmpleados, setTodosEmpleados] = useState<Empleado[]>([]);
 
-  const session = getMockSession();
-  const empleado = session ? empleadoModule.getEmpleadoById.execute(session.empleadoId) : null;
+  const session = authSession.getSession();
 
-  const todosTickets = ticketModule.getTickets.execute();
-  const todosEmpleados = empleadoModule.getEmpleados.execute();
+  useEffect(() => {
+    if (!session) { setEmpleado(null); return; }
+    empleadoModule.getEmpleadoById.execute(session.empleadoId).then(setEmpleado);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session?.empleadoId, refreshKey]);
+
+  useEffect(() => {
+    Promise.all([
+      ticketModule.getTickets.execute(),
+      empleadoModule.getEmpleados.execute(),
+    ]).then(([tickets, empleados]) => {
+      setTodosTickets(tickets);
+      setTodosEmpleados(empleados);
+    });
+  }, [refreshKey]);
+
   const empleadoMap = Object.fromEntries(todosEmpleados.map((e) => [e.id, e]));
 
   const categorias = useMemo(() => {
     const set = new Set(todosTickets.map((t) => t.categoria));
     return Array.from(set);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [todosTickets.length]);
+  }, [todosTickets]);
 
   const filtered = useMemo(() => {
     let list = todosTickets;
@@ -56,16 +71,15 @@ export function useTicketsViewModel(coordinator: IAdminCoordinator): TicketsVM {
     }
     if (filtroCat) list = list.filter((t) => t.categoria === filtroCat);
     return list;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [todosTickets.length, busqueda, filtroCat]);
+  }, [todosTickets, busqueda, filtroCat]);
 
   const activos    = filtered.filter((t) => isActivo(t.estado));
   const bloqueados = filtered.filter((t) => t.estado === "bloqueado");
   const finalizados = filtered.filter((t) => t.estado === "finalizado");
 
-  const onAction = (ticketId: string, next: TicketEstado) => {
+  const onAction = async (ticketId: string, next: TicketEstado) => {
     if (!empleado) return;
-    ticketModule.cambiarEstado.execute({ ticketId, empleadoId: empleado.id, nuevoEstado: next });
+    await ticketModule.cambiarEstado.execute({ ticketId, empleadoId: empleado.id, nuevoEstado: next });
   };
 
   const onVerHistorial = (ticketId: string) => coordinator.goToHistorial(ticketId);

@@ -5,7 +5,7 @@ import type { IGetTicketsPorCreadorQuery } from "../ports-in/get-tickets-por-cre
 export class GetTicketsPorCreadorQuery implements IGetTicketsPorCreadorQuery {
   constructor(private readonly ticketRepo: ITicketRepository) {}
 
-  execute(creadorId: string): Ticket[] {
+  execute(creadorId: string): Promise<Ticket[]> {
     return this.ticketRepo.getByCreador(creadorId);
   }
 }

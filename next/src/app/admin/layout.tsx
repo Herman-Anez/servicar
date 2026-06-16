@@ -13,9 +13,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const vm = useAdminLayoutViewModel(coordinator);
 
   useEffect(() => {
+    if (vm.loading) return;
     if (!vm.empleado) { coordinator.goToLogin(); return; }
     if (vm.empleado.rol !== "admin") router.replace("/dashboard");
-  }, [vm.empleado, coordinator, router]);
+  }, [vm.empleado, vm.loading, coordinator, router]);
 
   useEffect(() => { vm.setSidebarOpen(false); }, [pathname]);
 

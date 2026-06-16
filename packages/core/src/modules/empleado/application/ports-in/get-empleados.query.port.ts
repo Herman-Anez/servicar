@@ -1,5 +1,5 @@
 import type { Empleado } from "../../domain";
 
 export interface IGetEmpleadosQuery {
-  execute(): Empleado[];
+  execute(): Promise<Empleado[]>;
 }

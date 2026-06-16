@@ -1,0 +1,9 @@
+packages:
+  - "packages/*"
+  - "next"
+
+allowBuilds:
+  '@biomejs/biome': false
+  '@parcel/watcher': false
+  esbuild: false
+  sharp: false

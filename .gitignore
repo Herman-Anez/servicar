@@ -1,3 +1,5 @@
-next/node_modules
+*/node_modules
 .pnpm-store
 .next
+graphify-out
+node_modules

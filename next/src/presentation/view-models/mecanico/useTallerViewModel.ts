@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useStoreReactive } from "@/presentation/hooks/useStoreReactive";
-import { getMockSession } from "@/lib/mock/hooks";
+import { authSession } from "@/lib/auth";
 import { ticketModule } from "@/modules/ticket/infrastructure/ticket-module";
 import { empleadoModule } from "@/modules/empleado/infrastructure/empleado-module";
 import type { Ticket } from "@servicar/core";
@@ -34,15 +34,24 @@ export interface TallerVM {
 }
 
 export function useTallerViewModel(coordinator: IMecanicoCoordinator): TallerVM {
-  useStoreReactive();
+  const refreshKey = useStoreReactive();
 
   const [busqueda, setBusqueda] = useState("");
   const [filtro, setFiltro] = useState<FilterEstado>("todos");
+  const [empleado, setEmpleado] = useState<Empleado | null>(null);
+  const [tickets, setTickets] = useState<Ticket[]>([]);
 
-  const session = getMockSession();
-  const empleado = session ? empleadoModule.getEmpleadoById.execute(session.empleadoId) : null;
+  const session = authSession.getSession();
 
-  const tickets = ticketModule.getTickets.execute();
+  useEffect(() => {
+    if (!session) { setEmpleado(null); return; }
+    empleadoModule.getEmpleadoById.execute(session.empleadoId).then(setEmpleado);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session?.empleadoId, refreshKey]);
+
+  useEffect(() => {
+    ticketModule.getTickets.execute().then(setTickets);
+  }, [refreshKey]);
 
   const filtrados = useMemo(() => {
     let list = tickets;

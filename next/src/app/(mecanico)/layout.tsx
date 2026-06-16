@@ -13,8 +13,9 @@ export default function MecanicoLayout({ children }: { children: React.ReactNode
   const vm = useMecanicoLayoutViewModel(coordinator);
 
   useEffect(() => {
+    if (vm.loading) return;
     if (!vm.empleado) coordinator.goToLogin();
-  }, [vm.empleado, coordinator]);
+  }, [vm.empleado, vm.loading, coordinator]);
 
   return <MecanicoLayoutView {...vm} pathname={pathname}>{children}</MecanicoLayoutView>;
 }

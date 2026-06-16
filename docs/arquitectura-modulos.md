@@ -85,22 +85,33 @@ src/
 │   │       │   (futuro: convex/)      ← adaptador Convex — mismo slot
 │   │       └── ticket-module.ts       ← service locator / DI manual
 │   │
+│   ├── auth/                          ← Bounded Context: Auth ✅
+│   │   ├── domain/
+│   │   │   ├── entities/
+│   │   │   │   └── sesion.entity.ts  ← Sesion VO: { empleadoId, rol } — no extiende AggregateRoot
+│   │   │   ├── ports/
+│   │   │   │   └── auth.provider.port.ts ← IAuthProvider { autenticar(email, pwd): Promise<{...}|null> }
+│   │   │   └── index.ts
+│   │   ├── application/
+│   │   │   ├── dtos/autenticar.dto.ts
+│   │   │   ├── ports-in/autenticar.use-case.port.ts ← IAutenticarUseCase
+│   │   │   ├── use-cases/autenticar.use-case.ts
+│   │   │   └── index.ts
+│   │   └── infrastructure/
+│   │       ├── mock/mock-auth.provider.ts     ← busca por email en MockStore, ignora password
+│   │       └── pocketbase/pb-auth.provider.ts ← authWithPassword vía PocketBase
+│   │
 │   └── empleado/                      ← Bounded Context: Empleado ✅
 │       ├── domain/
 │       │   ├── entities/
-│       │   │   └── empleado.entity.ts ← Empleado (reconstitute + getters)
+│       │   │   └── empleado.entity.ts ← Empleado: { id, nombre, email, rol } — sin authId
 │       │   ├── ports/
-│       │   │   └── empleado.repository.port.ts ← IEmpleadoRepository
+│       │   │   └── empleado.repository.port.ts ← IEmpleadoRepository { getAll, getById }
 │       │   └── index.ts
 │       ├── application/
-│       │   ├── dtos/
-│       │   │   └── autenticar-empleado.dto.ts
 │       │   ├── ports-in/
-│       │   │   ├── autenticar-empleado.use-case.port.ts
 │       │   │   ├── get-empleado-by-id.query.port.ts
 │       │   │   └── get-empleados.query.port.ts
-│       │   ├── use-cases/
-│       │   │   └── autenticar-empleado.use-case.ts
 │       │   ├── queries/
 │       │   │   ├── get-empleado-by-id.query.ts
 │       │   │   └── get-empleados.query.ts
@@ -199,16 +210,16 @@ m.equals(new Matricula("4829-KXL")) // true
 Interfaces que el dominio define y que la infraestructura debe implementar. El dominio solo conoce la interfaz, nunca la implementación concreta.
 
 ```typescript
-// ITicketRepository — un repositorio por AR
-getAll(): Ticket[]
-getById(id: string): Ticket | null
-getByEstado(estado: TicketEstado): Ticket[]
-getByCreador(creadorId: string): Ticket[]
-save(ticket: Ticket): void  // persiste ticket + drena ticket.pendingHistorial
+// ITicketRepository — un repositorio por AR (todos async para compatibilidad HTTP)
+getAll(): Promise<Ticket[]>
+getById(id: string): Promise<Ticket | null>
+getByEstado(estado: TicketEstado): Promise<Ticket[]>
+getByCreador(creadorId: string): Promise<Ticket[]>
+save(ticket: Ticket): Promise<void>  // persiste ticket + drena ticket.pendingHistorial
 
 // IHistorialRepository — read model (solo lectura)
 // HistorialEntry solo se ESCRIBE a través de ITicketRepository.save()
-getByTicket(ticketId: string): HistorialEntry[]
+getByTicket(ticketId: string): Promise<HistorialEntry[]>
 ```
 
 ---
@@ -232,15 +243,15 @@ interface CambiarEstadoDTO { ticketId, empleadoId, nuevoEstado, notaAdmin? }
 Interfaces que los use cases y queries implementan. La capa de presentación (ViewModels) solo conoce estas interfaces — nunca instancia directamente un `CrearTicketUseCase`.
 
 ```typescript
-interface ICrearTicketUseCase   { execute(dto: CrearTicketDTO): string }
-interface IEditarTicketUseCase  { execute(dto: EditarTicketDTO): void }
-interface ICambiarEstadoUseCase { execute(dto: CambiarEstadoDTO): void }
+interface ICrearTicketUseCase   { execute(dto: CrearTicketDTO): Promise<string> }
+interface IEditarTicketUseCase  { execute(dto: EditarTicketDTO): Promise<void> }
+interface ICambiarEstadoUseCase { execute(dto: CambiarEstadoDTO): Promise<void> }
 
-interface IGetTicketsQuery           { execute(): Ticket[] }
-interface IGetTicketByIdQuery        { execute(id: string): Ticket | null }
-interface IGetTicketsPorEstadoQuery  { execute(estado: TicketEstado): Ticket[] }
-interface IGetTicketsPorCreadorQuery { execute(creadorId: string): Ticket[] }
-interface IGetHistorialQuery         { execute(ticketId: string): HistorialEntry[] }
+interface IGetTicketsQuery           { execute(): Promise<Ticket[]> }
+interface IGetTicketByIdQuery        { execute(id: string): Promise<Ticket | null> }
+interface IGetTicketsPorEstadoQuery  { execute(estado: TicketEstado): Promise<Ticket[]> }
+interface IGetTicketsPorCreadorQuery { execute(creadorId: string): Promise<Ticket[]> }
+interface IGetHistorialQuery         { execute(ticketId: string): Promise<HistorialEntry[]> }
 ```
 
 #### Use Cases
@@ -252,12 +263,13 @@ Cada clase recibe sus dependencias por constructor (inyección de dependencias).
 class CambiarEstadoUseCase implements ICambiarEstadoUseCase {
   constructor(private ticketRepo: ITicketRepository) {}   // solo ticketRepo
 
-  execute(dto: CambiarEstadoDTO): void {
-    const ticket = this.ticketRepo.getById(dto.ticketId);
+  async execute(dto: CambiarEstadoDTO): Promise<void> {
+    const ticket = await this.ticketRepo.getById(dto.ticketId);
+    if (!ticket) throw new Error(`Ticket ${dto.ticketId} no encontrado.`);
     // AR valida transición Y emite HistorialEntry internamente
     const actualizado = ticket.cambiarEstado(dto.nuevoEstado, dto.empleadoId, dto.notaAdmin);
     // save() persiste ticket + drena actualizado.pendingHistorial
-    this.ticketRepo.save(actualizado);
+    await this.ticketRepo.save(actualizado);
   }
 }
 ```
@@ -286,20 +298,25 @@ entityToMockTicket(ticket: Ticket): MockTicket      // Ticket → MockTicket
 entityToMockHistorial(entry: HistorialEntry): MockHistorial
 ```
 
-`MockTicketRepository.save()` persiste el ticket **y** drena `ticket.pendingHistorial`:
+`MockTicketRepository.save()` persiste el ticket **y** drena `ticket.pendingHistorial`. Todos los métodos envuelven en `Promise.resolve()` para cumplir las interfaces async:
 
 ```typescript
-save(ticket: Ticket): void {
+save(ticket: Ticket): Promise<void> {
   this.store.upsertTicket(entityToMockTicket(ticket));
   for (const entry of ticket.pendingHistorial) {
     this.store.appendHistorial(entityToMockHistorial(entry));
   }
+  return Promise.resolve();
+}
+
+getAll(): Promise<Ticket[]> {
+  return Promise.resolve(this.store.getTickets().map(mockTicketToEntity));
 }
 ```
 
-`MockHistorialRepository` es **solo lectura** — solo implementa `getByTicket()`.
+`MockHistorialRepository` es **solo lectura** — solo implementa `getByTicket(): Promise<HistorialEntry[]>`.
 
-**Para migrar a Convex:** crear `ConvexTicketRepository implements ITicketRepository` en `persistence/convex/`. Solo se cambia `ticket-module.ts` — el resto del sistema no se toca.
+**Adaptador PocketBase (`persistence/pocketbase/`):** `PbTicketRepository implements ITicketRepository`. Lee de `PbStore` (caché snapshot), escribe a PocketBase (HTTP) y luego actualiza caché optimistamente. `PbStore.init()` carga todo al iniciar y activa subscripciones SSE para cambios en tiempo real. Para activar: cambiar imports en `ticket-module.ts` y `empleado-module.ts` — el dominio y Views no se tocan.
 
 #### Service Locator (`ticket-module.ts`)
 
@@ -376,22 +393,43 @@ presentation/views/
 
 #### ViewModel ✅
 
-Hook React que: llama `useStoreReactive()` para reactivity, resuelve sesión via `getMockSession()` + `empleadoModule`, orquesta `ticketModule`, transforma y devuelve el estado como interfaz plana para la View.
+Hook React que: llama `useStoreReactive()` para reactivity, resuelve sesión via `authSession.getSession()` + `empleadoModule`, orquesta `ticketModule`, transforma y devuelve el estado como interfaz plana para la View.
 
 ```typescript
-// Patrón estándar
+// Patrón estándar — async con useEffect + useState + refreshKey
 export function useColaViewModel(coordinator: IAdminCoordinator): ColaVM {
-  useStoreReactive();                                              // suscripción al store
-  const session  = getMockSession();
-  const empleado = session ? empleadoModule.getEmpleadoById.execute(session.empleadoId) : null;
-  const cola     = ticketModule.getTicketsPorEstado.execute("pendiente_revision");
-  return {
-    empleado, cola,
-    onDecision: (id, decision) =>
-      ticketModule.cambiarEstado.execute({ ticketId: id, empleadoId: empleado!.id, nuevoEstado: decision }),
-    onVerHistorial: (id) => coordinator.goToHistorial(id),
+  const refreshKey = useStoreReactive();   // número que incrementa en cada notify()
+  const session = authSession.getSession(); // SessionPayload | null — desde @/lib/auth
+
+  const [empleado, setEmpleado] = useState<Empleado | null>(null);
+  const [cola, setCola] = useState<Ticket[]>([]);
+
+  useEffect(() => {
+    if (!session) { setEmpleado(null); return; }
+    empleadoModule.getEmpleadoById.execute(session.empleadoId).then(setEmpleado);
+  }, [session?.empleadoId, refreshKey]);
+
+  useEffect(() => {
+    ticketModule.getTicketsPorEstado.execute("pendiente_revision").then(setCola);
+  }, [refreshKey]);
+
+  const onDecision = async (id: string, decision: TicketEstado) => {
+    await ticketModule.cambiarEstado.execute({
+      ticketId: id, empleadoId: empleado!.id, nuevoEstado: decision,
+    });
   };
+
+  return { empleado, cola, onDecision, onVerHistorial: (id) => coordinator.goToHistorial(id) };
 }
+```
+
+**Layouts con `loading`:** `useMecanicoLayoutViewModel` y `useAdminLayoutViewModel` exponen `loading: boolean` (inicia en `true`, pasa a `false` tras el primer fetch del empleado). Los layouts consumen esto para no redirigir a `/login` antes de que la sesión async resuelva:
+
+```typescript
+useEffect(() => {
+  if (vm.loading) return;            // esperar al fetch inicial
+  if (!vm.empleado) coordinator.goToLogin();
+}, [vm.empleado, vm.loading, coordinator]);
 ```
 
 #### Page (thin shell) ✅
@@ -469,15 +507,20 @@ Si un archivo en `domain/` o `application/` necesita:
 
 | Capa | Estado | Notas |
 |---|---|---|
-| `shared/domain` | ✅ Completo | Incluye `AggregateRoot` marker |
-| `ticket/domain` | ✅ Completo | `Ticket` y `Empleado` extienden `AggregateRoot`; `Ticket` emite `pendingHistorial` |
-| `ticket/application` | ✅ Completo | Use cases de mutación solo reciben `ITicketRepository`; `IHistorialRepository` solo en queries |
-| `ticket/infrastructure/persistence/mock` | ✅ Completo | `MockTicketRepository.save()` drena `pendingHistorial`; `MockHistorialRepository` solo lectura |
-| `empleado/domain` | ✅ Completo | `Empleado extends AggregateRoot` |
-| `empleado/application` | ✅ Completo | `AutenticarEmpleadoUseCase` + 2 queries |
-| `empleado/infrastructure/persistence/mock` | ✅ Completo | |
+| `shared/domain` | ✅ Completo | Incluye `AggregateRoot` marker, `Rol`, `TicketEstado`, `TicketCategoria` |
+| `auth/domain` | ✅ Completo | `Sesion` VO (sin AR), `IAuthProvider` |
+| `auth/application` | ✅ Completo | `AutenticarUseCase`, `IAutenticarUseCase`, `AutenticarDTO` |
+| `auth/infrastructure` | ✅ Completo | `MockAuthProvider` (email lookup) + `PbAuthProvider` (authWithPassword) |
+| `ticket/domain` | ✅ Completo | `Ticket` emite `pendingHistorial`; `Empleado` extiende `AggregateRoot` |
+| `ticket/application` | ✅ Completo | Todos los puertos retornan `Promise<>`. Solo `ITicketRepository` en mutaciones |
+| `ticket/infrastructure` | ✅ Completo | Mock (localStorage) + PocketBase (PbStore). Pendiente conectar PB en service locator |
+| `empleado/domain` | ✅ Completo | `Empleado`: id, nombre, email, rol — sin authId |
+| `empleado/application` | ✅ Completo | 2 queries (`GetEmpleadoById`, `GetEmpleados`). Auth movida a módulo `auth` |
+| `empleado/infrastructure` | ✅ Completo | Mock + PocketBase. `isMock` condicional en `empleado-module.ts` |
+| Auth session (`IAuthSessionService`) | ✅ Completo | Puerto + `MockSessionService` + `PbSessionService` + singleton `authSession`. Swap en 3 líneas |
 | `presentation/coordinators` | ✅ Completo | `AdminCoordinator` + `MecanicoCoordinator` + interfaces |
-| `presentation/hooks` | ✅ Completo | `useStoreReactive` |
+| `presentation/hooks` | ✅ Completo | `useStoreReactive` retorna `refreshKey: number` |
 | `presentation/views` | ✅ Completo | Admin (Cola/Tickets/Historial/Layout) + Mecánico (Dashboard/Taller/Fichas/Layout) + Ticket (Nuevo/Editar) + shared `EstadoChip` |
-| `presentation/view-models` | ✅ Completo | Un ViewModel por página/layout |
-| Pages → thin shells | ✅ Completo | Todas las pages migradas; `lib/db` solo queda en `login/page.tsx` |
+| `presentation/view-models` | ✅ Completo | Patrón `useEffect`/`useState`/`refreshKey`. `authSession` para sesión. `loading` en layouts |
+| Pages → thin shells | ✅ Completo | Todas las pages migradas; `lib/db` solo queda en `login/page.tsx` y `hooks.ts` |
+| Tests `@servicar/core` | ✅ **76 tests** | Entidades (14), use cases (17), auth (6), mock-store (26), repos (13). Vitest, cero DOM |
