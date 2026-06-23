@@ -1,259 +1,224 @@
-# Graph Report - servicar  (2026-06-17)
+# Graph Report - /home/hermandev/Documents/proyectos/1/servicar  (2026-06-23)
 
 ## Corpus Check
-- 170 files · ~46,781 words
+- 182 files · ~47,383 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 831 nodes · 1934 edges · 51 communities (43 shown, 8 thin omitted)
-- Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 5 edges (avg confidence: 0.85)
+- 712 nodes · 1514 edges · 44 communities (36 shown, 8 thin omitted)
+- Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 25 edges (avg confidence: 0.83)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `be30887b`
+- Built from commit: `b2b8826`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
-- [[_COMMUNITY_Interfaz y Formularios de Tickets|Interfaz y Formularios de Tickets]]
-- [[_COMMUNITY_Casos de Uso y Reglas de Negocio de Tickets|Casos de Uso y Reglas de Negocio de Tickets]]
-- [[_COMMUNITY_Configuración de Compilación TypeScript (Next.js)|Configuración de Compilación TypeScript (Next.js)]]
-- [[_COMMUNITY_Dominio de Empleados y Control de Acceso|Dominio de Empleados y Control de Acceso]]
-- [[_COMMUNITY_Coordinadores y Controladores de Navegación|Coordinadores y Controladores de Navegación]]
-- [[_COMMUNITY_Gestión de Sesión e Identidad del Empleado|Gestión de Sesión e Identidad del Empleado]]
-- [[_COMMUNITY_Capa de Persistencia Simulada (Mock)|Capa de Persistencia Simulada (Mock)]]
-- [[_COMMUNITY_Gestión de Dependencias (package.json)|Gestión de Dependencias (package.json)]]
-- [[_COMMUNITY_Reglas de Calidad y Estilo de Código (Biome)|Reglas de Calidad y Estilo de Código (Biome)]]
-- [[_COMMUNITY_Mapeo de Rutas de Compilación|Mapeo de Rutas de Compilación]]
-- [[_COMMUNITY_Configuración del Formateador de Código|Configuración del Formateador de Código]]
-- [[_COMMUNITY_Estructura y Maquetación Principal (Layout)|Estructura y Maquetación Principal (Layout)]]
-- [[_COMMUNITY_Configuración del Sistema de Diseño Once UI|Configuración del Sistema de Diseño Once UI]]
-- [[_COMMUNITY_Capa de Acceso a Datos de PocketBase|Capa de Acceso a Datos de PocketBase]]
-- [[_COMMUNITY_Entidad de Dominio y Modelo de Ticket|Entidad de Dominio y Modelo de Ticket]]
-- [[_COMMUNITY_Tipos de Recursos y Catálogo de Iconos|Tipos de Recursos y Catálogo de Iconos]]
-- [[_COMMUNITY_Servicios de Autenticación de Sesión|Servicios de Autenticación de Sesión]]
-- [[_COMMUNITY_Configuración del Paquete Core|Configuración del Paquete Core]]
-- [[_COMMUNITY_Utilidades de Enrutamiento y Datos MDX|Utilidades de Enrutamiento y Datos MDX]]
-- [[_COMMUNITY_Panel de Administración y Control de Cola|Panel de Administración y Control de Cola]]
-- [[_COMMUNITY_Entorno TypeScript del Core|Entorno TypeScript del Core]]
-- [[_COMMUNITY_Componentes Comunes de la Interfaz (CabeceraPie)|Componentes Comunes de la Interfaz (Cabecera/Pie)]]
-- [[_COMMUNITY_Glosario y Reglas de Negocio (CLAUDE.mdREADME.md)|Glosario y Reglas de Negocio (CLAUDE.md/README.md)]]
-- [[_COMMUNITY_Repositorio de Tickets de PocketBase|Repositorio de Tickets de PocketBase]]
-- [[_COMMUNITY_Pruebas Unitarias de la Entidad Ticket|Pruebas Unitarias de la Entidad Ticket]]
-- [[_COMMUNITY_Arquitectura de Despliegue y Orquestación Docker|Arquitectura de Despliegue y Orquestación Docker]]
-- [[_COMMUNITY_Guardas y Políticas de Seguridad de Rutas|Guardas y Políticas de Seguridad de Rutas]]
-- [[_COMMUNITY_Raíz del Monorepo y Espacios de Trabajo|Raíz del Monorepo y Espacios de Trabajo]]
-- [[_COMMUNITY_Configuración del Build y Bundler de Next.js|Configuración del Build y Bundler de Next.js]]
-- [[_COMMUNITY_Configuración de Calidad del Código con ESLint|Configuración de Calidad del Código con ESLint]]
-- [[_COMMUNITY_Configuración del Espacio de Trabajo en VS Code|Configuración del Espacio de Trabajo en VS Code]]
-- [[_COMMUNITY_Community 37|Community 37]]
-- [[_COMMUNITY_Community 38|Community 38]]
-- [[_COMMUNITY_Community 39|Community 39]]
-- [[_COMMUNITY_Community 40|Community 40]]
-- [[_COMMUNITY_Community 41|Community 41]]
-- [[_COMMUNITY_Community 42|Community 42]]
-- [[_COMMUNITY_Community 43|Community 43]]
-- [[_COMMUNITY_Community 44|Community 44]]
-- [[_COMMUNITY_Community 45|Community 45]]
-- [[_COMMUNITY_Community 46|Community 46]]
-- [[_COMMUNITY_Community 47|Community 47]]
-- [[_COMMUNITY_Community 49|Community 49]]
-- [[_COMMUNITY_Community 50|Community 50]]
-- [[_COMMUNITY_Community 51|Community 51]]
+- [[_COMMUNITY_package.json|package.json]]
+- [[_COMMUNITY_formatter|formatter]]
+- [[_COMMUNITY_dependencies|dependencies]]
+- [[_COMMUNITY_compilerOptions|compilerOptions]]
+- [[_COMMUNITY_.eslintrc.json|.eslintrc.json]]
+- [[_COMMUNITY_next.config.mjs|next.config.mjs]]
+- [[_COMMUNITY_extensions.json|extensions.json]]
+- [[_COMMUNITY_useColaViewModel|useColaViewModel]]
+- [[_COMMUNITY_TicketEstado|TicketEstado]]
+- [[_COMMUNITY_EditarTicketPage|EditarTicketPage]]
+- [[_COMMUNITY_index.ts|index.ts]]
+- [[_COMMUNITY_hooks.ts|hooks.ts]]
+- [[_COMMUNITY_index.ts|index.ts]]
+- [[_COMMUNITY_index.ts|index.ts]]
+- [[_COMMUNITY_utils.ts|utils.ts]]
+- [[_COMMUNITY_index.ts|index.ts]]
+- [[_COMMUNITY_content.types.ts|content.types.ts]]
+- [[_COMMUNITY_OnceUIConfig|OnceUIConfig]]
+- [[_COMMUNITY_index.ts|index.ts]]
+- [[_COMMUNITY_RouteGuard()|RouteGuard()]]
+- [[_COMMUNITY_ticketModule|ticketModule]]
+- [[_COMMUNITY_package.json|package.json]]
+- [[_COMMUNITY_compilerOptions|compilerOptions]]
+- [[_COMMUNITY_.crearTicket()|.crearTicket()]]
+- [[_COMMUNITY_ticket.entity.test.ts|ticket.entity.test.ts]]
+- [[_COMMUNITY_MockTicketRepository|MockTicketRepository]]
+- [[_COMMUNITY_Empleado|Empleado]]
+- [[_COMMUNITY_Ticket|Ticket]]
+- [[_COMMUNITY_HistorialEntry|HistorialEntry]]
+- [[_COMMUNITY_Guía de despliegue — Servicar|Guía de despliegue — Servicar]]
+- [[_COMMUNITY_CLAUDE|CLAUDE.md]]
+- [[_COMMUNITY_README|README.md]]
+- [[_COMMUNITY_Servicar — Frontend (Next.js)|Servicar — Frontend (Next.js)]]
+- [[_COMMUNITY_graphify|graphify.md]]
+- [[_COMMUNITY_graphify|graphify.md]]
+- [[_COMMUNITY_Entidad Ticket|Entidad Ticket]]
+- [[_COMMUNITY_RF-2 Vista de Tickets|RF-2: Vista de Tickets]]
+- [[_COMMUNITY_PublicoTicketView()|PublicoTicketView()]]
 
 ## God Nodes (most connected - your core abstractions)
-1. `Ticket` - 96 edges
-2. `Empleado` - 75 edges
-3. `useStoreReactive()` - 43 edges
-4. `TicketEstado` - 41 edges
-5. `MockStore` - 35 edges
-6. `HistorialEntry` - 32 edges
-7. `PbStore` - 29 edges
-8. `TicketCategoria` - 28 edges
-9. `empleadoModule` - 22 edges
-10. `ITicketRepository` - 22 edges
+1. `Ticket` - 78 edges
+2. `Empleado` - 57 edges
+3. `ITicketRepository` - 36 edges
+4. `PbStore` - 33 edges
+5. `ticketModule` - 32 edges
+6. `MockStore` - 31 edges
+7. `MockTicketRepository` - 29 edges
+8. `EditarTicketPage` - 26 edges
+9. `OnceUIConfig` - 23 edges
+10. `empleadoModule` - 23 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `Ticket` --references--> `Paquete Core Domain (@servicar/core)`  [INFERRED]
   packages/core/src/modules/ticket/domain/entities/ticket.entity.ts → next/README.md
-- `PbTicketRepository` --conceptually_related_to--> `Backend PocketBase`  [INFERRED]
-  packages/core/src/modules/ticket/infrastructure/persistence/pocketbase/pb-ticket.repository.ts → DEPLOY.md
+- `ITicketRepository` --conceptually_related_to--> `Backend PocketBase`  [INFERRED]
+  packages/core/src/modules/ticket/domain/ports/ticket.repository.port.ts → DEPLOY.md
+- `EditarTicketUseCase` --references--> `RF-3: Edición de Tickets (rol-based ownership)`  [INFERRED]
+  packages/core/src/modules/ticket/application/use-cases/editar-ticket.use-case.ts → requisitos-requerimientos.md
 - `Ticket` --conceptually_related_to--> `Entidad Ticket`  [INFERRED]
   packages/core/src/modules/ticket/domain/entities/ticket.entity.ts → CLAUDE.md
-- `NuevoTicketFormState` --references--> `TicketCategoria`  [EXTRACTED]
-  next/src/presentation/view-models/ticket/useNuevoTicket.view-model.ts → packages/core/src/modules/shared/domain/ticket-categoria.ts
-- `TicketCardProps` --references--> `Ticket`  [EXTRACTED]
-  next/src/presentation/views/shared/TicketCard.tsx → packages/core/src/modules/ticket/domain/entities/ticket.entity.ts
+- `NuevoTicketPage` --references--> `RF-1: Creación de Tickets`  [INFERRED]
+  next/src/app/ticket/nuevo/page.tsx → requisitos-requerimientos.md
 
-## Communities (51 total, 8 thin omitted)
+## Communities (44 total, 8 thin omitted)
 
-### Community 0 - "Interfaz y Formularios de Tickets"
-Cohesion: 0.06
-Nodes (28): CambiarEstadoDTO, CrearTicketDTO, EditarTicketDTO, HistorialEntryProps, TipoAccion, TicketCamposEditables, IHistorialRepository, ICambiarEstadoUseCase (+20 more)
-
-### Community 1 - "Casos de Uso y Reglas de Negocio de Tickets"
-Cohesion: 0.10
-Nodes (22): FichasPage(), DashboardView(), FichasView(), TABS, FichasVM, FichaTab, useFichasViewModel(), useFichasViewModel() (+14 more)
-
-### Community 2 - "Configuración de Compilación TypeScript (Next.js)"
-Cohesion: 0.07
-Nodes (21): provider, store, MOCK_EMPLEADOS, MOCK_HISTORIAL, MOCK_TICKETS, MockDraft, MockEmpleado, MockHistorial (+13 more)
-
-### Community 3 - "Dominio de Empleados y Control de Acceso"
-Cohesion: 0.12
-Nodes (8): ESTADO_ACTIONS, TicketsView(), TicketsVM, TicketsVM, Empleado, DashboardVM, DashboardVM, FichasVM
-
-### Community 4 - "Coordinadores y Controladores de Navegación"
-Cohesion: 0.05
-Nodes (36): dependencies, classnames, convex, cookie, gray-matter, lint-staged, @mdx-js/loader, next (+28 more)
-
-### Community 5 - "Gestión de Sesión e Identidad del Empleado"
-Cohesion: 0.08
-Nodes (23): 1. Desplegar PocketBase, 2. Desplegar Next.js, 3. Proxy reverso con HTTPS (Caddy — recomendado), Actualizar a una nueva versión, Arquitectura de producción, code:block1 (Internet), code:bash (# 1. Traer cambios), code:bash (docker compose -f docker-compose.pocketbase.yml logs pocketb) (+15 more)
-
-### Community 6 - "Capa de Persistencia Simulada (Mock)"
-Cohesion: 0.22
-Nodes (7): actualizado, hist, historial, t, t2, t3, uc
-
-### Community 7 - "Gestión de Dependencias (package.json)"
-Cohesion: 0.09
-Nodes (15): ESTADO_CFG, HistorialView(), HistorialTab, HistorialVM, useHistorialViewModel(), HistorialTab, HistorialVM, useHistorialViewModel() (+7 more)
-
-### Community 8 - "Reglas de Calidad y Estilo de Código (Biome)"
-Cohesion: 0.16
-Nodes (16): useAuth(), LoginPage(), getMockSession(), useMockAuth(), useMockCambiarEstado(), useMockCrearTicket(), useMockEditarTicket(), useMockEmpleados() (+8 more)
-
-### Community 9 - "Mapeo de Rutas de Compilación"
-Cohesion: 0.08
-Nodes (23): compilerOptions, allowJs, esModuleInterop, incremental, isolatedModules, jsx, lib, module (+15 more)
-
-### Community 10 - "Configuración del Formateador de Código"
-Cohesion: 0.10
-Nodes (19): files, ignoreUnknown, formatter, enabled, indentStyle, indentWidth, lineWidth, quoteStyle (+11 more)
-
-### Community 11 - "Estructura y Maquetación Principal (Layout)"
-Cohesion: 0.17
-Nodes (10): Providers(), StoreProvider(), appMeta, home, dataStyle, display, effects, fonts (+2 more)
-
-### Community 12 - "Configuración del Sistema de Diseño Once UI"
-Cohesion: 0.16
-Nodes (16): body, code, heading, label, DataStyleConfig, DisplayConfig, EffectsConfig, FontsConfig (+8 more)
-
-### Community 13 - "Capa de Acceso a Datos de PocketBase"
-Cohesion: 0.17
-Nodes (13): ColaView(), ColaVM, PendingAction, useColaViewModel(), Action, ColaVM, PendingAction, useColaViewModel() (+5 more)
-
-### Community 15 - "Tipos de Recursos y Catálogo de Iconos"
-Cohesion: 0.14
-Nodes (12): IconLibrary, IconName, About, BasePageConfig, Blog, Gallery, Home, IANATimeZone (+4 more)
-
-### Community 16 - "Servicios de Autenticación de Sesión"
-Cohesion: 0.29
-Nodes (4): MockSessionService, PbSessionService, IAuthSessionService, SessionPayload
-
-### Community 17 - "Configuración del Paquete Core"
-Cohesion: 0.15
-Nodes (12): dependencies, pocketbase, devDependencies, vitest, main, name, private, scripts (+4 more)
-
-### Community 18 - "Utilidades de Enrutamiento y Datos MDX"
-Cohesion: 0.24
-Nodes (9): NotFound(), sitemap(), routes, getMDXData(), getMDXFiles(), getPosts(), Metadata, readMDXFile() (+1 more)
-
-### Community 19 - "Panel de Administración y Control de Cola"
-Cohesion: 0.12
-Nodes (11): provider, useCase, AutenticarDTO, Sesion, SesionProps, authModule, PbAuthProvider, getPocketBase() (+3 more)
-
-### Community 20 - "Entorno TypeScript del Core"
-Cohesion: 0.22
-Nodes (8): compilerOptions, lib, module, moduleResolution, skipLibCheck, strict, target, include
-
-### Community 21 - "Componentes Comunes de la Interfaz (Cabecera/Pie)"
-Cohesion: 0.39
-Nodes (4): Footer(), Header(), ScrollToHash(), ThemeToggle()
-
-### Community 22 - "Glosario y Reglas de Negocio (CLAUDE.md/README.md)"
-Cohesion: 0.25
-Nodes (8): Entidad Ticket, Historial de Ediciones Inmutable, Máquina de Estados de Ticket, Modo Offline y Borradores, Rol Administrador, Rol Cliente, Rol Mecánico, Servicar System
-
-### Community 24 - "Pruebas Unitarias de la Entidad Ticket"
-Cohesion: 0.33
-Nodes (4): BASE, editado, original, t
-
-### Community 25 - "Arquitectura de Despliegue y Orquestación Docker"
-Cohesion: 0.18
-Nodes (6): Arquitectura de Producción, Backend PocketBase, Paquete Core Domain (@servicar/core), Frontend Next.js, Once UI Framework, PbTicketRepository
-
-### Community 26 - "Guardas y Políticas de Seguridad de Rutas"
-Cohesion: 0.40
-Nodes (4): DYNAMIC_ROUTE_PREFIXES, RouteGuard(), RouteGuardProps, protectedRoutes
-
-### Community 27 - "Raíz del Monorepo y Espacios de Trabajo"
+### Community 29 - "package.json"
 Cohesion: 0.50
 Nodes (3): name, private, workspaces
 
-### Community 37 - "Community 37"
+### Community 15 - "formatter"
+Cohesion: 0.14
+Nodes (16): $schema, vcs, enabled, clientKind, useIgnoreFile, files, ignoreUnknown, formatter (+8 more)
+
+### Community 4 - "dependencies"
 Cohesion: 0.06
-Nodes (28): ESTADO_ACTIONS, KanbanCardProps, KanbanColumn(), KanbanColumnProps, AggregateRoot, Rol, isTransicionValida(), TICKET_ESTADO_TRANSITIONS (+20 more)
+Nodes (35): name, version, scripts, dev, export, build, biome-write, start (+27 more)
 
-### Community 38 - "Community 38"
-Cohesion: 0.17
-Nodes (10): Architecture, Business Rules (from docs), code:block1 (servicar/), code:bash (cd react-prototipo), Convex Schema (planned), Planned Production Stack, Project Overview, react-prototipo (+2 more)
+### Community 10 - "compilerOptions"
+Cohesion: 0.08
+Nodes (23): compilerOptions, typeRoots, lib, allowJs, skipLibCheck, strict, noEmit, esModuleInterop (+15 more)
 
-### Community 39 - "Community 39"
-Cohesion: 0.17
-Nodes (11): Arquitectura, code:bash (pnpm install), code:bash (cd next), code:block3 (src/resources/once-ui.config.ts), code:block4 (src/resources/content.tsx), code:block5 (src/), Inicio rápido, Requisitos (+3 more)
+### Community 13 - "useColaViewModel"
+Cohesion: 0.20
+Nodes (14): Action, PendingAction, ColaVM, ColaView(), ConfirmModalProps, ConfirmModal(), TriageRowProps, TriageRow() (+6 more)
 
-### Community 40 - "Community 40"
-Cohesion: 0.22
-Nodes (12): Action, useTicketsViewModel(), useTicketsViewModel(), DashboardPage(), useStoreReactive(), empleadoModule, store, ticketModule (+4 more)
+### Community 3 - "TicketEstado"
+Cohesion: 0.09
+Nodes (34): TicketsVM, HistorialTab, TicketsView(), NAV, ESTADO_CFG, HistorialView(), ESTADO_ACTIONS, KanbanCardProps (+26 more)
 
-### Community 41 - "Community 41"
-Cohesion: 0.24
-Nodes (12): TicketCategoria, WORKSHOP_CATEGORIAS, EditarTicketPage(), EditarTicketView(), EditarTicketFormState, EditarTicketViewState, EditarTicketVM, useEditarTicketViewModel() (+4 more)
-
-### Community 42 - "Community 42"
+### Community 8 - "EditarTicketPage"
 Cohesion: 0.12
-Nodes (5): AdminCoordinator, MecanicoCoordinator, IAdminCoordinator, IMecanicoCoordinator, IRouter
+Nodes (24): NuevoTicketFormState, EMPTY, EditarTicketFormState, EditarTicketViewState, AlertType, AlertBannerProps, TYPE_CFG, AlertBanner() (+16 more)
 
-### Community 43 - "Community 43"
-Cohesion: 0.22
-Nodes (8): AdminLayoutView(), AdminLayoutViewProps, NAV, AdminLayout(), AdminLayoutVM, useAdminLayoutViewModel(), AdminLayoutVM, useAdminLayoutViewModel()
+### Community 0 - "index.ts"
+Cohesion: 0.06
+Nodes (43): FilterEstado, FILTROS, TallerVM, FichaTab, FichasVM, IRouter, IAdminCoordinator, IMecanicoCoordinator (+35 more)
 
-### Community 44 - "Community 44"
+### Community 9 - "hooks.ts"
+Cohesion: 0.16
+Nodes (16): useAuth(), useStoreVersion(), getMockSession(), useMockAuth(), useMockTickets(), useMockTicketsByCreador(), useMockEmpleados(), useMockHistorialByTicket() (+8 more)
+
+### Community 1 - "index.ts"
+Cohesion: 0.06
+Nodes (29): authModule, provider, useCase, store, provider, t, result, id (+21 more)
+
+### Community 22 - "utils.ts"
 Cohesion: 0.24
-Nodes (10): NuevoTicketPage(), NuevoTicketView(), EMPTY, NuevoTicketFormState, NuevoTicketVM, useNuevoTicketViewModel(), EMPTY, NuevoTicketFormState (+2 more)
+Nodes (9): NotFound(), sitemap(), Team, Metadata, getMDXFiles(), readMDXFile(), getMDXData(), getPosts() (+1 more)
 
-### Community 45 - "Community 45"
+### Community 17 - "index.ts"
 Cohesion: 0.21
-Nodes (10): TallerView(), FilterEstado, FILTROS, TallerVM, useTallerViewModel(), FilterEstado, FILTROS, TallerVM (+2 more)
+Nodes (9): Providers(), home, appMeta, display, fonts, style, dataStyle, effects (+1 more)
 
-### Community 46 - "Community 46"
-Cohesion: 0.30
-Nodes (8): MecanicoLayout(), MecanicoLayoutView(), MecanicoLayoutViewProps, NAV_TABS, MecanicoLayoutVM, useMecanicoLayoutViewModel(), MecanicoLayoutVM, useMecanicoLayoutViewModel()
+### Community 18 - "content.types.ts"
+Cohesion: 0.15
+Nodes (12): IANATimeZone, Person, Newsletter, Social, BasePageConfig, Home, About, Blog (+4 more)
 
-### Community 47 - "Community 47"
+### Community 14 - "OnceUIConfig"
+Cohesion: 0.17
+Nodes (16): DisplayConfig, RoutesConfig, ProtectedRoutesConfig, FontsConfig, StyleConfig, DataStyleConfig, EffectsConfig, MailchimpConfig (+8 more)
+
+### Community 27 - "index.ts"
 Cohesion: 0.43
-Nodes (4): entityToMockHistorial(), entityToMockTicket(), mockHistorialToEntity(), mockTicketToEntity()
+Nodes (3): Header(), ThemeToggle(), Footer()
+
+### Community 30 - "RouteGuard()"
+Cohesion: 0.50
+Nodes (4): RouteGuardProps, DYNAMIC_ROUTE_PREFIXES, RouteGuard(), protectedRoutes
+
+### Community 12 - "ticketModule"
+Cohesion: 0.15
+Nodes (10): store, IGetTicketByIdQuery, IEditarTicketUseCase, ticketModule, CambiarEstadoUseCase, EditarTicketUseCase, CambiarEstadoDTO, RF-3: Edición de Tickets (rol-based ownership) (+2 more)
+
+### Community 20 - "package.json"
+Cohesion: 0.15
+Nodes (12): name, version, private, main, types, scripts, test, test:watch (+4 more)
+
+### Community 24 - "compilerOptions"
+Cohesion: 0.22
+Nodes (8): compilerOptions, target, lib, module, moduleResolution, strict, skipLibCheck, include
+
+### Community 11 - ".crearTicket()"
+Cohesion: 0.11
+Nodes (8): DTO, r, uc, isTransicionValida(), AggregateRoot, TicketCamposEditables, Matricula, CrearTicketDTO
+
+### Community 28 - "ticket.entity.test.ts"
+Cohesion: 0.33
+Nodes (4): BASE, t, original, editado
+
+### Community 16 - "MockTicketRepository"
+Cohesion: 0.15
+Nodes (10): t, actualizado, t2, t3, hist, uc, MockTicketRepository, mockTicketToEntity() (+2 more)
+
+### Community 2 - "Empleado"
+Cohesion: 0.08
+Nodes (16): PbUser, pbUserToEmpleado(), PbEmpleadoRepository, EmpleadoProps, Empleado, IEmpleadoRepository, GetEmpleadosQuery, GetEmpleadoByIdQuery (+8 more)
+
+### Community 5 - "Ticket"
+Cohesion: 0.08
+Nodes (7): pbTicketToEntity(), entityToPbTicketData(), entityToPbHistorialData(), Ticket, ITicketRepository, GetTicketsPorEstadoQuery, GetTicketsPorCreadorQuery
+
+### Community 6 - "HistorialEntry"
+Cohesion: 0.12
+Nodes (11): PbHistorialRepository, pbHistorialToEntity(), mockHistorialToEntity(), MockHistorialRepository, TipoAccion, HistorialEntryProps, TicketProps, IHistorialRepository (+3 more)
+
+### Community 7 - "Guía de despliegue — Servicar"
+Cohesion: 0.07
+Nodes (27): Guía de despliegue — Servicar, code:block1 (Internet), Requisitos, 1. Desplegar PocketBase, code:bash (# Construir imagen y levantar), Configuración inicial de PocketBase, 2. Desplegar Next.js, code:bash (# Exportar la variable antes de buildear) (+19 more)
+
+### Community 23 - "CLAUDE.md"
+Cohesion: 0.18
+Nodes (10): Project Overview, Repository Layout, code:block1 (servicar/), react-prototipo, code:bash (cd react-prototipo), Architecture, Stack, Planned Production Stack (+2 more)
+
+### Community 21 - "Servicar — Frontend (Next.js)"
+Cohesion: 0.17
+Nodes (11): Servicar — Frontend (Next.js), Requisitos, Inicio rápido, code:bash (pnpm install), code:bash (cd next), code:block3 (src/resources/once-ui.config.ts), code:block4 (src/resources/content.tsx), Arquitectura (+3 more)
+
+### Community 25 - "Entidad Ticket"
+Cohesion: 0.25
+Nodes (8): Servicar System, Rol Mecánico, Rol Administrador, Rol Cliente, Entidad Ticket, Historial de Ediciones Inmutable, Máquina de Estados de Ticket, Modo Offline y Borradores
+
+### Community 26 - "PublicoTicketView()"
+Cohesion: 0.38
+Nodes (5): usePublicoTicketViewModel(), TagVariant, ESTADO_CFG, PublicoTicketView(), TicketPublicoPage()
 
 ## Knowledge Gaps
-- **202 isolated node(s):** `name`, `private`, `workspaces`, `$schema`, `enabled` (+197 more)
+- **207 isolated node(s):** `name`, `private`, `workspaces`, `$schema`, `clientKind` (+202 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **8 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `Ticket` connect `Entidad de Dominio y Modelo de Ticket` to `Interfaz y Formularios de Tickets`, `Casos de Uso y Reglas de Negocio de Tickets`, `Dominio de Empleados y Control de Acceso`, `Community 37`, `Capa de Persistencia Simulada (Mock)`, `Gestión de Dependencias (package.json)`, `Community 40`, `Community 41`, `Community 45`, `Capa de Acceso a Datos de PocketBase`, `Community 47`, `Glosario y Reglas de Negocio (CLAUDE.md/README.md)`, `Repositorio de Tickets de PocketBase`, `Pruebas Unitarias de la Entidad Ticket`, `Arquitectura de Despliegue y Orquestación Docker`?**
+- **Why does `Ticket` connect `Ticket` to `index.ts`, `TicketEstado`, `HistorialEntry`, `Guía de despliegue — Servicar`, `EditarTicketPage`, `.crearTicket()`, `ticketModule`, `useColaViewModel`, `MockTicketRepository`, `Entidad Ticket`, `ticket.entity.test.ts`?**
   _High betweenness centrality (0.119) - this node is a cross-community bridge._
-- **Why does `Empleado` connect `Dominio de Empleados y Control de Acceso` to `Casos de Uso y Reglas de Negocio de Tickets`, `Configuración de Compilación TypeScript (Next.js)`, `Community 37`, `Gestión de Dependencias (package.json)`, `Community 40`, `Community 41`, `Reglas de Calidad y Estilo de Código (Biome)`, `Community 43`, `Community 44`, `Community 45`, `Community 46`, `Capa de Acceso a Datos de PocketBase`?**
-  _High betweenness centrality (0.056) - this node is a cross-community bridge._
-- **Why does `PbStore` connect `Community 37` to `Panel de Administración y Control de Cola`, `Arquitectura de Despliegue y Orquestación Docker`, `Community 40`, `Estructura y Maquetación Principal (Layout)`?**
-  _High betweenness centrality (0.034) - this node is a cross-community bridge._
+- **Why does `ITicketRepository` connect `Ticket` to `index.ts`, `Empleado`, `TicketEstado`, `HistorialEntry`, `Guía de despliegue — Servicar`, `.crearTicket()`, `ticketModule`, `MockTicketRepository`?**
+  _High betweenness centrality (0.074) - this node is a cross-community bridge._
+- **Why does `PbStore` connect `Empleado` to `index.ts`, `TicketEstado`, `Ticket`, `HistorialEntry`, `ticketModule`?**
+  _High betweenness centrality (0.057) - this node is a cross-community bridge._
 - **Are the 2 inferred relationships involving `Ticket` (e.g. with `Entidad Ticket` and `Paquete Core Domain (@servicar/core)`) actually correct?**
   _`Ticket` has 2 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 2 inferred relationships involving `PbStore` (e.g. with `CambiarEstadoUseCase` and `EditarTicketUseCase`) actually correct?**
+  _`PbStore` has 2 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `name`, `private`, `workspaces` to the rest of the system?**
-  _204 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `Interfaz y Formularios de Tickets` be split into smaller, more focused modules?**
-  _Cohesion score 0.05927405927405927 - nodes in this community are weakly interconnected._
-- **Should `Casos de Uso y Reglas de Negocio de Tickets` be split into smaller, more focused modules?**
-  _Cohesion score 0.1 - nodes in this community are weakly interconnected._
+  _210 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `formatter` be split into smaller, more focused modules?**
+  _Cohesion score 0.13970588235294118 - nodes in this community are weakly interconnected._

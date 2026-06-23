@@ -70,7 +70,7 @@ export function useEditarTicketViewModel(ticketId: string, coordinator: IMecanic
 
   const viewState: EditarTicketViewState = !ticket
     ? "loading"
-    : ticket.creadorId !== empleado?.id
+    : empleado?.rol !== "admin" && ticket.creadorId !== empleado?.id
     ? "forbidden"
     : ticket.estado === "finalizado"
     ? "finalizado"
@@ -105,6 +105,7 @@ export function useEditarTicketViewModel(ticketId: string, coordinator: IMecanic
       await ticketModule.editarTicket.execute({
         ticketId: ticket.id,
         empleadoId: empleado.id,
+        rol: empleado.rol,
         campos: { matricula: form.matricula.trim(), categoria: form.categoria, titulo: form.titulo.trim(), descripcion: form.descripcion.trim() },
       });
       setSuccess(true);

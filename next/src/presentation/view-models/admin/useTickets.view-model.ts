@@ -79,7 +79,7 @@ export function useTicketsViewModel(coordinator: IAdminCoordinator): TicketsVM {
 
   const onAction = async (ticketId: string, next: TicketEstado) => {
     if (!empleado) return;
-    await ticketModule.cambiarEstado.execute({ ticketId, empleadoId: empleado.id, nuevoEstado: next });
+    await ticketModule.cambiarEstado.execute({ ticketId, empleadoId: empleado.id, rol: empleado.rol, nuevoEstado: next });
   };
 
   const onVerHistorial = (ticketId: string) => coordinator.goToHistorial(ticketId);

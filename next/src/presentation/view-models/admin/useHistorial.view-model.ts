@@ -59,7 +59,7 @@ export function useHistorialViewModel(ticketId: string, coordinator: IAdminCoord
   const onEditar = () => { if (ticket) coordinator.goToEditarTicket(ticket.id); };
   const onFinalizar = async () => {
     if (!ticket || !empleadoSession) return;
-    await ticketModule.cambiarEstado.execute({ ticketId: ticket.id, empleadoId: empleadoSession.id, nuevoEstado: "finalizado" as TicketEstado });
+    await ticketModule.cambiarEstado.execute({ ticketId: ticket.id, empleadoId: empleadoSession.id, rol: empleadoSession.rol, nuevoEstado: "finalizado" as TicketEstado });
   };
 
   return { ticket, historial, empleadoMap, creador, tab, setTab, onBack, onEditar, onFinalizar };

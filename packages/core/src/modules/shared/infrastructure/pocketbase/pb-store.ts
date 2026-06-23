@@ -20,6 +20,8 @@ export class PbStore {
   private users: PbUser[] = [];
   private historial: PbHistorial[] = [];
   private listeners = new Set<Listener>();
+  // Mutex: prevents concurrent init() calls from racing each other.
+  private _initPromise: Promise<void> | null = null;
 
   constructor(private readonly pb: PocketBase) {
     this.pb.authStore.onChange((token) => {
@@ -32,43 +34,56 @@ export class PbStore {
     });
   }
 
-  async init(): Promise<void> {
+  init(): Promise<void> {
+    // If an init is already in flight, return the same promise (deduplicate concurrent calls).
+    if (this._initPromise) return this._initPromise;
+    this._initPromise = this._doInit().finally(() => {
+      this._initPromise = null;
+    });
+    return this._initPromise;
+  }
+
+  private async _doInit(): Promise<void> {
     if (!this.pb.authStore.isValid) {
-      // Not authenticated yet: do not fetch protected resources to avoid 403 errors.
       this.notify();
       return;
     }
 
-    // Unsubscribe from any previous realtime subscriptions to avoid duplicates
+    // Unsubscribe from any previous realtime subscriptions before re-fetching.
     await this.destroy();
 
-    const [tickets, users, historial] = await Promise.all([
-      this.pb.collection("tickets").getFullList<PbTicket>({ sort: "-created" }),
-      this.pb.collection("users").getFullList<PbUser>(),
-      this.pb.collection("historial_ediciones").getFullList<PbHistorial>({ sort: "+created" }),
-    ]);
+    try {
+      // requestKey: null disables the SDK's auto-cancellation so concurrent
+      // calls to different collections don't cancel each other.
+      const [tickets, users, historial] = await Promise.all([
+        this.pb.collection("tickets").getFullList<PbTicket>({ sort: "-created", requestKey: null }),
+        this.pb.collection("users").getFullList<PbUser>({ requestKey: null }),
+        this.pb.collection("historial_ediciones").getFullList<PbHistorial>({ sort: "+created", requestKey: null }),
+      ]);
 
-    this.tickets = tickets;
-    this.users = users;
-    this.historial = historial;
+      this.tickets = tickets;
+      this.users = users;
+      this.historial = historial;
 
-    this.pb.collection("tickets").subscribe<PbTicket>("*", (e) => {
-      if (e.action === "delete") {
-        this.tickets = this.tickets.filter((t) => t.id !== e.record.id);
-      } else {
-        this.tickets = [...this.tickets.filter((t) => t.id !== e.record.id), e.record];
-      }
-      this.notify();
-    });
-
-    this.pb.collection("historial_ediciones").subscribe<PbHistorial>("*", (e) => {
-      if (e.action === "create") {
-        this.historial = [...this.historial, e.record];
+      this.pb.collection("tickets").subscribe<PbTicket>("*", (e) => {
+        if (e.action === "delete") {
+          this.tickets = this.tickets.filter((t) => t.id !== e.record.id);
+        } else {
+          this.tickets = [...this.tickets.filter((t) => t.id !== e.record.id), e.record];
+        }
         this.notify();
-      }
-    });
+      });
 
-    this.notify();
+      this.pb.collection("historial_ediciones").subscribe<PbHistorial>("*", (e) => {
+        if (e.action === "create") {
+          this.historial = [...this.historial, e.record];
+          this.notify();
+        }
+      });
+    } finally {
+      // Always notify — even on error — so ViewModels can unblock their loading state.
+      this.notify();
+    }
   }
 
   private clear(): void {

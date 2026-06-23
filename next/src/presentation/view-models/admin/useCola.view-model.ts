@@ -91,9 +91,9 @@ export function useColaViewModel(coordinator: IAdminCoordinator): ColaVM {
     const { ticket, action, nota } = pending;
     try {
       if (action === "aprobar") {
-        await ticketModule.cambiarEstado.execute({ ticketId: ticket.id, empleadoId: empleado.id, nuevoEstado: "aprobado" });
+        await ticketModule.cambiarEstado.execute({ ticketId: ticket.id, empleadoId: empleado.id, rol: empleado.rol, nuevoEstado: "aprobado" });
       } else {
-        await ticketModule.cambiarEstado.execute({ ticketId: ticket.id, empleadoId: empleado.id, nuevoEstado: "requiere_cambios", notaAdmin: nota || undefined });
+        await ticketModule.cambiarEstado.execute({ ticketId: ticket.id, empleadoId: empleado.id, rol: empleado.rol, nuevoEstado: "requiere_cambios", notaAdmin: nota || undefined });
       }
     } finally {
       setPending(null);

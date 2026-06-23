@@ -9,6 +9,10 @@ export class EditarTicketUseCase implements IEditarTicketUseCase {
     const ticket = await this.ticketRepo.getById(dto.ticketId);
     if (!ticket) throw new Error(`Ticket ${dto.ticketId} no encontrado.`);
 
+    if (dto.rol === "mecanico" && ticket.creadorId !== dto.empleadoId) {
+      throw new Error("Mecánico solo puede editar sus propios tickets.");
+    }
+
     const actualizado = ticket.editar(dto.campos, dto.empleadoId);
     await this.ticketRepo.save(actualizado);
   }

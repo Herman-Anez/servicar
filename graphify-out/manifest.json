@@ -25,14 +25,14 @@
     "semantic_hash": "9b8be5ef96ddd69ecd1ddc1554c61a88"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/next-env.d.ts": {
-    "mtime": 1781709587.880827,
-    "ast_hash": "2a74d3909800ca5467fa83b0ab4a4890",
-    "semantic_hash": ""
+    "mtime": 1782235679.912193,
+    "ast_hash": "d0f8375ae1199dc7acd3977fc33b78b8",
+    "semantic_hash": "d0f8375ae1199dc7acd3977fc33b78b8"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/next.config.mjs": {
     "mtime": 1781649539.5534747,
     "ast_hash": "46c54236bfe23b58b0bec4f96b3650e8",
-    "semantic_hash": ""
+    "semantic_hash": "46c54236bfe23b58b0bec4f96b3650e8"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/.lintstagedrc.js": {
     "mtime": 1781374759.2100127,
@@ -82,22 +82,22 @@
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/presentation/views/admin/TicketsView.tsx": {
     "mtime": 1781711915.0654898,
     "ast_hash": "a0c98a9b1d5b7402298e589ea161eea0",
-    "semantic_hash": ""
+    "semantic_hash": "a0c98a9b1d5b7402298e589ea161eea0"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/presentation/views/admin/AdminLayoutView.tsx": {
     "mtime": 1781711915.065621,
     "ast_hash": "4a970d4f71c9a0206413fbe5245d9b8c",
-    "semantic_hash": ""
+    "semantic_hash": "4a970d4f71c9a0206413fbe5245d9b8c"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/presentation/views/admin/ColaView.tsx": {
     "mtime": 1781711915.0657313,
     "ast_hash": "bda639ee770c00785f0d15d8bd53dcf1",
-    "semantic_hash": ""
+    "semantic_hash": "bda639ee770c00785f0d15d8bd53dcf1"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/presentation/views/admin/HistorialView.tsx": {
     "mtime": 1781711915.065867,
     "ast_hash": "625253f7948e8062fb1128b18eb33e27",
-    "semantic_hash": ""
+    "semantic_hash": "625253f7948e8062fb1128b18eb33e27"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/presentation/views/shared/EstadoChip.tsx": {
     "mtime": 1781482343.3761823,
@@ -107,37 +107,37 @@
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/presentation/views/ticket/NuevoTicketView.tsx": {
     "mtime": 1781711915.0663524,
     "ast_hash": "933228a2f70f3366f5a2706aa8ee79aa",
-    "semantic_hash": ""
+    "semantic_hash": "933228a2f70f3366f5a2706aa8ee79aa"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/presentation/views/ticket/EditarTicketView.tsx": {
-    "mtime": 1781711915.06645,
-    "ast_hash": "fadfb3602f8b7f8c239f85c925d4151b",
-    "semantic_hash": ""
+    "mtime": 1782236354.1513014,
+    "ast_hash": "da84090943ef8f1fed8d03cffca6c982",
+    "semantic_hash": "da84090943ef8f1fed8d03cffca6c982"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/presentation/views/mecanico/TallerView.tsx": {
-    "mtime": 1781711915.0665545,
-    "ast_hash": "90e47e789cc247bbcbde88f4fc329212",
-    "semantic_hash": ""
+    "mtime": 1781728348.6005032,
+    "ast_hash": "a7dee2a5a961eef6b7c38ce29ce04dbf",
+    "semantic_hash": "a7dee2a5a961eef6b7c38ce29ce04dbf"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/presentation/views/mecanico/MecanicoLayoutView.tsx": {
     "mtime": 1781711915.0666358,
     "ast_hash": "d0daf9664e3898f56db980ca836135e2",
-    "semantic_hash": ""
+    "semantic_hash": "d0daf9664e3898f56db980ca836135e2"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/presentation/views/mecanico/FichasView.tsx": {
     "mtime": 1781711915.0667105,
     "ast_hash": "b077712ecec82b9bf1f638db3fde7418",
-    "semantic_hash": ""
+    "semantic_hash": "b077712ecec82b9bf1f638db3fde7418"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/presentation/views/mecanico/DashboardView.tsx": {
     "mtime": 1781711915.0667877,
     "ast_hash": "bfbcba7420386f58476252e20937925a",
-    "semantic_hash": ""
+    "semantic_hash": "bfbcba7420386f58476252e20937925a"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/lib/db.ts": {
     "mtime": 1781648177.842214,
     "ast_hash": "d6aa0ea624fb5f7ce98c9af08a701eb2",
-    "semantic_hash": ""
+    "semantic_hash": "d6aa0ea624fb5f7ce98c9af08a701eb2"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/lib/StoreProvider.tsx": {
     "mtime": 1781647748.680647,
@@ -212,52 +212,52 @@
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/app/admin/layout.tsx": {
     "mtime": 1781711915.068076,
     "ast_hash": "52668f05eb9bee7f5be3653ee6d39378",
-    "semantic_hash": ""
+    "semantic_hash": "52668f05eb9bee7f5be3653ee6d39378"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/app/admin/historial/[id]/page.tsx": {
     "mtime": 1781711915.0684402,
     "ast_hash": "3737a60cfda833825133e45faff5d0ed",
-    "semantic_hash": ""
+    "semantic_hash": "3737a60cfda833825133e45faff5d0ed"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/app/admin/cola/page.tsx": {
     "mtime": 1781711915.0686412,
     "ast_hash": "a504413be04fd9ce7f14a55e56500ff4",
-    "semantic_hash": ""
+    "semantic_hash": "a504413be04fd9ce7f14a55e56500ff4"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/app/admin/tickets/page.tsx": {
     "mtime": 1781711915.0687902,
     "ast_hash": "3c4eb681162b31affd2f59e57f421b0b",
-    "semantic_hash": ""
+    "semantic_hash": "3c4eb681162b31affd2f59e57f421b0b"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/app/(mecanico)/layout.tsx": {
     "mtime": 1781711915.06894,
     "ast_hash": "d419850e9c582073ea8fbb7a7863b481",
-    "semantic_hash": ""
+    "semantic_hash": "d419850e9c582073ea8fbb7a7863b481"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/app/(mecanico)/fichas/page.tsx": {
     "mtime": 1781711915.069072,
     "ast_hash": "ea42e6ab9362e70568e682d309a2bd55",
-    "semantic_hash": ""
+    "semantic_hash": "ea42e6ab9362e70568e682d309a2bd55"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/app/(mecanico)/taller/page.tsx": {
     "mtime": 1781711915.0692058,
     "ast_hash": "38e7384efc4a2819d30fb60c6be3f00c",
-    "semantic_hash": ""
+    "semantic_hash": "38e7384efc4a2819d30fb60c6be3f00c"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/app/(mecanico)/dashboard/page.tsx": {
     "mtime": 1781711915.0693257,
     "ast_hash": "f7d24be220e196bc6d0fa5ed5df6144f",
-    "semantic_hash": ""
+    "semantic_hash": "f7d24be220e196bc6d0fa5ed5df6144f"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/app/ticket/nuevo/page.tsx": {
     "mtime": 1781711915.06948,
     "ast_hash": "468bd78f45b2666a59a653e64203c782",
-    "semantic_hash": ""
+    "semantic_hash": "468bd78f45b2666a59a653e64203c782"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/app/ticket/[id]/editar/page.tsx": {
     "mtime": 1781711915.0696223,
     "ast_hash": "18ee1da4e21128ef801b55a6e2cf057b",
-    "semantic_hash": ""
+    "semantic_hash": "18ee1da4e21128ef801b55a6e2cf057b"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/utils/utils.ts": {
     "mtime": 1781482343.3662212,
@@ -385,9 +385,9 @@
     "semantic_hash": "54cc6515cd4cf4497cb511fa231f3503"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/packages/core/src/__tests__/cambiar-estado.use-case.test.ts": {
-    "mtime": 1781647748.6859794,
-    "ast_hash": "e752940766a190dfc5639f189ca1292e",
-    "semantic_hash": "e752940766a190dfc5639f189ca1292e"
+    "mtime": 1782234047.6738226,
+    "ast_hash": "65b19d0cbad59cfb1b0d5ad289806523",
+    "semantic_hash": "65b19d0cbad59cfb1b0d5ad289806523"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/packages/core/src/__tests__/auth/autenticar.use-case.test.ts": {
     "mtime": 1781647748.6858587,
@@ -520,9 +520,9 @@
     "semantic_hash": "b515dcd13ed9b85b736872ca9eb9c61a"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/packages/core/src/modules/shared/infrastructure/pocketbase/pb-store.ts": {
-    "mtime": 1781648170.4741526,
-    "ast_hash": "946dc7bc815869e91bed3be0c0dbb125",
-    "semantic_hash": ""
+    "mtime": 1782238714.4346018,
+    "ast_hash": "a3a06a41b11a2fa9dfd9eefe1ffd1170",
+    "semantic_hash": "a3a06a41b11a2fa9dfd9eefe1ffd1170"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/packages/core/src/modules/shared/infrastructure/pocketbase/pb-client.ts": {
     "mtime": 1781647748.6892695,
@@ -630,9 +630,9 @@
     "semantic_hash": "09d9a4abe16daacf3a07c5bb926d1ebb"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/packages/core/src/modules/ticket/application/use-cases/cambiar-estado.use-case.ts": {
-    "mtime": 1781647748.689647,
-    "ast_hash": "7c952a1eb1fb27e6840f476d6452a694",
-    "semantic_hash": "7c952a1eb1fb27e6840f476d6452a694"
+    "mtime": 1782233944.9239333,
+    "ast_hash": "c58254baac3ed27804ffe50e3be90bfe",
+    "semantic_hash": "c58254baac3ed27804ffe50e3be90bfe"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/packages/core/src/modules/ticket/application/use-cases/crear-ticket.use-case.ts": {
     "mtime": 1781647748.689647,
@@ -640,9 +640,9 @@
     "semantic_hash": "fafcf0f062f8dfd293aae7a23d28a8c3"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/packages/core/src/modules/ticket/application/use-cases/editar-ticket.use-case.ts": {
-    "mtime": 1781647748.689647,
-    "ast_hash": "0d7b6fd58f6389faa94484df5aa2141e",
-    "semantic_hash": "0d7b6fd58f6389faa94484df5aa2141e"
+    "mtime": 1782233942.1109087,
+    "ast_hash": "ad265bafe2ee22b8c64ed0df1f2e5e95",
+    "semantic_hash": "ad265bafe2ee22b8c64ed0df1f2e5e95"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/packages/core/src/modules/ticket/application/queries/get-tickets-por-estado.query.ts": {
     "mtime": 1781647748.689647,
@@ -675,14 +675,14 @@
     "semantic_hash": "41beacbaa8293f4ed97716ec5c7cd5d7"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/packages/core/src/modules/ticket/application/dtos/cambiar-estado.dto.ts": {
-    "mtime": 1781482307.516662,
-    "ast_hash": "01049183d6146200eadc30c48d3a5603",
-    "semantic_hash": "01049183d6146200eadc30c48d3a5603"
+    "mtime": 1782233930.8618114,
+    "ast_hash": "59b44c21c5257f40447e409d8dc832fe",
+    "semantic_hash": "59b44c21c5257f40447e409d8dc832fe"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/packages/core/src/modules/ticket/application/dtos/editar-ticket.dto.ts": {
-    "mtime": 1781482307.5182815,
-    "ast_hash": "a92f3b861d531c5b51ad52b1928696ba",
-    "semantic_hash": "a92f3b861d531c5b51ad52b1928696ba"
+    "mtime": 1782233929.890803,
+    "ast_hash": "60d2785fb2bbacfc2929d55dafa3f0c5",
+    "semantic_hash": "60d2785fb2bbacfc2929d55dafa3f0c5"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/packages/core/src/modules/ticket/application/ports-in/get-tickets.query.port.ts": {
     "mtime": 1781647748.6892695,
@@ -779,129 +779,134 @@
     "ast_hash": "71ded62156a2739e25f2285976f7c97e",
     "semantic_hash": "71ded62156a2739e25f2285976f7c97e"
   },
-  "/home/hermandev/Documents/proyectos/1/servicar/favicon_io/favicon-32x32.png": {
-    "mtime": 1781647748.6752532,
-    "ast_hash": "fa9f73d0e23584dbea04e4bfe06c9ee2",
-    "semantic_hash": "fa9f73d0e23584dbea04e4bfe06c9ee2"
-  },
-  "/home/hermandev/Documents/proyectos/1/servicar/favicon_io/android-chrome-512x512.png": {
-    "mtime": 1781647748.67502,
-    "ast_hash": "7072b73348bf830ca6c669ac9198a187",
-    "semantic_hash": "7072b73348bf830ca6c669ac9198a187"
-  },
-  "/home/hermandev/Documents/proyectos/1/servicar/favicon_io/apple-touch-icon.png": {
-    "mtime": 1781647748.6752532,
-    "ast_hash": "b97b55d658968961ea93dee06ee0c653",
-    "semantic_hash": "b97b55d658968961ea93dee06ee0c653"
-  },
-  "/home/hermandev/Documents/proyectos/1/servicar/favicon_io/favicon-16x16.png": {
-    "mtime": 1781647748.6752532,
-    "ast_hash": "dcf1ee8b41eb59b437595861515cc308",
-    "semantic_hash": "dcf1ee8b41eb59b437595861515cc308"
-  },
-  "/home/hermandev/Documents/proyectos/1/servicar/favicon_io/android-chrome-192x192.png": {
-    "mtime": 1781647748.674696,
-    "ast_hash": "4f0345aa80c589aeda6312a84bfa1353",
-    "semantic_hash": "4f0345aa80c589aeda6312a84bfa1353"
-  },
   "/home/hermandev/Documents/proyectos/1/servicar/docker-compose.mock.yml": {
     "mtime": 1781649535.4724417,
     "ast_hash": "b41b1b28b326d7153d608561c163682d",
-    "semantic_hash": ""
+    "semantic_hash": "b41b1b28b326d7153d608561c163682d"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/presentation/views/shared/FabButton.tsx": {
     "mtime": 1781708460.8295252,
     "ast_hash": "af5ca6e217587bdcc1816ca085fdd24d",
-    "semantic_hash": ""
+    "semantic_hash": "af5ca6e217587bdcc1816ca085fdd24d"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/presentation/views/shared/AlertBanner.tsx": {
     "mtime": 1781708454.307471,
     "ast_hash": "a173bcd0b2dd66cb8f5725749d533c83",
-    "semantic_hash": ""
+    "semantic_hash": "a173bcd0b2dd66cb8f5725749d533c83"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/presentation/views/shared/TicketCard.tsx": {
     "mtime": 1781708442.4733725,
     "ast_hash": "e04e4d03dc51671922c0c1e6e3bc3fd6",
-    "semantic_hash": ""
+    "semantic_hash": "e04e4d03dc51671922c0c1e6e3bc3fd6"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/presentation/views/shared/ViewHeader.tsx": {
     "mtime": 1781708448.3514214,
     "ast_hash": "fe35343ccfca1d2d9ae1f07b754457e1",
-    "semantic_hash": ""
+    "semantic_hash": "fe35343ccfca1d2d9ae1f07b754457e1"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/presentation/views/shared/index.ts": {
     "mtime": 1781710016.4625967,
     "ast_hash": "b354ea1b6cc0c92cc9ee3a73f546f5e4",
-    "semantic_hash": ""
+    "semantic_hash": "b354ea1b6cc0c92cc9ee3a73f546f5e4"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/presentation/views/shared/KpiCard.tsx": {
     "mtime": 1781710012.0995595,
     "ast_hash": "75f0e871e7ffdef0c54daa8a1a7841d3",
-    "semantic_hash": ""
+    "semantic_hash": "75f0e871e7ffdef0c54daa8a1a7841d3"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/presentation/views/admin/components/TriageComponents.tsx": {
     "mtime": 1781711915.065995,
     "ast_hash": "b280a8e6f42194c55f4af349159432b5",
-    "semantic_hash": ""
+    "semantic_hash": "b280a8e6f42194c55f4af349159432b5"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/presentation/views/admin/components/KanbanComponents.tsx": {
     "mtime": 1781710387.7097301,
     "ast_hash": "4cdf47b5dacbd4551ae5d3744679ce3f",
-    "semantic_hash": ""
+    "semantic_hash": "4cdf47b5dacbd4551ae5d3744679ce3f"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/presentation/views/admin/components/HistorialComponents.tsx": {
     "mtime": 1781710392.677772,
     "ast_hash": "088e934fdf9c4a70cb83f2f3b1d4fb60",
-    "semantic_hash": ""
+    "semantic_hash": "088e934fdf9c4a70cb83f2f3b1d4fb60"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/presentation/view-models/admin/useCola.view-model.ts": {
-    "mtime": 1781647748.6824782,
-    "ast_hash": "8e63266e2d839bdfd36d14e8a0465702",
-    "semantic_hash": ""
+    "mtime": 1782233969.045142,
+    "ast_hash": "0922abac9573562aaeb1f88df30cf27b",
+    "semantic_hash": "0922abac9573562aaeb1f88df30cf27b"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/presentation/view-models/admin/useTickets.view-model.ts": {
-    "mtime": 1781647748.6824782,
-    "ast_hash": "f95763f62f9e61e5529c80b55647a5e5",
-    "semantic_hash": ""
+    "mtime": 1782233974.3480513,
+    "ast_hash": "1d645c8cc4ef1fff2b86101e22ec78c8",
+    "semantic_hash": "1d645c8cc4ef1fff2b86101e22ec78c8"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/presentation/view-models/admin/useAdminLayout.view-model.ts": {
     "mtime": 1781647748.6824782,
     "ast_hash": "9ed6faeefc792762af78199ade365898",
-    "semantic_hash": ""
+    "semantic_hash": "9ed6faeefc792762af78199ade365898"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/presentation/view-models/admin/useHistorial.view-model.ts": {
-    "mtime": 1781647748.6824782,
-    "ast_hash": "b9c4fc31a0b40806f0b30d701abe7c2a",
-    "semantic_hash": ""
+    "mtime": 1782233978.397223,
+    "ast_hash": "0d2314af44681337c0b2cc5351fd7f59",
+    "semantic_hash": "0d2314af44681337c0b2cc5351fd7f59"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/presentation/view-models/ticket/useNuevoTicket.view-model.ts": {
     "mtime": 1781647748.682647,
     "ast_hash": "191cd1fce13a399dd17bdbdf62f1c9da",
-    "semantic_hash": ""
+    "semantic_hash": "191cd1fce13a399dd17bdbdf62f1c9da"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/presentation/view-models/ticket/useEditarTicket.view-model.ts": {
-    "mtime": 1781647748.682647,
-    "ast_hash": "97176b8013bb5e9fe63f96d6d470fffb",
-    "semantic_hash": ""
+    "mtime": 1782236188.302724,
+    "ast_hash": "26832992f0297244f5e7e623eb3ec547",
+    "semantic_hash": "26832992f0297244f5e7e623eb3ec547"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/presentation/view-models/mecanico/useDashboard.view-model.ts": {
     "mtime": 1781647748.682647,
     "ast_hash": "46e18f005628a734d724f432866a7aca",
-    "semantic_hash": ""
+    "semantic_hash": "46e18f005628a734d724f432866a7aca"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/presentation/view-models/mecanico/useMecanicoLayout.view-model.ts": {
     "mtime": 1781647748.682647,
     "ast_hash": "ca733a4292cbaeb9a32e009e66369419",
-    "semantic_hash": ""
+    "semantic_hash": "ca733a4292cbaeb9a32e009e66369419"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/presentation/view-models/mecanico/useTaller.view-model.ts": {
     "mtime": 1781647748.682647,
     "ast_hash": "d5f87c6748a9f36e40394d803525d68c",
-    "semantic_hash": ""
+    "semantic_hash": "d5f87c6748a9f36e40394d803525d68c"
   },
   "/home/hermandev/Documents/proyectos/1/servicar/next/src/presentation/view-models/mecanico/useFichas.view-model.ts": {
     "mtime": 1781647748.682647,
     "ast_hash": "1b4ae85d26451f8a9fce1a15048d9665",
-    "semantic_hash": ""
+    "semantic_hash": "1b4ae85d26451f8a9fce1a15048d9665"
+  },
+  "/home/hermandev/Documents/proyectos/1/servicar/packages/core/src/__tests__/editar-ticket.use-case.test.ts": {
+    "mtime": 1782234021.5565965,
+    "ast_hash": "037110a8cd49cee0ec3a0ef72e08b6a9",
+    "semantic_hash": "037110a8cd49cee0ec3a0ef72e08b6a9"
+  },
+  "/home/hermandev/Documents/proyectos/1/servicar/requisitos-requerimientos.md": {
+    "mtime": 1782233592.5227742,
+    "ast_hash": "d114304d047518080b47cd6bb1ba1456",
+    "semantic_hash": "d114304d047518080b47cd6bb1ba1456"
+  },
+  "/home/hermandev/Documents/proyectos/1/servicar/next/src/presentation/view-models/ticket/usePublicoTicket.view-model.ts": {
+    "mtime": 1782235181.5436482,
+    "ast_hash": "984e813f220b370de8cf12f93a317330",
+    "semantic_hash": "984e813f220b370de8cf12f93a317330"
+  },
+  "/home/hermandev/Documents/proyectos/1/servicar/next/src/presentation/views/ticket/PublicoTicketView.tsx": {
+    "mtime": 1782235848.9824965,
+    "ast_hash": "38a67370e28432beb1ec7492baf98afb",
+    "semantic_hash": "38a67370e28432beb1ec7492baf98afb"
+  },
+  "/home/hermandev/Documents/proyectos/1/servicar/next/src/app/ticket/[id]/page.tsx": {
+    "mtime": 1782235214.0139303,
+    "ast_hash": "9a7e65e6e3e324f7411149e35d69ecdd",
+    "semantic_hash": "9a7e65e6e3e324f7411149e35d69ecdd"
+  },
+  "/home/hermandev/Documents/proyectos/1/servicar/packages/core/seed.ts": {
+    "mtime": 1782239560.4088557,
+    "ast_hash": "8d953b50bf60259b07ae58b59609dba6",
+    "semantic_hash": "8d953b50bf60259b07ae58b59609dba6"
   }
 }

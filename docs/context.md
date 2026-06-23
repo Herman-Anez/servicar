@@ -13,7 +13,7 @@ Documento de orientación para agentes. Lee esto antes de tocar cualquier archiv
 - **Administrador** — desktop, aprueba / rechaza / reasigna cualquier ticket
 - **Cliente** — portal público read-only, busca ticket por ID (sin auth)
 
-**Stack de producción planeado:** Next.js 15 + PocketBase (BaaS self-hosted) + Vercel. **Hoy:** Next.js con capa mock (localStorage). PocketBase ya está seedeado y listo — falta cablear los repositorios.
+**Stack de producción:** Next.js 15 + PocketBase (BaaS self-hosted) + Vercel. **Hoy:** Next.js conectado a PocketBase real (`192.168.0.222:8090`). Mock disponible via `NEXT_PUBLIC_USE_MOCK=true`.
 
 ---
 
@@ -84,8 +84,9 @@ La UI está funcional con mock. El usuario puede:
 /dashboard                → panel mecánico (KPIs + actividad reciente)
 /taller                   → lista de tickets con filtros
 /fichas                   → tickets que requieren acción del mecánico
-/ticket/nuevo             → formulario nuevo ticket
-/ticket/[id]/editar       → editar ticket existente
+/ticket/nuevo             → formulario nuevo ticket (auth requerida, mecánico)
+/ticket/[id]              → portal público read-only — sin auth, acceso por ID exacto
+/ticket/[id]/editar       → editar ticket existente (auth requerida, mecánico o admin)
 /admin/cola               → bandeja de triage (pendiente_revision)
 /admin/tickets            → kanban global (activos / bloqueados / finalizados)
 /admin/historial/[id]     → detalle + timeline de auditoría de un ticket
@@ -149,6 +150,7 @@ src/
 │   │   └── fichas/page.tsx       ← thin shell → FichasView
 │   └── ticket/
 │       ├── nuevo/page.tsx        ← thin shell → NuevoTicketView
+│       ├── [id]/page.tsx         ← portal público (sin auth, sin coordinador) → PublicoTicketView
 │       └── [id]/editar/page.tsx  ← thin shell → EditarTicketView
 │
 ├── lib/
@@ -178,11 +180,11 @@ src/
 │   ├── view-models/
 │   │   ├── admin/                ← useAdminLayout.view-model.ts, useCola.view-model.ts, useTickets.view-model.ts, useHistorial.view-model.ts
 │   │   ├── mecanico/             ← useMecanicoLayout.view-model.ts, useDashboard.view-model.ts, useTaller.view-model.ts, useFichas.view-model.ts
-│   │   └── ticket/               ← useNuevoTicket.view-model.ts, useEditarTicket.view-model.ts
+│   │   └── ticket/               ← useNuevoTicket.view-model.ts, useEditarTicket.view-model.ts, usePublicoTicket.view-model.ts
 │   ├── views/
 │   │   ├── admin/                ← AdminLayoutView, ColaView, TicketsView, HistorialView (Once UI)
 │   │   ├── mecanico/             ← MecanicoLayoutView, DashboardView, TallerView, FichasView
-│   │   ├── ticket/               ← NuevoTicketView, EditarTicketView
+│   │   ├── ticket/               ← NuevoTicketView, EditarTicketView, PublicoTicketView
 │   │   └── shared/               ← EstadoChip, TicketCard, ViewHeader, AlertBanner, FabButton, KpiCard, index.ts
 │   └── hooks/
 │       └── useStoreReactive.ts   ← useReducer + mockStore.subscribe para reactivity
@@ -350,38 +352,38 @@ mecánico overlay:  z-index 5   ← DEBE ser < 10
 ## Lo que está pendiente (en orden)
 
 ### Funcionalidades sin implementar
-- **Portal cliente `/ticket/[id]`** — público, sin auth, lookup por ID exacto. Próxima tarea.
 - Módulo offline/drafts (postergado intencionalmente)
 
 ### Tests
 
 ```bash
-pnpm --filter @servicar/core test   # 76 tests — entidades, use cases, auth, store, repos
+pnpm --filter @servicar/core test   # 85 tests — entidades, use cases, auth, store, repos
 ```
 
 Todo en `@servicar/core`. Desglose:
-- `__tests__/` — entidades (14), crear-ticket (6), cambiar-estado (7), editar-ticket (4)
+- `__tests__/` — entidades (14), crear-ticket (6), cambiar-estado (10), editar-ticket (6)
 - `__tests__/auth/` — `autenticar.use-case.test.ts` (3), `mock-auth.provider.test.ts` (3)
 - `__tests__/persistence/mock/` — `mock-store.test.ts` (26), `mock-ticket-repository.test.ts` (12), `mock-empleado-repository.test.ts` (3)
 
+Auth enforcement probado a nivel de use case:
+- Mecánico edita solo sus tickets; admin edita todos → `EditarTicketUseCase`
+- Mecánico solo puede reenviar a `pendiente_revision`; no puede aprobar ni modificar ticket ajeno → `CambiarEstadoUseCase`
+
 ---
 
-### PocketBase — pasos para conectar
+### PocketBase — estado de conexión ✅
 
-**Infraestructura:** PocketBase corre en `http://192.168.0.84:8090` (red local, devcontainer tiene acceso directo). `next/.env.local` ya tiene `PB_URL=http://192.168.0.84:8090`.
+**PocketBase:** `http://192.168.0.222:8090` (red local). Nota v0.23+: usa `pb.collection("_superusers").authWithPassword()`.
 
-**Nota v0.23+:** PocketBase v0.23+ usa `pb.collection("_superusers").authWithPassword()` — el método `pb.admins.authWithPassword()` ya no existe.
+**Seed:** `packages/core/seed.ts`. Ejecutar desde raíz:
+```bash
+PB_URL=http://192.168.0.222:8090 PB_ADMIN_EMAIL=<su> PB_ADMIN_PASS=<pass> npx tsx packages/core/seed.ts
+```
+Crea 2 mecánicos + 1 admin (password `Password1234!`), 1 ticket por mecánico, historial de creación. Idempotente en usuarios; borra y recrea tickets.
 
-Estado actual:
-- [x] `@servicar/core` incluye infraestructura PocketBase (repos, `PbStore`, `PbAuthProvider`)
-- [x] `PbSessionService` creado y listo para activar
-- [x] `PbAuthProvider` listo — se activa automáticamente con `NEXT_PUBLIC_USE_MOCK=false`
-- [x] Seed ejecutado — colecciones `tickets` + `historial_ediciones` + 3 empleados + 7 tickets en PB real
-- [x] `pb-client.ts` lee `NEXT_PUBLIC_PB_URL` del entorno
-- [x] `next/.env.local` → `NEXT_PUBLIC_PB_URL=http://192.168.0.84:8090`, `NEXT_PUBLIC_USE_MOCK=false`
-- [ ] En `ticket-module.ts` y `empleado-module.ts`: cambiar repos de Mock a PocketBase (condicional por `isMock` ya está en empleado-module; ticket-module necesita igual tratamiento)
-- [ ] En `useStoreReactive.ts`: suscribir a `pbStore` en lugar de `mockStore`
-- [ ] En `next/src/lib/auth/index.ts`: descomentar las 3 líneas de `PbSessionService`
+El seed también setea API rules en `users`, `tickets`, `historial_ediciones` (list/view/create para usuarios autenticados, delete solo superusers). Sin esto PocketBase retorna 403 al listar usuarios.
+
+**Cambiar a mock:** `NEXT_PUBLIC_USE_MOCK=true` en `.env.local` — toda la infraestructura es condicional.
 
 ---
 

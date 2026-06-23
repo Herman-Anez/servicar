@@ -15,6 +15,7 @@ alternativa
 antes
 app
 append
+aprobado
 architecture
 arquitectura
 arrow
@@ -25,7 +26,9 @@ back
 backend
 bahia
 banner
+barrel
 base
+based
 bash
 biome
 biomejs
@@ -37,11 +40,13 @@ build
 buildear
 business
 button
+cache
 caddy
 cambiar
 cambio
 cambios
 campos
+can
 card
 case
 categoria
@@ -61,9 +66,11 @@ column
 com
 comandos
 compiler
+component
 components
 compose
 con
+conditional
 config
 configuraci
 confirm
@@ -74,6 +81,7 @@ convex
 cookie
 coordinator
 core
+creaci
 creador
 crear
 create
@@ -89,6 +97,7 @@ despliegue
 destroy
 detalles
 dev
+diferenciadas
 display
 docker
 docs
@@ -98,6 +107,7 @@ dominio
 draft
 dto
 dynamic
+edici
 ediciones
 editables
 editado
@@ -123,6 +133,7 @@ exclude
 execute
 export
 exportar
+exports
 extends
 extensions
 fab
@@ -133,6 +144,8 @@ file
 files
 filter
 filtros
+finalizado
+flag
 fonts
 footer
 form
@@ -173,6 +186,7 @@ init
 inmutable
 instalar
 install
+interface
 internet
 interop
 isolated
@@ -197,6 +211,7 @@ loader
 lock
 login
 logs
+machine
 mailchimp
 main
 make
@@ -211,6 +226,7 @@ metadata
 mjs
 mock
 modal
+mode
 model
 modificacion
 modo
@@ -232,15 +248,19 @@ nuevo
 object
 offline
 once
+optimistic
 options
 original
-out
 overview
+ownership
+owns
 package
 page
 paquete
 paths
+pattern
 payload
+pendiente
 pending
 persistence
 person
@@ -259,6 +279,7 @@ prefixes
 private
 producci
 production
+progreso
 project
 props
 protected
@@ -266,6 +287,8 @@ prototipo
 provider
 providers
 proxy
+public
+publico
 query
 quina
 quote
@@ -273,6 +296,7 @@ react
 reactive
 read
 readme
+real
 recomendado
 recommendations
 recommended
@@ -291,6 +315,7 @@ result
 reverso
 robots
 rol
+role
 roles
 root
 roots
@@ -311,6 +336,7 @@ service
 sesion
 session
 set
+shared
 sharing
 shield
 sign
@@ -327,16 +353,19 @@ strict
 string
 style
 subscribe
+subscriptions
 sudo
 system
 systemctl
 tab
 tabs
+tag
 taller
 target
 team
 test
 theme
+through
 ticket
 tickets
 tiles
@@ -351,6 +380,7 @@ transitions
 transliteration
 triage
 troubleshooting
+true
 tsconfig
 tsx
 type
@@ -371,11 +401,14 @@ valida
 value
 variable
 variables
+variant
 vcs
 ver
 versi
 version
 view
+vista
+vistas
 vitest
 watch
 width

@@ -1135,6 +1135,126 @@ next/src/modules/auth/infrastructure/auth-module.ts  ← service locator nuevo
 
 ---
 
+## 2026-06-23
+
+### RF-02 — Autorización en capa de aplicación ✅
+
+**Problema:** la autorización por rol solo existía en la capa de presentación (ViewModels). Llamar directamente a `EditarTicketUseCase` o `CambiarEstadoUseCase` sin pasar por el ViewModel evitaba todos los checks.
+
+**Cambios:**
+
+DTOs actualizados con `rol: Rol`:
+- `EditarTicketDTO` — añadido `rol: Rol`
+- `CambiarEstadoDTO` — añadido `rol: Rol`
+
+Use cases reforzados:
+- `EditarTicketUseCase.execute()` — si `rol === "mecanico"` y `ticket.creadorId !== empleadoId`, lanza "Mecánico solo puede editar sus propios tickets."
+- `CambiarEstadoUseCase.execute()` — si `rol === "mecanico"`: solo puede cambiar `nuevoEstado === "pendiente_revision"` y solo su propio ticket
+
+ViewModels actualizados (pasan `rol: empleado.rol`):
+- `useEditarTicket.view-model.ts`
+- `useCola.view-model.ts`
+- `useHistorial.view-model.ts`
+- `useTickets.view-model.ts`
+
+---
+
+### Tests de autorización ✅
+
+**Nuevo archivo:** `packages/core/src/__tests__/editar-ticket.use-case.test.ts` (6 tests):
+- Mecánico edita propio ticket → OK
+- Admin edita cualquier ticket → OK
+- Mecánico intenta editar ticket ajeno → lanza
+- Ticket no encontrado → lanza
+- Matrícula vacía → lanza (dominio)
+- Edición genera pendingHistorial → OK
+
+**Añadidos a `cambiar-estado.use-case.test.ts`** (3 casos nuevos):
+- Mecánico puede reenviar a revisión su propio ticket → OK
+- Mecánico intenta aprobar → lanza "solo puede reenviar a revisión"
+- Mecánico intenta modificar ticket ajeno → lanza
+
+**Total: 85 tests, 0 fallos.**
+
+---
+
+### Portal cliente `/ticket/[id]` — Fase 2 ✅
+
+Vista pública read-only para clientes. Sin auth, sin coordinador.
+
+**Archivos creados:**
+
+| Archivo | Rol |
+|---|---|
+| `next/src/app/ticket/[id]/page.tsx` | Thin shell público (sin auth guard ni coordinador) |
+| `next/src/presentation/view-models/ticket/usePublicoTicket.view-model.ts` | Carga ticket por ID vía `ticketModule.getTicketById`, sin sesión |
+| `next/src/presentation/views/ticket/PublicoTicketView.tsx` | Muestra estado (Tag variant), matrícula, categoría, título, fechas. Read-only. |
+
+**Campos mostrados:** estado (`Tag` con variante semántica), matrícula, categoría, título, `creationTime`, `fechaUltimaModificacion`. No expone `descripcion`, `notaAdmin`, `creadorId`.
+
+La ruta `/ticket` ya estaba habilitada en `routes` config — ningún cambio de configuración requerido. El `RouteGuard` solo verifica si la ruta está activa, no sesión. Los grupos `(mecanico)` y `admin` tienen su propio auth guard en el layout.
+
+---
+
+### Bug fix — Admin bloqueado de editar tickets ✅
+
+`viewState` en `useEditarTicketViewModel` usaba `ticket.creadorId !== empleado?.id` sin verificar el rol — admin recibía `"forbidden"` en tickets ajenos.
+
+**Fix:** `empleado?.rol !== "admin" && ticket.creadorId !== empleado?.id`
+
+---
+
+### Fix visual — botón "Guardar Cambios" invisible ✅
+
+`EditarTicketView` usaba `background: "var(--brand-strong)"` — variable inexistente en el tema. Corregido a `var(--brand-background-strong)` (igual que el botón "Aprobar" en `ColaView`).
+
+---
+
+### Fix visual — padding en EditarTicketView ✅
+
+Contenedor raíz sin padding → header pegado al borde. Añadido `padding="16"` al `Column` raíz.
+
+---
+
+## 2026-06-23 (continuación)
+
+### Conexión PocketBase al frontend ✅
+
+**Seed script creado** — `packages/core/seed.ts` (reemplaza el antiguo `persistence/pocketbase/seed.ts` eliminado en la migración al monorepo).
+
+Ejecutar desde raíz del workspace:
+```bash
+PB_URL=http://192.168.0.222:8090 PB_ADMIN_EMAIL=<superuser> PB_ADMIN_PASS=<pass> \
+  npx tsx packages/core/seed.ts
+```
+
+Seed idempotente (usuarios: skip si ya existen, tickets: borra y recrea). Crea:
+- 2 mecánicos: `juan.perez@servicar.com`, `m.rodriguez@servicar.com`
+- 1 admin: `admin@servicar.com`
+- Password todos: `Password1234!`
+- 1 ticket en `pendiente_revision` por mecánico + historial `CREACION`
+
+**API Rules seteadas** — el seed también actualiza las reglas de cada colección:
+
+| Colección | list | view | create | update | delete |
+|---|---|---|---|---|---|
+| `users` | auth | auth | superuser | auth | superuser |
+| `tickets` | auth | auth | auth | auth | superuser |
+| `historial_ediciones` | auth | auth | auth | — | — |
+
+Autorización granular (quién puede editar qué) sigue en los use cases del dominio.
+
+**`.env.local` actualizado:**
+- `NEXT_PUBLIC_USE_MOCK=false`
+- `NEXT_PUBLIC_PB_URL=http://192.168.0.222:8090`
+- `PB_URL=http://192.168.0.222:8090`
+
+**Infraestructura ya estaba lista** — `store.ts`, `auth/index.ts`, `ticket-module.ts`, `empleado-module.ts`, `useStoreReactive.ts`, `StoreProvider.tsx` ya usaban el flag `isMock`. Cero cambios de código necesarios.
+
+**Bug encontrado y resuelto:** `PbStore.init()` lanzaba `ClientResponseError 403 — Only superusers can perform this action` al listar `users`. Causa: `listRule=null` por defecto en colecciones PocketBase. Fix: seed setea `listRule='@request.auth.id != ""'` en las tres colecciones.
+
+---
+
 ## 2026-06-17
 
 ### Correcciones de Auth y PocketBase Real ✅
@@ -1171,3 +1291,32 @@ next/src/modules/auth/infrastructure/auth-module.ts  ← service locator nuevo
 * **Renombrado a Suffix `.view-model.ts`:** Cambiamos el nombre de los 10 archivos ViewModel de `use*ViewModel.ts` a `use*.view-model.ts` en `next/src/presentation/view-models/`.
 * **Actualización de Referencias:** Corregimos los paths de importación en todos los archivos del frontend, y las referencias en `docs/context.md` y `next/docs/estructura-carpetas.md`.
 * **Verificación de Integridad:** Se completó una compilación de producción de Next.js (`next build`) y la ejecución de la suite de pruebas unitarias (`vitest`) con cero errores/fallos. El grafo de dependencias se actualizó a 831 nodos y 1934 aristas.
+
+---
+
+## 2026-06-23 (graphify --update)
+
+### Grafo de conocimiento actualizado ✅
+
+`/graphify --update` ejecutado sobre el estado actual del proyecto. Pipeline completo.
+
+**Extracción:**
+- `detect_incremental()`: 182 archivos nuevos/modificados (169 código, 10 docs, 3 imágenes)
+- AST extraction (código): **737 nodos, 2260 edges**
+- Semantic extraction (13 archivos no-código) — 4 subagentes en paralelo:
+
+| Chunk | Archivos | Nodos | Edges |
+|---|---|---|---|
+| 01 — docs | DEPLOY.md, docker-compose*.yml, pnpm-workspace.yaml, CLAUDE.md, README.md (×2), .agents/*.md | 43 | 55 |
+| 02 — SVG | servicar-logo-blanco.svg | 6 | 6 |
+| 03 — SVG | servicar-logo.svg | 2 | 3 |
+| 04 — imagen | next/public/images/og/home.jpg | 6 | 9 |
+
+**Merge y clustering:**
+- `build_merge()` con old graph + AST + 4 chunks semánticos
+- 150 nodos deduplicados (20 exactos, 126 fuzzy)
+- Grafo final: **712 nodos, 1514 edges, 44 comunidades**
+
+**Outputs actualizados:** `graphify-out/graph.html`, `graphify-out/graph.json`, `graphify-out/GRAPH_REPORT.md`, `graphify-out/manifest.json`
+
+**Nota:** conteo bajó respecto a build anterior (883→712) porque `build_merge()` deduplicó nodos fuzzy-duplicados acumulados en builds previos.

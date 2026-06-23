@@ -43,7 +43,7 @@ export function EditarTicketView({ ticket, viewState, form, submitting, success,
   const isRequiresCambios = ticket?.estado === "requiere_cambios";
 
   return (
-    <Column fillWidth gap="0" style={{ minHeight: "calc(100vh - 48px)" }}>
+    <Column fillWidth gap="0" padding="16" style={{ minHeight: "calc(100vh - 48px)" }}>
       <ViewHeader
         title="Editar Ficha"
         onBack={onBack}
@@ -102,7 +102,7 @@ export function EditarTicketView({ ticket, viewState, form, submitting, success,
           <button
             onClick={onSubmit}
             disabled={submitting || success}
-            style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "12px 0", borderRadius: 8, border: "none", background: "var(--brand-strong)", color: "white", cursor: submitting ? "not-allowed" : "pointer", fontSize: "12px", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.07em", width: "100%", opacity: submitting ? 0.6 : 1 }}
+            style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "12px 0", borderRadius: 8, border: "none", background: "var(--brand-background-strong)", color: "#fff", cursor: submitting ? "not-allowed" : "pointer", fontSize: "12px", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.07em", width: "100%", opacity: submitting ? 0.6 : 1 }}
           >
             <Icon name="checkCircle" size="s" />
             GUARDAR CAMBIOS
