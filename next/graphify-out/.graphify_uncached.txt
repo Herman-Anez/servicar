@@ -1,0 +1,4 @@
+/workspaces/1/servicar/next/README.md
+/workspaces/1/servicar/next/public/images/og/home.jpg
+/workspaces/1/servicar/next/public/servicar-logo-blanco.svg
+/workspaces/1/servicar/next/public/servicar-logo.svg
