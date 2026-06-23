@@ -830,7 +830,7 @@ Los event handlers que llaman use cases de mutación (`onSubmit`, `onConfirm`, `
 **Fix:** `loading: boolean` añadido a `MecanicoLayoutVM` y `AdminLayoutVM`. El estado arranca en `true` y se pone en `false` una vez que la fetch del empleado resuelve. Los layouts ahora hacen `if (vm.loading) return` antes de decidir si redirigir.
 
 ```typescript
-// useMecanicoLayoutViewModel.ts
+// useMecanicoLayout.view-model.ts
 const [loading, setLoading] = useState(true);
 
 useEffect(() => {
@@ -1132,3 +1132,42 @@ next/src/modules/auth/infrastructure/auth-module.ts  ← service locator nuevo
 
 ### Funcionalidades pendientes
 - [ ] Portal cliente `/ticket/[id]` — público, sin auth, lookup por ID exacto
+
+---
+
+## 2026-06-17
+
+### Correcciones de Auth y PocketBase Real ✅
+
+* **PocketBase 403 Forbidden Fix:** Modificamos `PbStore.init()` para verificar `pb.authStore.isValid` antes de hacer peticiones de colecciones al montar la app, evitando errores 403 para usuarios no autenticados. Añadimos un listener `pb.authStore.onChange` para cargar/limpiar dinámicamente los datos tras iniciar/cerrar sesión.
+* **Integración del Mock en `db.ts`:** Refactorizamos `useAuth` para retornar `useMockAuth` y frenar side-effects a PocketBase de forma condicional cuando `isMock` está activo, garantizando un modo mock completamente aislado de la red.
+
+### Preparación del Despliegue en Railway (Mock) ✅
+
+* **Limpieza de Dockerfile (`next/Dockerfile`):** Eliminamos copias y setups de las dependencias antiguas e inexistentes `persistence/mock` y `persistence/pocketbase` que hacían fallar la compilación (al estar unificadas en `@servicar/core`).
+* **Next standalone output (`next/next.config.mjs`):** Agregamos la opción `output: "standalone"` para permitir que Next.js empaquete la app de forma aislada para el runner de Docker.
+* **Docker Compose Mock (`docker-compose.mock.yml`):** Creado un archivo compose listo para construir y desplegar la versión de prueba mockeada del frontend en el puerto 3000 de forma independiente.
+
+### Modularización y Refactor de Vistas ✅
+
+* **Componentes Compartidos Reutilizables:** Se extrajeron componentes comunes a `next/src/presentation/views/shared/`:
+  * `TicketCard`: Tarjeta unificada de tickets de taller y fichas a corregir para mecánicos.
+  * `ViewHeader`: Título, subtítulo, botón de retroceso y soporte para badges de estado unificados.
+  * `AlertBanner`: Banner para alertas del administrador, errores y confirmación con variantes de color.
+  * `FabButton`: Botón flotante responsivo para creación de tickets.
+  * `index.ts`: Barrel de exportaciones.
+* **Limpieza de Vistas:** Refactorizamos `TallerView`, `FichasView`, `DashboardView`, `NuevoTicketView` y `EditarTicketView` para remover lógica y estilos locales inline redundantes.
+* **Verificación:** Typechecks y compilación de producción de Next.js (`next build`) finalizados con cero errores. El grafo de dependencias fue actualizado a 771 nodos y 1645 aristas.
+
+### Fase 2: Extracciones Adicionales ✅
+
+* **Componente `KpiCard` (`next/src/presentation/views/shared/KpiCard.tsx`):** Extrajimos el componente de tarjeta de KPI local de `ColaView.tsx` hacia la carpeta compartida, haciéndolo configurable con etiquetas, valores y badges personalizados.
+* **Refactor de `ColaView.tsx`:** Reemplazamos el componente `KPICard` local por el componente compartido `KpiCard`, limpiando el código del módulo administrador.
+* **Refactor de `HistorialView.tsx`:** Reemplazamos el banner de encriptación manual y el recuadro de advertencia de nota del administrador por instancias reutilizables del componente compartido `AlertBanner`.
+* **Verificación:** El typecheck (`tsc --noEmit`) y la compilación (`next build`) volvieron a pasar con cero errores. El grafo de dependencias se actualizó a 774 nodos y 1653 aristas.
+
+### Estandarización de Nombres de ViewModels ✅
+
+* **Renombrado a Suffix `.view-model.ts`:** Cambiamos el nombre de los 10 archivos ViewModel de `use*ViewModel.ts` a `use*.view-model.ts` en `next/src/presentation/view-models/`.
+* **Actualización de Referencias:** Corregimos los paths de importación en todos los archivos del frontend, y las referencias en `docs/context.md` y `next/docs/estructura-carpetas.md`.
+* **Verificación de Integridad:** Se completó una compilación de producción de Next.js (`next build`) y la ejecución de la suite de pruebas unitarias (`vitest`) con cero errores/fallos. El grafo de dependencias se actualizó a 831 nodos y 1934 aristas.

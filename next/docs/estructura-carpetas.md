@@ -210,18 +210,18 @@ presentation/
 │   └── useStoreReactive.ts              ← suscripción al store para re-renders
 ├── view-models/
 │   ├── admin/
-│   │   ├── useAdminLayoutViewModel.ts
-│   │   ├── useColaViewModel.ts
-│   │   ├── useTicketsViewModel.ts
-│   │   └── useHistorialViewModel.ts
+│   │   ├── useAdminLayout.view-model.ts
+│   │   ├── useCola.view-model.ts
+│   │   ├── useTickets.view-model.ts
+│   │   └── useHistorial.view-model.ts
 │   ├── mecanico/
-│   │   ├── useMecanicoLayoutViewModel.ts
-│   │   ├── useDashboardViewModel.ts
-│   │   ├── useTallerViewModel.ts
-│   │   └── useFichasViewModel.ts
+│   │   ├── useMecanicoLayout.view-model.ts
+│   │   ├── useDashboard.view-model.ts
+│   │   ├── useTaller.view-model.ts
+│   │   └── useFichas.view-model.ts
 │   └── ticket/
-│       ├── useNuevoTicketViewModel.ts
-│       └── useEditarTicketViewModel.ts
+│       ├── useNuevoTicket.view-model.ts
+│       └── useEditarTicket.view-model.ts
 └── views/
     ├── shared/
     │   └── EstadoChip.tsx               ← chip de estado reutilizable

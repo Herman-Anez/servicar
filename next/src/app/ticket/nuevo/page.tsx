@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { MecanicoCoordinator } from "@/presentation/coordinators";
-import { useNuevoTicketViewModel } from "@/presentation/view-models/ticket/useNuevoTicketViewModel";
+import { useNuevoTicketViewModel } from "@/presentation/view-models/ticket/useNuevoTicket.view-model";
 import { NuevoTicketView } from "@/presentation/views/ticket/NuevoTicketView";
 
 export default function NuevoTicketPage() {

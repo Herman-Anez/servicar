@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { AdminCoordinator } from "@/presentation/coordinators";
-import { useHistorialViewModel } from "@/presentation/view-models/admin/useHistorialViewModel";
+import { useHistorialViewModel } from "@/presentation/view-models/admin/useHistorial.view-model";
 import { HistorialView } from "@/presentation/views/admin/HistorialView";
 
 export default function HistorialPage() {

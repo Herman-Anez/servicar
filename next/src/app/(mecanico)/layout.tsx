@@ -3,7 +3,7 @@
 import { useMemo, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { MecanicoCoordinator } from "@/presentation/coordinators";
-import { useMecanicoLayoutViewModel } from "@/presentation/view-models/mecanico/useMecanicoLayoutViewModel";
+import { useMecanicoLayoutViewModel } from "@/presentation/view-models/mecanico/useMecanicoLayout.view-model";
 import { MecanicoLayoutView } from "@/presentation/views/mecanico/MecanicoLayoutView";
 
 export default function MecanicoLayout({ children }: { children: React.ReactNode }) {

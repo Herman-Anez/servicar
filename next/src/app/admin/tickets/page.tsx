@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { AdminCoordinator } from "@/presentation/coordinators";
-import { useTicketsViewModel } from "@/presentation/view-models/admin/useTicketsViewModel";
+import { useTicketsViewModel } from "@/presentation/view-models/admin/useTickets.view-model";
 import { TicketsView } from "@/presentation/views/admin/TicketsView";
 
 export default function TicketsAdminPage() {

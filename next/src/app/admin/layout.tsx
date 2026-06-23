@@ -3,7 +3,7 @@
 import { useMemo, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { AdminCoordinator } from "@/presentation/coordinators";
-import { useAdminLayoutViewModel } from "@/presentation/view-models/admin/useAdminLayoutViewModel";
+import { useAdminLayoutViewModel } from "@/presentation/view-models/admin/useAdminLayout.view-model";
 import { AdminLayoutView } from "@/presentation/views/admin/AdminLayoutView";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

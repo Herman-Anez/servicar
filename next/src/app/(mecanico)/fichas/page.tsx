@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { MecanicoCoordinator } from "@/presentation/coordinators";
-import { useFichasViewModel } from "@/presentation/view-models/mecanico/useFichasViewModel";
+import { useFichasViewModel } from "@/presentation/view-models/mecanico/useFichas.view-model";
 import { FichasView } from "@/presentation/views/mecanico/FichasView";
 
 export default function FichasPage() {

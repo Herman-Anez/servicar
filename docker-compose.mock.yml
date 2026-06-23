@@ -1,0 +1,16 @@
+services:
+  next:
+    build:
+      context: .
+      dockerfile: next/Dockerfile
+      args:
+        NEXT_PUBLIC_USE_MOCK: "true"
+        NEXT_PUBLIC_PB_URL: ""
+    image: servicar-next-mock:latest
+    container_name: servicar-next-mock
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+    restart: unless-stopped

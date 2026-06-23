@@ -21,9 +21,27 @@ export class PbStore {
   private historial: PbHistorial[] = [];
   private listeners = new Set<Listener>();
 
-  constructor(private readonly pb: PocketBase) {}
+  constructor(private readonly pb: PocketBase) {
+    this.pb.authStore.onChange((token) => {
+      if (token) {
+        this.init().catch(console.error);
+      } else {
+        this.clear();
+        this.destroy().catch(console.error);
+      }
+    });
+  }
 
   async init(): Promise<void> {
+    if (!this.pb.authStore.isValid) {
+      // Not authenticated yet: do not fetch protected resources to avoid 403 errors.
+      this.notify();
+      return;
+    }
+
+    // Unsubscribe from any previous realtime subscriptions to avoid duplicates
+    await this.destroy();
+
     const [tickets, users, historial] = await Promise.all([
       this.pb.collection("tickets").getFullList<PbTicket>({ sort: "-created" }),
       this.pb.collection("users").getFullList<PbUser>(),
@@ -53,9 +71,20 @@ export class PbStore {
     this.notify();
   }
 
+  private clear(): void {
+    this.tickets = [];
+    this.users = [];
+    this.historial = [];
+    this.notify();
+  }
+
   async destroy(): Promise<void> {
-    await this.pb.collection("tickets").unsubscribe();
-    await this.pb.collection("historial_ediciones").unsubscribe();
+    try {
+      await this.pb.collection("tickets").unsubscribe();
+    } catch {}
+    try {
+      await this.pb.collection("historial_ediciones").unsubscribe();
+    } catch {}
   }
 
   subscribe(fn: Listener): () => void {

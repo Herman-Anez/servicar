@@ -176,14 +176,14 @@ src/
 │   │   ├── mecanico.coordinator.ts
 │   │   └── index.ts
 │   ├── view-models/
-│   │   ├── admin/                ← useAdminLayoutViewModel, useColaViewModel, useTicketsViewModel, useHistorialViewModel
-│   │   ├── mecanico/             ← useMecanicoLayoutViewModel, useDashboardViewModel, useTallerViewModel, useFichasViewModel
-│   │   └── ticket/               ← useNuevoTicketViewModel, useEditarTicketViewModel
+│   │   ├── admin/                ← useAdminLayout.view-model.ts, useCola.view-model.ts, useTickets.view-model.ts, useHistorial.view-model.ts
+│   │   ├── mecanico/             ← useMecanicoLayout.view-model.ts, useDashboard.view-model.ts, useTaller.view-model.ts, useFichas.view-model.ts
+│   │   └── ticket/               ← useNuevoTicket.view-model.ts, useEditarTicket.view-model.ts
 │   ├── views/
 │   │   ├── admin/                ← AdminLayoutView, ColaView, TicketsView, HistorialView (Once UI)
 │   │   ├── mecanico/             ← MecanicoLayoutView, DashboardView, TallerView, FichasView
 │   │   ├── ticket/               ← NuevoTicketView, EditarTicketView
-│   │   └── shared/EstadoChip.tsx
+│   │   └── shared/               ← EstadoChip, TicketCard, ViewHeader, AlertBanner, FabButton, KpiCard, index.ts
 │   └── hooks/
 │       └── useStoreReactive.ts   ← useReducer + mockStore.subscribe para reactivity
 │

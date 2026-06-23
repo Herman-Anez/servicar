@@ -1,10 +1,10 @@
 "use client";
 
 import { Column, Row, Text, Heading, Icon, Tag, Avatar } from "@once-ui-system/core";
-import type { Ticket, HistorialEntry } from "@servicar/core";
-import type { Empleado } from "@servicar/core";
+import { AlertBanner } from "@/presentation/views/shared";
 import type { TicketEstado } from "@servicar/core";
-import type { HistorialVM, HistorialTab } from "@/presentation/view-models/admin/useHistorialViewModel";
+import type { HistorialVM, HistorialTab } from "@/presentation/view-models/admin/useHistorial.view-model";
+import { AuditTimeline, InfoRow } from "./components/HistorialComponents";
 
 const ESTADO_CFG: Record<TicketEstado, { label: string; variant: "neutral" | "brand" | "warning" | "danger" | "success" | "info" }> = {
   pendiente_revision: { label: "En Revisión", variant: "neutral"  },
@@ -53,12 +53,13 @@ export function HistorialView({ ticket, historial, empleadoMap, creador, tab, se
         <Icon name="arrowLeft" size="xs" /> Volver
       </button>
 
-      <Row gap="8" vertical="center" radius="m" paddingX="16" paddingY="12" style={{ background: "#bc010008", border: "1px solid #bc010020", marginBottom: 20 }}>
-        <Icon name="shield" size="s" onBackground="brand-medium" />
-        <Text variant="label-default-xs" style={{ color: "#930100", fontWeight: 600 }}>
-          Este ticket está encriptado y solo es accesible por personal autorizado del taller.
-        </Text>
-      </Row>
+      <AlertBanner
+        message="Este ticket está encriptado y solo es accesible por personal autorizado del taller."
+        type="info"
+        iconName="shield"
+        padding="12px 16px"
+        marginBottom="20"
+      />
 
       <div className="historial-main">
         <Column gap="20">
@@ -107,13 +108,12 @@ export function HistorialView({ ticket, historial, empleadoMap, creador, tab, se
           </Column>
 
           {ticket.notaAdmin && (
-            <Row gap="8" vertical="start" radius="m" padding="12" style={{ background: "#ffdad620", border: "1px solid #ffdad6" }}>
-              <Icon name="warning" size="s" style={{ color: "#93000a", flexShrink: 0, marginTop: 2 }} />
-              <Column gap="4">
-                <Text variant="label-default-xs" style={{ color: "#93000a", textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 700 }}>NOTA ADMIN</Text>
-                <Text variant="body-default-s" style={{ color: "#93000a" }}>{ticket.notaAdmin}</Text>
-              </Column>
-            </Row>
+            <AlertBanner
+              title="NOTA ADMIN"
+              message={ticket.notaAdmin}
+              type="danger"
+              padding="12"
+            />
           )}
 
           <Column gap="0">
@@ -197,79 +197,5 @@ export function HistorialView({ ticket, historial, empleadoMap, creador, tab, se
         </Column>
       </div>
     </Column>
-  );
-}
-
-function AuditTimeline({ entries, empleadoMap }: {
-  entries: HistorialEntry[];
-  empleadoMap: Record<string, Pick<Empleado, "nombre" | "rol">>;
-}) {
-  return (
-    <Column style={{ position: "relative" }}>
-      <div style={{ position: "absolute", left: 19, top: 20, bottom: 20, width: 1, background: "var(--neutral-alpha-weak)" }} />
-      {entries.map((entry) => {
-        const autor = empleadoMap[entry.empleadoId];
-        let detalles: Record<string, unknown> = {};
-        try { detalles = entry.detallesCambio ? JSON.parse(entry.detallesCambio) : {}; } catch {}
-
-        const iconName =
-          entry.tipoAccion === "CREACION"      ? "plus"    :
-          entry.tipoAccion === "CAMBIO_ESTADO" ? "refresh" : "pencil";
-
-        return (
-          <Row key={entry.id} gap="12" paddingY="8" style={{ position: "relative", zIndex: 1 }}>
-            <Column
-              horizontal="center"
-              vertical="center"
-              background="surface"
-              border="neutral-alpha-weak"
-              radius="full"
-              style={{ width: 40, height: 40, flexShrink: 0 }}
-            >
-              <Icon name={iconName} size="xs" onBackground="neutral-weak" />
-            </Column>
-            <Column
-              flex={1}
-              padding="12"
-              radius="m"
-              background="neutral-alpha-weak"
-              border="neutral-alpha-weak"
-              gap="8"
-            >
-              <Row fillWidth horizontal="between" vertical="center" style={{ flexWrap: "wrap", gap: 6 }}>
-                <Text variant="label-strong-s">{autor?.nombre ?? "Sistema"}</Text>
-                <time style={{ fontSize: 11, color: "var(--neutral-on-background-weak)" }}>
-                  {new Date(entry.creationTime).toLocaleDateString("es-ES", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
-                </time>
-              </Row>
-              <Text variant="label-default-xs" onBackground="neutral-weak">
-                {entry.tipoAccion === "CREACION" && "Ticket creado"}
-                {entry.tipoAccion === "CAMBIO_ESTADO" && Boolean(detalles.estado_nuevo) && (
-                  <>{Boolean(detalles.estado_anterior) && <strong>{String(detalles.estado_anterior).replace(/_/g, " ")}</strong>}{Boolean(detalles.estado_anterior) && " → "}<strong>{String(detalles.estado_nuevo).replace(/_/g, " ")}</strong></>
-                )}
-                {entry.tipoAccion === "EDICION_TEXTO" && <>Editó el ticket: {Object.keys(detalles).filter((k) => k !== "_id").join(", ") || "—"}</>}
-              </Text>
-              {Boolean(detalles.nota) && (
-                <Text variant="label-default-xs" onBackground="neutral-weak" style={{ fontStyle: "italic" }}>
-                  &quot;{String(detalles.nota)}&quot;
-                </Text>
-              )}
-            </Column>
-          </Row>
-        );
-      })}
-    </Column>
-  );
-}
-
-function InfoRow({ icon, label, value }: { icon: "calendar" | "clock"; label: string; value: string }) {
-  return (
-    <Row gap="12" vertical="center" padding="8" background="surface" radius="s">
-      <Icon name={icon} size="s" onBackground="brand-medium" />
-      <Column gap="2">
-        <Text variant="label-default-xs" onBackground="neutral-weak" style={{ textTransform: "uppercase", letterSpacing: "0.05em" }}>{label}</Text>
-        <Text variant="label-strong-s">{value}</Text>
-      </Column>
-    </Row>
   );
 }
