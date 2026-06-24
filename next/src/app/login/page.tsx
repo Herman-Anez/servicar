@@ -189,7 +189,7 @@ export default function LoginPage() {
         </div>
 
         {/* Dev shortcuts */}
-        {/* <div style={{
+        <div style={{
           background: "var(--sp-surface-container-low)",
           border: "1px solid var(--sp-outline-variant)",
           borderRadius: 12, padding: 16, marginBottom: 24,
@@ -225,7 +225,7 @@ export default function LoginPage() {
               </button>
             ))}
           </div>
-        </div> */}
+        </div>
 
         {/* Footer */}
         <footer style={{ textAlign: "center" }}>

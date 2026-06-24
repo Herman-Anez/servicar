@@ -58,7 +58,7 @@ CMD ["/pb/pocketbase", "serve", "--http=0.0.0.0:8080"]
 
 ### Configuración Crítica en Railway para PocketBase:
 
-#### 1. Añadir Volumen de Persistencia (Crucial)
+
 #### 1. Añadir Volumen de Persistencia (Crucial)
 Por defecto, los contenedores en Railway son efímeros (borran sus datos y se destruyen en cada nuevo despliegue o reinicio). Como PocketBase utiliza SQLite, guarda toda la base de datos, configuraciones y archivos en una carpeta local llamada `pb_data`. Para no perder la información, debes asociar un volumen persistente:
 
