@@ -61,3 +61,7 @@ PB_URL=http://192.168.0.222:8090
 ## Índice de Documentación Adicional
 *   [Esquemas de Base de Datos (esquemas.md)](file:///home/hermandev/Documents/proyectos/1/servicar/poket-docs/esquemas.md): Especificación detallada de campos y tipos de datos por colección.
 *   [Reglas de Seguridad y API (reglas-api.md)](file:///home/hermandev/Documents/proyectos/1/servicar/poket-docs/reglas-api.md): Configuración de permisos de acceso en PocketBase para prevenir errores `403`.
+*   [Resolución de Problemas (resolucion-problemas.md)](file:///home/hermandev/Documents/proyectos/1/servicar/poket-docs/resolucion-problemas.md): Detalle de errores comunes de integración, ordenamiento y soluciones aplicadas.
+*   [Despliegue de PocketBase en Railway (despliegue-railway.md)](file:///home/hermandev/Documents/proyectos/1/servicar/poket-docs/despliegue-railway.md): Guía completa para desplegar, conectar y persistir PocketBase en la plataforma Railway.
+*   [Despliegue de Next.js en Railway (despliegue-next.md)](file:///home/hermandev/Documents/proyectos/1/servicar/poket-docs/despliegue-next.md): Configuración del monorepo, variables de compilación y despliegue del frontend Next.js en Railway.
+

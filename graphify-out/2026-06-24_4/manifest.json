@@ -915,8 +915,8 @@
     "semantic_hash": ""
   },
   "/home/hermandev/Documents/proyectos/1/servicar/poket-docs/README.md": {
-    "mtime": 1782322787.1353738,
-    "ast_hash": "300b6b0e600a91b6b69f42c29df39ac9",
+    "mtime": 1782241983.4662335,
+    "ast_hash": "9e911b83a4136aa8434c06fda5d4ba55",
     "semantic_hash": ""
   },
   "/home/hermandev/Documents/proyectos/1/servicar/poket-docs/reglas-api.md": {
@@ -932,11 +932,6 @@
   "/home/hermandev/Documents/proyectos/1/servicar/poket-docs/despliegue-railway.md": {
     "mtime": 1782322490.5616705,
     "ast_hash": "720daef1073ec5bbe34ae3203dd2247e",
-    "semantic_hash": ""
-  },
-  "/home/hermandev/Documents/proyectos/1/servicar/poket-docs/despliegue-next.md": {
-    "mtime": 1782323352.621074,
-    "ast_hash": "d463d24cbced5ea7b38fa1684e4b5aab",
     "semantic_hash": ""
   }
 }
