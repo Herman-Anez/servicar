@@ -1,20 +1,18 @@
 "use client";
 
-import { Column, Row, Text, Heading, Icon, SmartLink } from "@once-ui-system/core";
-import type { DashboardVM } from "@/presentation/view-models/mecanico/useDashboardViewModel";
-import type { Ticket } from "@servicar/core";
-import type { TicketEstado } from "@servicar/core";
-import { EstadoChip } from "@/presentation/views/shared/EstadoChip";
+import { Column, Row, Text, Icon, Heading } from "@once-ui-system/core";
+import { EstadoChip, ViewHeader, FabButton } from "@/presentation/views/shared";
+import type { DashboardVM } from "@/presentation/view-models/mecanico/useDashboard.view-model";
 
 export function DashboardView({ totalActivos, misTicketsTotal, recentTickets, onNuevoTicket, onVerFichas, onVerTaller }: DashboardVM) {
   return (
     <Column fillWidth gap="24" paddingBottom="16">
-      <Column gap="4" borderBottom="neutral-alpha-weak" paddingBottom="12">
-        <Heading variant="heading-strong-m">Panel de Control</Heading>
-        <Text variant="label-default-xs" onBackground="neutral-weak">
-          TALLER NORTE · TURNO MAÑANA
-        </Text>
-      </Column>
+      <ViewHeader
+        title="Panel de Control"
+        subtitle="TALLER NORTE · TURNO MAÑANA"
+        borderBottom
+        marginBottom="12"
+      />
 
       <Row gap="12" fillWidth>
         <button onClick={onVerFichas} style={{ flex: 1, background: "none", border: "none", padding: 0, cursor: "pointer", textAlign: "left" }}>
@@ -24,7 +22,7 @@ export function DashboardView({ totalActivos, misTicketsTotal, recentTickets, on
               <Icon name="chevronRight" size="xs" onBackground="neutral-weak" />
             </Row>
             <Row gap="8" vertical="center">
-              <Heading variant="display-strong-s" onBackground="brand-strong">{totalActivos}</Heading>
+              <Heading variant="display-strong-s" onBackground="brand-strong" as="h3">{totalActivos}</Heading>
               <Text variant="label-default-xs" onBackground="neutral-weak">FICHAS</Text>
             </Row>
             <div style={{ width: "100%", height: 3, borderRadius: 2, background: "var(--neutral-alpha-weak)", overflow: "hidden" }}>
@@ -40,7 +38,7 @@ export function DashboardView({ totalActivos, misTicketsTotal, recentTickets, on
               <Icon name="chevronRight" size="xs" onBackground="neutral-weak" />
             </Row>
             <Row gap="8" vertical="center">
-              <Heading variant="display-strong-s" onBackground="neutral-strong">{misTicketsTotal}</Heading>
+              <Heading variant="display-strong-s" onBackground="neutral-strong" as="h3">{misTicketsTotal}</Heading>
               <Text variant="label-default-xs" onBackground="neutral-weak">TOTAL</Text>
             </Row>
             <div style={{ width: "100%", height: 3, borderRadius: 2, background: "var(--neutral-alpha-weak)", overflow: "hidden" }}>
@@ -83,13 +81,7 @@ export function DashboardView({ totalActivos, misTicketsTotal, recentTickets, on
         )}
       </Column>
 
-      <button
-        onClick={onNuevoTicket}
-        style={{ position: "fixed", bottom: "72px", right: "16px", display: "flex", alignItems: "center", gap: "6px", padding: "10px 16px", borderRadius: "8px", background: "var(--sp-primary)", color: "var(--sp-on-primary)", border: "none", fontWeight: 700, fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.06em", boxShadow: "0 4px 12px rgba(188,1,0,0.3)", zIndex: 9, cursor: "pointer" }}
-      >
-        <Icon name="plus" size="s" />
-        NUEVA ORDEN
-      </button>
+      <FabButton onClick={onNuevoTicket} label="NUEVA ORDEN" />
     </Column>
   );
 }

@@ -830,7 +830,7 @@ Los event handlers que llaman use cases de mutación (`onSubmit`, `onConfirm`, `
 **Fix:** `loading: boolean` añadido a `MecanicoLayoutVM` y `AdminLayoutVM`. El estado arranca en `true` y se pone en `false` una vez que la fetch del empleado resuelve. Los layouts ahora hacen `if (vm.loading) return` antes de decidir si redirigir.
 
 ```typescript
-// useMecanicoLayoutViewModel.ts
+// useMecanicoLayout.view-model.ts
 const [loading, setLoading] = useState(true);
 
 useEffect(() => {
@@ -1132,3 +1132,207 @@ next/src/modules/auth/infrastructure/auth-module.ts  ← service locator nuevo
 
 ### Funcionalidades pendientes
 - [ ] Portal cliente `/ticket/[id]` — público, sin auth, lookup por ID exacto
+
+---
+
+## 2026-06-23
+
+### RF-02 — Autorización en capa de aplicación ✅
+
+**Problema:** la autorización por rol solo existía en la capa de presentación (ViewModels). Llamar directamente a `EditarTicketUseCase` o `CambiarEstadoUseCase` sin pasar por el ViewModel evitaba todos los checks.
+
+**Cambios:**
+
+DTOs actualizados con `rol: Rol`:
+- `EditarTicketDTO` — añadido `rol: Rol`
+- `CambiarEstadoDTO` — añadido `rol: Rol`
+
+Use cases reforzados:
+- `EditarTicketUseCase.execute()` — si `rol === "mecanico"` y `ticket.creadorId !== empleadoId`, lanza "Mecánico solo puede editar sus propios tickets."
+- `CambiarEstadoUseCase.execute()` — si `rol === "mecanico"`: solo puede cambiar `nuevoEstado === "pendiente_revision"` y solo su propio ticket
+
+ViewModels actualizados (pasan `rol: empleado.rol`):
+- `useEditarTicket.view-model.ts`
+- `useCola.view-model.ts`
+- `useHistorial.view-model.ts`
+- `useTickets.view-model.ts`
+
+---
+
+### Tests de autorización ✅
+
+**Nuevo archivo:** `packages/core/src/__tests__/editar-ticket.use-case.test.ts` (6 tests):
+- Mecánico edita propio ticket → OK
+- Admin edita cualquier ticket → OK
+- Mecánico intenta editar ticket ajeno → lanza
+- Ticket no encontrado → lanza
+- Matrícula vacía → lanza (dominio)
+- Edición genera pendingHistorial → OK
+
+**Añadidos a `cambiar-estado.use-case.test.ts`** (3 casos nuevos):
+- Mecánico puede reenviar a revisión su propio ticket → OK
+- Mecánico intenta aprobar → lanza "solo puede reenviar a revisión"
+- Mecánico intenta modificar ticket ajeno → lanza
+
+**Total: 85 tests, 0 fallos.**
+
+---
+
+### Portal cliente `/ticket/[id]` — Fase 2 ✅
+
+Vista pública read-only para clientes. Sin auth, sin coordinador.
+
+**Archivos creados:**
+
+| Archivo | Rol |
+|---|---|
+| `next/src/app/ticket/[id]/page.tsx` | Thin shell público (sin auth guard ni coordinador) |
+| `next/src/presentation/view-models/ticket/usePublicoTicket.view-model.ts` | Carga ticket por ID vía `ticketModule.getTicketById`, sin sesión |
+| `next/src/presentation/views/ticket/PublicoTicketView.tsx` | Muestra estado (Tag variant), matrícula, categoría, título, fechas. Read-only. |
+
+**Campos mostrados:** estado (`Tag` con variante semántica), matrícula, categoría, título, `creationTime`, `fechaUltimaModificacion`. No expone `descripcion`, `notaAdmin`, `creadorId`.
+
+La ruta `/ticket` ya estaba habilitada en `routes` config — ningún cambio de configuración requerido. El `RouteGuard` solo verifica si la ruta está activa, no sesión. Los grupos `(mecanico)` y `admin` tienen su propio auth guard en el layout.
+
+---
+
+### Bug fix — Admin bloqueado de editar tickets ✅
+
+`viewState` en `useEditarTicketViewModel` usaba `ticket.creadorId !== empleado?.id` sin verificar el rol — admin recibía `"forbidden"` en tickets ajenos.
+
+**Fix:** `empleado?.rol !== "admin" && ticket.creadorId !== empleado?.id`
+
+---
+
+### Fix visual — botón "Guardar Cambios" invisible ✅
+
+`EditarTicketView` usaba `background: "var(--brand-strong)"` — variable inexistente en el tema. Corregido a `var(--brand-background-strong)` (igual que el botón "Aprobar" en `ColaView`).
+
+---
+
+### Fix visual — padding en EditarTicketView ✅
+
+Contenedor raíz sin padding → header pegado al borde. Añadido `padding="16"` al `Column` raíz.
+
+---
+
+## 2026-06-23 (continuación)
+
+### Conexión PocketBase al frontend ✅
+
+**Seed script creado** — `packages/core/seed.ts` (reemplaza el antiguo `persistence/pocketbase/seed.ts` eliminado en la migración al monorepo).
+
+Ejecutar desde raíz del workspace:
+```bash
+PB_URL=http://192.168.0.222:8090 PB_ADMIN_EMAIL=<superuser> PB_ADMIN_PASS=<pass> \
+  npx tsx packages/core/seed.ts
+```
+
+Seed idempotente (usuarios: skip si ya existen, tickets: borra y recrea). Crea:
+- 2 mecánicos: `juan.perez@servicar.com`, `m.rodriguez@servicar.com`
+- 1 admin: `admin@servicar.com`
+- Password todos: `Password1234!`
+- 1 ticket en `pendiente_revision` por mecánico + historial `CREACION`
+
+**API Rules seteadas** — el seed también actualiza las reglas de cada colección:
+
+| Colección | list | view | create | update | delete |
+|---|---|---|---|---|---|
+| `users` | auth | auth | superuser | auth | superuser |
+| `tickets` | auth | auth | auth | auth | superuser |
+| `historial_ediciones` | auth | auth | auth | — | — |
+
+Autorización granular (quién puede editar qué) sigue en los use cases del dominio.
+
+**`.env.local` actualizado:**
+- `NEXT_PUBLIC_USE_MOCK=false`
+- `NEXT_PUBLIC_PB_URL=http://192.168.0.222:8090`
+- `PB_URL=http://192.168.0.222:8090`
+
+**Infraestructura ya estaba lista** — `store.ts`, `auth/index.ts`, `ticket-module.ts`, `empleado-module.ts`, `useStoreReactive.ts`, `StoreProvider.tsx` ya usaban el flag `isMock`. Cero cambios de código necesarios.
+
+**Bug encontrado y resuelto:** `PbStore.init()` lanzaba `ClientResponseError 403 — Only superusers can perform this action` al listar `users`. Causa: `listRule=null` por defecto en colecciones PocketBase. Fix: seed setea `listRule='@request.auth.id != ""'` en las tres colecciones.
+
+---
+
+## 2026-06-17
+
+### Correcciones de Auth y PocketBase Real ✅
+
+* **PocketBase 403 Forbidden Fix:** Modificamos `PbStore.init()` para verificar `pb.authStore.isValid` antes de hacer peticiones de colecciones al montar la app, evitando errores 403 para usuarios no autenticados. Añadimos un listener `pb.authStore.onChange` para cargar/limpiar dinámicamente los datos tras iniciar/cerrar sesión.
+* **Integración del Mock en `db.ts`:** Refactorizamos `useAuth` para retornar `useMockAuth` y frenar side-effects a PocketBase de forma condicional cuando `isMock` está activo, garantizando un modo mock completamente aislado de la red.
+
+### Preparación del Despliegue en Railway (Mock) ✅
+
+* **Limpieza de Dockerfile (`next/Dockerfile`):** Eliminamos copias y setups de las dependencias antiguas e inexistentes `persistence/mock` y `persistence/pocketbase` que hacían fallar la compilación (al estar unificadas en `@servicar/core`).
+* **Next standalone output (`next/next.config.mjs`):** Agregamos la opción `output: "standalone"` para permitir que Next.js empaquete la app de forma aislada para el runner de Docker.
+* **Docker Compose Mock (`docker-compose.mock.yml`):** Creado un archivo compose listo para construir y desplegar la versión de prueba mockeada del frontend en el puerto 3000 de forma independiente.
+
+### Modularización y Refactor de Vistas ✅
+
+* **Componentes Compartidos Reutilizables:** Se extrajeron componentes comunes a `next/src/presentation/views/shared/`:
+  * `TicketCard`: Tarjeta unificada de tickets de taller y fichas a corregir para mecánicos.
+  * `ViewHeader`: Título, subtítulo, botón de retroceso y soporte para badges de estado unificados.
+  * `AlertBanner`: Banner para alertas del administrador, errores y confirmación con variantes de color.
+  * `FabButton`: Botón flotante responsivo para creación de tickets.
+  * `index.ts`: Barrel de exportaciones.
+* **Limpieza de Vistas:** Refactorizamos `TallerView`, `FichasView`, `DashboardView`, `NuevoTicketView` y `EditarTicketView` para remover lógica y estilos locales inline redundantes.
+* **Verificación:** Typechecks y compilación de producción de Next.js (`next build`) finalizados con cero errores. El grafo de dependencias fue actualizado a 771 nodos y 1645 aristas.
+
+### Fase 2: Extracciones Adicionales ✅
+
+* **Componente `KpiCard` (`next/src/presentation/views/shared/KpiCard.tsx`):** Extrajimos el componente de tarjeta de KPI local de `ColaView.tsx` hacia la carpeta compartida, haciéndolo configurable con etiquetas, valores y badges personalizados.
+* **Refactor de `ColaView.tsx`:** Reemplazamos el componente `KPICard` local por el componente compartido `KpiCard`, limpiando el código del módulo administrador.
+* **Refactor de `HistorialView.tsx`:** Reemplazamos el banner de encriptación manual y el recuadro de advertencia de nota del administrador por instancias reutilizables del componente compartido `AlertBanner`.
+* **Verificación:** El typecheck (`tsc --noEmit`) y la compilación (`next build`) volvieron a pasar con cero errores. El grafo de dependencias se actualizó a 774 nodos y 1653 aristas.
+
+### Estandarización de Nombres de ViewModels ✅
+
+* **Renombrado a Suffix `.view-model.ts`:** Cambiamos el nombre de los 10 archivos ViewModel de `use*ViewModel.ts` a `use*.view-model.ts` en `next/src/presentation/view-models/`.
+* **Actualización de Referencias:** Corregimos los paths de importación en todos los archivos del frontend, y las referencias en `docs/context.md` y `next/docs/estructura-carpetas.md`.
+* **Verificación de Integridad:** Se completó una compilación de producción de Next.js (`next build`) y la ejecución de la suite de pruebas unitarias (`vitest`) con cero errores/fallos. El grafo de dependencias se actualizó a 831 nodos y 1934 aristas.
+
+---
+
+## 2026-06-23 (graphify --update)
+
+### Grafo de conocimiento actualizado ✅
+
+`/graphify --update` ejecutado sobre el estado actual del proyecto. Pipeline completo.
+
+**Extracción:**
+- `detect_incremental()`: 182 archivos nuevos/modificados (169 código, 10 docs, 3 imágenes)
+- AST extraction (código): **737 nodos, 2260 edges**
+- Semantic extraction (13 archivos no-código) — 4 subagentes en paralelo:
+
+| Chunk | Archivos | Nodos | Edges |
+|---|---|---|---|
+| 01 — docs | DEPLOY.md, docker-compose*.yml, pnpm-workspace.yaml, CLAUDE.md, README.md (×2), .agents/*.md | 43 | 55 |
+| 02 — SVG | servicar-logo-blanco.svg | 6 | 6 |
+| 03 — SVG | servicar-logo.svg | 2 | 3 |
+| 04 — imagen | next/public/images/og/home.jpg | 6 | 9 |
+
+**Merge y clustering:**
+- `build_merge()` con old graph + AST + 4 chunks semánticos
+- 150 nodos deduplicados (20 exactos, 126 fuzzy)
+- Grafo final: **712 nodos, 1514 edges, 44 comunidades**
+
+**Outputs actualizados:** `graphify-out/graph.html`, `graphify-out/graph.json`, `graphify-out/GRAPH_REPORT.md`, `graphify-out/manifest.json`
+
+**Nota:** conteo bajó respecto a build anterior (883→712) porque `build_merge()` deduplicó nodos fuzzy-duplicados acumulados en builds previos.
+
+---
+
+### Corrección de esquema y ordenamiento en PocketBase (v0.23+) ✅
+
+*   **Identificación del bug:** Al iniciar sesión o cargar la app con una sesión activa, el frontend realizaba peticiones de tickets y del historial de ediciones ordenando por fecha de creación (`sort: "-created"` / `sort: "+created"`). Estas peticiones fallaban con un error `ClientResponseError 400` ("Something went wrong while processing your request").
+*   **Causa raíz:** 
+    1. El script de inicialización `seed.ts` utilizaba la propiedad obsoleta `schema` en lugar de la propiedad `fields` introducida en la API de PocketBase v0.23+ al crear y actualizar colecciones. Esto provocaba que las colecciones se crearan sin campos personalizados.
+    2. Asimismo, en PocketBase v0.23+, los campos de fecha del sistema `created` y `updated` son ahora campos `autodate` opcionales en el esquema. Al ejecutar una actualización del esquema sin definirlos de manera explícita en la lista de `fields`, PocketBase los eliminaba de la colección, haciendo imposible realizar ordenamientos basados en ellos.
+    3. `ensureCollection` omitía las colecciones si ya existían, imposibilitando corregir su esquema de forma automática al volver a correr el seed.
+*   **Fix aplicado en `packages/core/seed.ts`:**
+    *   Se reestructuraron las definiciones de campos de tipo `select` (`categoria`, `estado`, `tipoAccion`), aplanando las opciones `values` y `maxSelect` al nivel raíz del objeto del campo.
+    *   Se agregaron explícitamente los campos de tipo `autodate` (`created` y `updated`) en la declaración de las colecciones `tickets` e `historial_ediciones` para evitar que PocketBase los elimine de la base de datos al regenerar el esquema.
+    *   Se modificó `ensureCollection` para que realice un `update` y aplique el nuevo esquema a las tablas de SQLite incluso si la colección ya existe.
+    *   Se integró una mezcla (merge) segura en `ensureUsersSchema` para que al actualizar los campos `nombre` y `rol` del usuario en la colección `users`, no se elimine ningún otro campo del sistema.
+*   **Ejecución y Verificación:** Se corrió el script de seed en el servidor del usuario y se verificó mediante peticiones HTTP que las colecciones se actualizaron de forma exitosa y ahora es posible realizar ordenamientos sobre `created` sin errores (retorna `200 OK`). El grafo de dependencias se actualizó a 888 nodos.

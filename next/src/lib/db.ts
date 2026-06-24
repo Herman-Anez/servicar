@@ -4,13 +4,18 @@
 //
 // En componentes: importar siempre desde "@/lib/db", nunca directo desde convex/react
 
-const isMock = process.env.NEXT_PUBLIC_USE_MOCK === "true";
+import { useState, useEffect } from "react";
+import { useStoreReactive } from "@/presentation/hooks/useStoreReactive";
+import { authSession } from "@/lib/auth";
+import { empleadoModule } from "@/modules/empleado/infrastructure/empleado-module";
+import type { Empleado } from "@servicar/core";
+import { useMockAuth } from "./mock/hooks";
+
+const isMock = process.env.NEXT_PUBLIC_USE_MOCK !== "false";
 
 export { isMock };
 
-// Re-exportar todo desde mock (en v1 solo hay modo mock hasta que se conecte Convex)
 export {
-  useMockAuth as useAuth,
   useMockTickets as useTickets,
   useMockTicketsByEstado as useTicketsByEstado,
   useMockTicketsByCreador as useTicketsByCreador,
@@ -23,6 +28,43 @@ export {
   useMockSignIn as useSignIn,
   useMockSignOut as useSignOut,
 } from "./mock/hooks";
+
+export function useAuth() {
+  const mockAuth = useMockAuth();
+  const refreshKey = useStoreReactive();
+  const session = authSession.getSession();
+  const [empleado, setEmpleado] = useState<Empleado | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (isMock) return;
+    setLoading(true);
+    if (!session) {
+      setEmpleado(null);
+      setLoading(false);
+      return;
+    }
+    empleadoModule.getEmpleadoById.execute(session.empleadoId)
+      .then((emp) => {
+        setEmpleado(emp);
+        setLoading(false);
+      })
+      .catch(() => {
+        setEmpleado(null);
+        setLoading(false);
+      });
+  }, [session?.empleadoId, refreshKey]);
+
+  if (isMock) {
+    return mockAuth;
+  }
+
+  return {
+    isAuthenticated: !!empleado,
+    isLoading: loading,
+    empleado,
+  };
+}
 
 export type {
   MockTicket as Ticket,

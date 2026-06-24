@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { MecanicoCoordinator } from "@/presentation/coordinators";
-import { useDashboardViewModel } from "@/presentation/view-models/mecanico/useDashboardViewModel";
+import { useDashboardViewModel } from "@/presentation/view-models/mecanico/useDashboard.view-model";
 import { DashboardView } from "@/presentation/views/mecanico/DashboardView";
 
 export default function DashboardPage() {

@@ -1,0 +1,13 @@
+/home/hermandev/Documents/proyectos/1/servicar/DEPLOY.md
+/home/hermandev/Documents/proyectos/1/servicar/docker-compose.yml
+/home/hermandev/Documents/proyectos/1/servicar/requisitos-requerimientos.md
+/home/hermandev/Documents/proyectos/1/servicar/docker-compose.mock.yml
+/home/hermandev/Documents/proyectos/1/servicar/pnpm-workspace.yaml
+/home/hermandev/Documents/proyectos/1/servicar/CLAUDE.md
+/home/hermandev/Documents/proyectos/1/servicar/README.md
+/home/hermandev/Documents/proyectos/1/servicar/next/README.md
+/home/hermandev/Documents/proyectos/1/servicar/.agents/rules/graphify.md
+/home/hermandev/Documents/proyectos/1/servicar/.agents/workflows/graphify.md
+/home/hermandev/Documents/proyectos/1/servicar/next/public/servicar-logo-blanco.svg
+/home/hermandev/Documents/proyectos/1/servicar/next/public/servicar-logo.svg
+/home/hermandev/Documents/proyectos/1/servicar/next/public/images/og/home.jpg

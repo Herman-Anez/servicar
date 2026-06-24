@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { MecanicoCoordinator } from "@/presentation/coordinators";
-import { useTallerViewModel } from "@/presentation/view-models/mecanico/useTallerViewModel";
+import { useTallerViewModel } from "@/presentation/view-models/mecanico/useTaller.view-model";
 import { TallerView } from "@/presentation/views/mecanico/TallerView";
 
 export default function TallerPage() {

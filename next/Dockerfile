@@ -7,8 +7,6 @@ WORKDIR /app
 
 COPY pnpm-workspace.yaml pnpm-lock.yaml package.json ./
 COPY packages/core/package.json        ./packages/core/
-COPY persistence/mock/package.json     ./persistence/mock/
-COPY persistence/pocketbase/package.json ./persistence/pocketbase/
 COPY next/package.json                 ./next/
 
 RUN pnpm install --frozen-lockfile
@@ -19,8 +17,6 @@ WORKDIR /app
 
 COPY --from=deps /app/node_modules                       ./node_modules
 COPY --from=deps /app/packages/core/node_modules         ./packages/core/node_modules
-COPY --from=deps /app/persistence/mock/node_modules      ./persistence/mock/node_modules
-COPY --from=deps /app/persistence/pocketbase/node_modules ./persistence/pocketbase/node_modules
 
 COPY . .
 

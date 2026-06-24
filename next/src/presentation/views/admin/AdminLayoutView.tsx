@@ -1,7 +1,7 @@
 "use client";
 
 import { Column, Row, Text, Icon, IconButton, Avatar } from "@once-ui-system/core";
-import type { AdminLayoutVM } from "@/presentation/view-models/admin/useAdminLayoutViewModel";
+import type { AdminLayoutVM } from "@/presentation/view-models/admin/useAdminLayout.view-model";
 
 const NAV = [
   { href: "/admin/cola",    label: "Triage",  icon: <TriageIcon /> },

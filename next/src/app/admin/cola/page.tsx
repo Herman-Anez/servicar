@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { AdminCoordinator } from "@/presentation/coordinators";
-import { useColaViewModel } from "@/presentation/view-models/admin/useColaViewModel";
+import { useColaViewModel } from "@/presentation/view-models/admin/useCola.view-model";
 import { ColaView } from "@/presentation/views/admin/ColaView";
 
 export default function ColaPage() {

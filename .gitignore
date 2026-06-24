@@ -1,5 +1,24 @@
-*/node_modules
-.pnpm-store
-.next
-graphify-out
-node_modules
+# Dependency directories
+node_modules/
+*/node_modules/
+.pnpm-store/
+
+# Next.js build output
+.next/
+out/
+tsconfig.tsbuildinfo
+
+# Environment variables (private files)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.staging.local
+.env*.local
+
+# Other build files / caches
+dist/
+build/
+.turbo/
+*.log

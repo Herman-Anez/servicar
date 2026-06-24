@@ -1,22 +1,21 @@
 "use client";
 
-import { Column, Row, Text, Heading, Icon, Input, Select, Textarea } from "@once-ui-system/core";
+import { Column, Row, Text, Icon, Input, Select, Textarea } from "@once-ui-system/core";
+import { ViewHeader, AlertBanner } from "@/presentation/views/shared";
 import { WORKSHOP_CATEGORIAS } from "@servicar/core";
-import type { NuevoTicketVM } from "@/presentation/view-models/ticket/useNuevoTicketViewModel";
+import type { NuevoTicketVM } from "@/presentation/view-models/ticket/useNuevoTicket.view-model";
 import type { TicketCategoria } from "@servicar/core";
 
 export function NuevoTicketView({ form, submitting, error, setField, setCategoria, onSubmit, onCancel }: NuevoTicketVM) {
   return (
     <Column fillWidth gap="0" style={{ minHeight: "calc(100vh - 48px)" }}>
-      <Row fillWidth gap="8" vertical="center" paddingBottom="16" borderBottom="neutral-alpha-weak" marginBottom="24">
-        <button onClick={onCancel} style={{ background: "none", border: "none", cursor: "pointer", display: "flex", alignItems: "center", color: "inherit", padding: 0 }}>
-          <Icon name="arrowLeft" size="s" onBackground="neutral-medium" />
-        </button>
-        <Column gap="2">
-          <Heading variant="heading-strong-m">Nueva Orden</Heading>
-          <Text variant="label-default-xs" onBackground="neutral-weak">Se publicará como ticket en revisión</Text>
-        </Column>
-      </Row>
+      <ViewHeader
+        title="Nueva Orden"
+        subtitle="Se publicará como ticket en revisión"
+        onBack={onCancel}
+        borderBottom
+        marginBottom="24"
+      />
 
       <Column fillWidth gap="16" flex={1}>
         <Column gap="8">
@@ -46,10 +45,7 @@ export function NuevoTicketView({ form, submitting, error, setField, setCategori
         </Column>
 
         {error && (
-          <Row gap="8" style={{ padding: "10px" }} radius="m" background="danger-alpha-weak" border="danger-alpha-medium" vertical="center">
-            <Icon name="warning" size="xs" onBackground="danger-medium" />
-            <Text variant="label-default-xs" onBackground="danger-strong">{error}</Text>
-          </Row>
+          <AlertBanner message={error} type="danger" />
         )}
 
         <Column gap="8" marginTop="8">

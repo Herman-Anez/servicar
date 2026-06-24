@@ -1,7 +1,7 @@
 "use client";
 
 import { Column, Row, Text, IconButton, Icon, Flex, SmartLink } from "@once-ui-system/core";
-import type { MecanicoLayoutVM } from "@/presentation/view-models/mecanico/useMecanicoLayoutViewModel";
+import type { MecanicoLayoutVM } from "@/presentation/view-models/mecanico/useMecanicoLayout.view-model";
 
 const NAV_TABS = [
   { href: "/dashboard", label: "Panel",  icon: "home"      },

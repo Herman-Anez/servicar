@@ -1,8 +1,9 @@
 "use client";
 
-import { Column, Row, Text, Heading, Icon, Input, Select, Textarea, Spinner } from "@once-ui-system/core";
+import { Column, Row, Text, Icon, Input, Select, Textarea, Spinner } from "@once-ui-system/core";
+import { ViewHeader, AlertBanner } from "@/presentation/views/shared";
 import { WORKSHOP_CATEGORIAS } from "@servicar/core";
-import type { EditarTicketVM } from "@/presentation/view-models/ticket/useEditarTicketViewModel";
+import type { EditarTicketVM } from "@/presentation/view-models/ticket/useEditarTicket.view-model";
 import type { TicketCategoria } from "@servicar/core";
 
 export function EditarTicketView({ ticket, viewState, form, submitting, success, error, setField, setCategoria, onSubmit, onBack }: EditarTicketVM) {
@@ -42,33 +43,31 @@ export function EditarTicketView({ ticket, viewState, form, submitting, success,
   const isRequiresCambios = ticket?.estado === "requiere_cambios";
 
   return (
-    <Column fillWidth gap="0" style={{ minHeight: "calc(100vh - 48px)" }}>
-      <Row fillWidth gap="8" vertical="center" paddingBottom="16" borderBottom="neutral-alpha-weak" marginBottom="24">
-        <button onClick={onBack} style={{ background: "none", border: "none", cursor: "pointer", display: "flex", alignItems: "center", color: "inherit", padding: 0 }}>
-          <Icon name="arrowLeft" size="s" onBackground="neutral-medium" />
-        </button>
-        <Column gap="2" style={{ flex: 1, minWidth: 0 }}>
-          <Heading variant="heading-strong-m">Editar Ficha</Heading>
-          <Row gap="8" vertical="center">
+    <Column fillWidth gap="0" padding="16" style={{ minHeight: "calc(100vh - 48px)" }}>
+      <ViewHeader
+        title="Editar Ficha"
+        onBack={onBack}
+        borderBottom
+        marginBottom="24"
+        badge={
+          <>
             <span style={{ fontSize: "10px", fontWeight: 800, fontFamily: "monospace", background: "var(--brand-alpha-weak)", color: "var(--brand-on-background-strong)", padding: "1px 5px", borderRadius: 3 }}>
               {ticket?.matricula}
             </span>
             <span style={{ fontSize: "9px", fontWeight: 700, textTransform: "uppercase", background: isRequiresCambios ? "var(--warning-alpha-medium)" : "var(--neutral-alpha-medium)", color: isRequiresCambios ? "var(--warning-on-background-strong)" : "var(--neutral-on-background-medium)", padding: "1px 5px", borderRadius: 3 }}>
               {isRequiresCambios ? "REQUIERE CAMBIOS" : (ticket?.estado ?? "").toUpperCase().replace(/_/g, " ")}
             </span>
-          </Row>
-        </Column>
-      </Row>
+          </>
+        }
+      />
 
       <Column fillWidth gap="16" flex={1}>
         {ticket?.notaAdmin && (
-          <Column gap="8" padding="12" radius="m" background="warning-alpha-weak" border="warning-alpha-medium">
-            <Row gap="8" vertical="center">
-              <Icon name="warning" size="xs" onBackground="warning-strong" />
-              <Text variant="label-strong-xs" onBackground="warning-strong">NOTA DEL ADMINISTRADOR</Text>
-            </Row>
-            <Text variant="body-default-xs" onBackground="warning-strong">{ticket.notaAdmin}</Text>
-          </Column>
+          <AlertBanner
+            title="NOTA DEL ADMINISTRADOR"
+            message={ticket.notaAdmin}
+            type="warning"
+          />
         )}
 
         <Column gap="8">
@@ -92,24 +91,18 @@ export function EditarTicketView({ ticket, viewState, form, submitting, success,
         </Column>
 
         {error && (
-          <Row gap="8" style={{ padding: "10px" }} radius="m" background="danger-alpha-weak" border="danger-alpha-medium" vertical="center">
-            <Icon name="warning" size="xs" onBackground="danger-medium" />
-            <Text variant="label-default-xs" onBackground="danger-strong">{error}</Text>
-          </Row>
+          <AlertBanner message={error} type="danger" />
         )}
 
         {success && (
-          <Row gap="8" style={{ padding: "10px" }} radius="m" background="success-alpha-weak" border="success-alpha-medium" vertical="center">
-            <Icon name="checkCircle" size="xs" onBackground="success-medium" />
-            <Text variant="label-default-xs" onBackground="success-strong">Guardado. Redirigiendo…</Text>
-          </Row>
+          <AlertBanner message="Guardado. Redirigiendo…" type="success" />
         )}
 
         <Column gap="8" marginTop="8">
           <button
             onClick={onSubmit}
             disabled={submitting || success}
-            style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "12px 0", borderRadius: 8, border: "none", background: "var(--brand-strong)", color: "white", cursor: submitting ? "not-allowed" : "pointer", fontSize: "12px", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.07em", width: "100%", opacity: submitting ? 0.6 : 1 }}
+            style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "12px 0", borderRadius: 8, border: "none", background: "var(--brand-background-strong)", color: "#fff", cursor: submitting ? "not-allowed" : "pointer", fontSize: "12px", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.07em", width: "100%", opacity: submitting ? 0.6 : 1 }}
           >
             <Icon name="checkCircle" size="s" />
             GUARDAR CAMBIOS

@@ -9,6 +9,15 @@ export class CambiarEstadoUseCase implements ICambiarEstadoUseCase {
     const ticket = await this.ticketRepo.getById(dto.ticketId);
     if (!ticket) throw new Error(`Ticket ${dto.ticketId} no encontrado.`);
 
+    if (dto.rol === "mecanico") {
+      if (ticket.creadorId !== dto.empleadoId) {
+        throw new Error("Mecánico solo puede modificar sus propios tickets.");
+      }
+      if (dto.nuevoEstado !== "pendiente_revision") {
+        throw new Error("Mecánico solo puede reenviar a revisión.");
+      }
+    }
+
     const actualizado = ticket.cambiarEstado(dto.nuevoEstado, dto.empleadoId, dto.notaAdmin);
     await this.ticketRepo.save(actualizado);
   }

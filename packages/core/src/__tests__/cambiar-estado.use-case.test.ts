@@ -34,14 +34,14 @@ describe("CambiarEstadoUseCase", () => {
   });
 
   it("aprueba un ticket pendiente", async () => {
-    await useCase.execute({ ticketId: "tk_1", nuevoEstado: "aprobado", empleadoId: "emp_admin" });
+    await useCase.execute({ ticketId: "tk_1", nuevoEstado: "aprobado", empleadoId: "emp_admin", rol: "admin" });
     expect(repo.get("tk_1")!.estado).toBe("aprobado");
   });
 
   it("solicita cambios con nota", async () => {
     await useCase.execute({
       ticketId: "tk_1", nuevoEstado: "requiere_cambios",
-      empleadoId: "emp_admin", notaAdmin: "Falta foto.",
+      empleadoId: "emp_admin", rol: "admin", notaAdmin: "Falta foto.",
     });
     const t = repo.get("tk_1")!;
     expect(t.estado).toBe("requiere_cambios");
@@ -50,19 +50,19 @@ describe("CambiarEstadoUseCase", () => {
 
   it("lanza si el ticket no existe", async () => {
     await expect(
-      useCase.execute({ ticketId: "no_existe", nuevoEstado: "aprobado", empleadoId: "emp_admin" })
+      useCase.execute({ ticketId: "no_existe", nuevoEstado: "aprobado", empleadoId: "emp_admin", rol: "admin" })
     ).rejects.toThrow("no encontrado");
   });
 
   it("lanza en transición inválida", async () => {
     await expect(
-      useCase.execute({ ticketId: "tk_1", nuevoEstado: "finalizado", empleadoId: "emp_admin" })
+      useCase.execute({ ticketId: "tk_1", nuevoEstado: "finalizado", empleadoId: "emp_admin", rol: "admin" })
     ).rejects.toThrow("Transición inválida");
   });
 
   it("lanza al solicitar cambios sin nota", async () => {
     await expect(
-      useCase.execute({ ticketId: "tk_1", nuevoEstado: "requiere_cambios", empleadoId: "emp_admin" })
+      useCase.execute({ ticketId: "tk_1", nuevoEstado: "requiere_cambios", empleadoId: "emp_admin", rol: "admin" })
     ).rejects.toThrow("nota");
   });
 
@@ -70,10 +70,31 @@ describe("CambiarEstadoUseCase", () => {
     const r = makeRepo([ticketEn("pendiente_revision", "tk_flow")]);
     const uc = new CambiarEstadoUseCase(r);
 
-    await uc.execute({ ticketId: "tk_flow", nuevoEstado: "aprobado",    empleadoId: "emp_admin" });
-    await uc.execute({ ticketId: "tk_flow", nuevoEstado: "en_progreso", empleadoId: "emp_admin" });
-    await uc.execute({ ticketId: "tk_flow", nuevoEstado: "finalizado",  empleadoId: "emp_admin" });
+    await uc.execute({ ticketId: "tk_flow", nuevoEstado: "aprobado",    empleadoId: "emp_admin", rol: "admin" });
+    await uc.execute({ ticketId: "tk_flow", nuevoEstado: "en_progreso", empleadoId: "emp_admin", rol: "admin" });
+    await uc.execute({ ticketId: "tk_flow", nuevoEstado: "finalizado",  empleadoId: "emp_admin", rol: "admin" });
 
     expect(r.get("tk_flow")!.estado).toBe("finalizado");
+  });
+
+  // --- Autorización por rol ---
+
+  it("mecánico puede reenviar a revisión su propio ticket", async () => {
+    const r = makeRepo([ticketEn("requiere_cambios")]);
+    const uc = new CambiarEstadoUseCase(r);
+    await uc.execute({ ticketId: "tk_1", nuevoEstado: "pendiente_revision", empleadoId: "emp_juan", rol: "mecanico" });
+    expect(r.get("tk_1")!.estado).toBe("pendiente_revision");
+  });
+
+  it("mecánico no puede aprobar un ticket", async () => {
+    await expect(
+      useCase.execute({ ticketId: "tk_1", nuevoEstado: "aprobado", empleadoId: "emp_juan", rol: "mecanico" })
+    ).rejects.toThrow("Mecánico solo puede reenviar a revisión.");
+  });
+
+  it("mecánico no puede modificar ticket ajeno", async () => {
+    await expect(
+      useCase.execute({ ticketId: "tk_1", nuevoEstado: "pendiente_revision", empleadoId: "emp_otro", rol: "mecanico" })
+    ).rejects.toThrow("Mecánico solo puede modificar sus propios tickets.");
   });
 });
