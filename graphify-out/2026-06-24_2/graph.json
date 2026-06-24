@@ -864,7 +864,7 @@
       "source_file": "next/src/presentation/view-models/admin/useCola.view-model.ts",
       "source_location": "L12",
       "id": "admin_usecola_view_model_action",
-      "community": 12,
+      "community": 3,
       "norm_label": "action"
     },
     {
@@ -873,7 +873,7 @@
       "source_file": "next/src/presentation/view-models/admin/useCola.view-model.ts",
       "source_location": "L14",
       "id": "admin_usecola_view_model_pendingaction",
-      "community": 12,
+      "community": 3,
       "norm_label": "pendingaction"
     },
     {
@@ -882,7 +882,7 @@
       "source_file": "next/src/presentation/view-models/admin/useCola.view-model.ts",
       "source_location": "L20",
       "id": "admin_usecola_view_model_colavm",
-      "community": 12,
+      "community": 3,
       "norm_label": "colavm"
     },
     {
@@ -891,7 +891,7 @@
       "source_file": "next/src/presentation/view-models/admin/useCola.view-model.ts",
       "source_location": "L35",
       "id": "admin_usecola_view_model_usecolaviewmodel",
-      "community": 12,
+      "community": 3,
       "norm_label": "usecolaviewmodel()"
     },
     {
@@ -909,7 +909,7 @@
       "source_file": "next/src/presentation/view-models/admin/useTickets.view-model.ts",
       "source_location": "L13",
       "id": "admin_usetickets_view_model_ticketsvm",
-      "community": 5,
+      "community": 11,
       "norm_label": "ticketsvm"
     },
     {
@@ -918,7 +918,7 @@
       "source_file": "next/src/presentation/view-models/admin/useTickets.view-model.ts",
       "source_location": "L29",
       "id": "admin_usetickets_view_model_isactivo",
-      "community": 5,
+      "community": 3,
       "norm_label": "isactivo()"
     },
     {
@@ -927,7 +927,7 @@
       "source_file": "next/src/presentation/view-models/admin/useTickets.view-model.ts",
       "source_location": "L33",
       "id": "admin_usetickets_view_model_useticketsviewmodel",
-      "community": 5,
+      "community": 3,
       "norm_label": "useticketsviewmodel()"
     },
     {
@@ -981,7 +981,7 @@
       "source_file": "next/src/presentation/view-models/admin/useHistorial.view-model.ts",
       "source_location": "L15",
       "id": "admin_usehistorial_view_model_historialvm",
-      "community": 6,
+      "community": 3,
       "norm_label": "historialvm"
     },
     {
@@ -999,7 +999,7 @@
       "source_file": "next/src/presentation/view-models/ticket/useNuevoTicket.view-model.ts",
       "source_location": "L1",
       "id": "next_src_presentation_view_models_ticket_usenuevoticket_view_model_ts",
-      "community": 3,
+      "community": 0,
       "norm_label": "usenuevoticket.view-model.ts"
     },
     {
@@ -1008,7 +1008,7 @@
       "source_file": "next/src/presentation/view-models/ticket/useNuevoTicket.view-model.ts",
       "source_location": "L12",
       "id": "ticket_usenuevoticket_view_model_nuevoticketformstate",
-      "community": 1,
+      "community": 0,
       "norm_label": "nuevoticketformstate"
     },
     {
@@ -1017,7 +1017,7 @@
       "source_file": "next/src/presentation/view-models/ticket/useNuevoTicket.view-model.ts",
       "source_location": "L19",
       "id": "ticket_usenuevoticket_view_model_empty",
-      "community": 3,
+      "community": 0,
       "norm_label": "empty"
     },
     {
@@ -1026,7 +1026,7 @@
       "source_file": "next/src/presentation/view-models/ticket/useNuevoTicket.view-model.ts",
       "source_location": "L26",
       "id": "ticket_usenuevoticket_view_model_nuevoticketvm",
-      "community": 1,
+      "community": 0,
       "norm_label": "nuevoticketvm"
     },
     {
@@ -1035,7 +1035,7 @@
       "source_file": "next/src/presentation/view-models/ticket/useNuevoTicket.view-model.ts",
       "source_location": "L37",
       "id": "ticket_usenuevoticket_view_model_usenuevoticketviewmodel",
-      "community": 3,
+      "community": 0,
       "norm_label": "usenuevoticketviewmodel()"
     },
     {
@@ -1080,7 +1080,7 @@
       "source_file": "next/src/presentation/view-models/ticket/useEditarTicket.view-model.ts",
       "source_location": "L13",
       "id": "ticket_useeditarticket_view_model_editarticketformstate",
-      "community": 1,
+      "community": 3,
       "norm_label": "editarticketformstate"
     },
     {
@@ -1098,7 +1098,7 @@
       "source_file": "next/src/presentation/view-models/ticket/useEditarTicket.view-model.ts",
       "source_location": "L22",
       "id": "ticket_useeditarticket_view_model_editarticketvm",
-      "community": 1,
+      "community": 3,
       "norm_label": "editarticketvm"
     },
     {
@@ -1116,7 +1116,7 @@
       "source_file": "next/src/presentation/view-models/mecanico/useDashboard.view-model.ts",
       "source_location": "L1",
       "id": "next_src_presentation_view_models_mecanico_usedashboard_view_model_ts",
-      "community": 3,
+      "community": 0,
       "norm_label": "usedashboard.view-model.ts"
     },
     {
@@ -1125,7 +1125,7 @@
       "source_file": "next/src/presentation/view-models/mecanico/useDashboard.view-model.ts",
       "source_location": "L12",
       "id": "mecanico_usedashboard_view_model_dashboardvm",
-      "community": 16,
+      "community": 0,
       "norm_label": "dashboardvm"
     },
     {
@@ -1134,7 +1134,7 @@
       "source_file": "next/src/presentation/view-models/mecanico/useDashboard.view-model.ts",
       "source_location": "L22",
       "id": "mecanico_usedashboard_view_model_usedashboardviewmodel",
-      "community": 3,
+      "community": 0,
       "norm_label": "usedashboardviewmodel()"
     },
     {
@@ -1179,7 +1179,7 @@
       "source_file": "next/src/presentation/view-models/mecanico/useTaller.view-model.ts",
       "source_location": "L13",
       "id": "mecanico_usetaller_view_model_filterestado",
-      "community": 0,
+      "community": 3,
       "norm_label": "filterestado"
     },
     {
@@ -1206,7 +1206,7 @@
       "source_file": "next/src/presentation/view-models/mecanico/useTaller.view-model.ts",
       "source_location": "L36",
       "id": "mecanico_usetaller_view_model_usetallerviewmodel",
-      "community": 0,
+      "community": 3,
       "norm_label": "usetallerviewmodel()"
     },
     {
@@ -1215,7 +1215,7 @@
       "source_file": "next/src/presentation/view-models/mecanico/useFichas.view-model.ts",
       "source_location": "L1",
       "id": "next_src_presentation_view_models_mecanico_usefichas_view_model_ts",
-      "community": 3,
+      "community": 0,
       "norm_label": "usefichas.view-model.ts"
     },
     {
@@ -1278,7 +1278,7 @@
       "source_file": "next/src/presentation/coordinators/mecanico.coordinator.ts",
       "source_location": "L4",
       "id": "coordinators_mecanico_coordinator_mecanicocoordinator",
-      "community": 3,
+      "community": 0,
       "norm_label": "mecanicocoordinator"
     },
     {
@@ -1287,7 +1287,7 @@
       "source_file": "next/src/presentation/coordinators/mecanico.coordinator.ts",
       "source_location": "L5",
       "id": "coordinators_mecanico_coordinator_mecanicocoordinator_constructor",
-      "community": 3,
+      "community": 0,
       "norm_label": ".constructor()"
     },
     {
@@ -1296,7 +1296,7 @@
       "source_file": "next/src/presentation/coordinators/mecanico.coordinator.ts",
       "source_location": "L7",
       "id": "coordinators_mecanico_coordinator_mecanicocoordinator_gotodashboard",
-      "community": 3,
+      "community": 0,
       "norm_label": ".gotodashboard()"
     },
     {
@@ -1305,7 +1305,7 @@
       "source_file": "next/src/presentation/coordinators/mecanico.coordinator.ts",
       "source_location": "L8",
       "id": "coordinators_mecanico_coordinator_mecanicocoordinator_gototaller",
-      "community": 3,
+      "community": 0,
       "norm_label": ".gototaller()"
     },
     {
@@ -1314,7 +1314,7 @@
       "source_file": "next/src/presentation/coordinators/mecanico.coordinator.ts",
       "source_location": "L9",
       "id": "coordinators_mecanico_coordinator_mecanicocoordinator_gotofichas",
-      "community": 3,
+      "community": 0,
       "norm_label": ".gotofichas()"
     },
     {
@@ -1323,7 +1323,7 @@
       "source_file": "next/src/presentation/coordinators/mecanico.coordinator.ts",
       "source_location": "L10",
       "id": "coordinators_mecanico_coordinator_mecanicocoordinator_gotonuevoticket",
-      "community": 3,
+      "community": 0,
       "norm_label": ".gotonuevoticket()"
     },
     {
@@ -1332,7 +1332,7 @@
       "source_file": "next/src/presentation/coordinators/mecanico.coordinator.ts",
       "source_location": "L11",
       "id": "coordinators_mecanico_coordinator_mecanicocoordinator_gotoeditarticket",
-      "community": 3,
+      "community": 0,
       "norm_label": ".gotoeditarticket()"
     },
     {
@@ -1341,7 +1341,7 @@
       "source_file": "next/src/presentation/coordinators/mecanico.coordinator.ts",
       "source_location": "L12",
       "id": "coordinators_mecanico_coordinator_mecanicocoordinator_gotologin",
-      "community": 3,
+      "community": 0,
       "norm_label": ".gotologin()"
     },
     {
@@ -1350,7 +1350,7 @@
       "source_file": "next/src/presentation/coordinators/mecanico.coordinator.ts",
       "source_location": "L13",
       "id": "coordinators_mecanico_coordinator_mecanicocoordinator_goback",
-      "community": 3,
+      "community": 0,
       "norm_label": ".goback()"
     },
     {
@@ -1512,7 +1512,7 @@
       "source_file": "next/src/presentation/views/admin/TicketsView.tsx",
       "source_location": "L1",
       "id": "next_src_presentation_views_admin_ticketsview_tsx",
-      "community": 5,
+      "community": 11,
       "norm_label": "ticketsview.tsx"
     },
     {
@@ -1521,7 +1521,7 @@
       "source_file": "next/src/presentation/views/admin/TicketsView.tsx",
       "source_location": "L7",
       "id": "admin_ticketsview_ticketsview",
-      "community": 5,
+      "community": 11,
       "norm_label": "ticketsview()"
     },
     {
@@ -1593,7 +1593,7 @@
       "source_file": "next/src/presentation/views/admin/ColaView.tsx",
       "source_location": "L1",
       "id": "next_src_presentation_views_admin_colaview_tsx",
-      "community": 12,
+      "community": 3,
       "norm_label": "colaview.tsx"
     },
     {
@@ -1602,7 +1602,7 @@
       "source_file": "next/src/presentation/views/admin/ColaView.tsx",
       "source_location": "L10",
       "id": "admin_colaview_colaview",
-      "community": 12,
+      "community": 3,
       "norm_label": "colaview()"
     },
     {
@@ -1638,7 +1638,7 @@
       "source_file": "next/src/presentation/views/admin/components/TriageComponents.tsx",
       "source_location": "L1",
       "id": "next_src_presentation_views_admin_components_triagecomponents_tsx",
-      "community": 12,
+      "community": 3,
       "norm_label": "triagecomponents.tsx"
     },
     {
@@ -1647,7 +1647,7 @@
       "source_file": "next/src/presentation/views/admin/components/TriageComponents.tsx",
       "source_location": "L8",
       "id": "components_triagecomponents_confirmmodalprops",
-      "community": 12,
+      "community": 3,
       "norm_label": "confirmmodalprops"
     },
     {
@@ -1656,7 +1656,7 @@
       "source_file": "next/src/presentation/views/admin/components/TriageComponents.tsx",
       "source_location": "L16",
       "id": "components_triagecomponents_confirmmodal",
-      "community": 12,
+      "community": 3,
       "norm_label": "confirmmodal()"
     },
     {
@@ -1665,7 +1665,7 @@
       "source_file": "next/src/presentation/views/admin/components/TriageComponents.tsx",
       "source_location": "L82",
       "id": "components_triagecomponents_triagerowprops",
-      "community": 12,
+      "community": 3,
       "norm_label": "triagerowprops"
     },
     {
@@ -1674,7 +1674,7 @@
       "source_file": "next/src/presentation/views/admin/components/TriageComponents.tsx",
       "source_location": "L90",
       "id": "components_triagecomponents_triagerow",
-      "community": 12,
+      "community": 3,
       "norm_label": "triagerow()"
     },
     {
@@ -1683,7 +1683,7 @@
       "source_file": "next/src/presentation/views/admin/components/KanbanComponents.tsx",
       "source_location": "L1",
       "id": "next_src_presentation_views_admin_components_kanbancomponents_tsx",
-      "community": 5,
+      "community": 11,
       "norm_label": "kanbancomponents.tsx"
     },
     {
@@ -1692,7 +1692,7 @@
       "source_file": "next/src/presentation/views/admin/components/KanbanComponents.tsx",
       "source_location": "L8",
       "id": "components_kanbancomponents_estado_actions",
-      "community": 5,
+      "community": 11,
       "norm_label": "estado_actions"
     },
     {
@@ -1701,7 +1701,7 @@
       "source_file": "next/src/presentation/views/admin/components/KanbanComponents.tsx",
       "source_location": "L15",
       "id": "components_kanbancomponents_kanbancolumnprops",
-      "community": 1,
+      "community": 11,
       "norm_label": "kanbancolumnprops"
     },
     {
@@ -1710,7 +1710,7 @@
       "source_file": "next/src/presentation/views/admin/components/KanbanComponents.tsx",
       "source_location": "L28",
       "id": "components_kanbancomponents_kanbancolumn",
-      "community": 5,
+      "community": 11,
       "norm_label": "kanbancolumn()"
     },
     {
@@ -1719,7 +1719,7 @@
       "source_file": "next/src/presentation/views/admin/components/KanbanComponents.tsx",
       "source_location": "L77",
       "id": "components_kanbancomponents_kanbancardprops",
-      "community": 5,
+      "community": 11,
       "norm_label": "kanbancardprops"
     },
     {
@@ -1728,7 +1728,7 @@
       "source_file": "next/src/presentation/views/admin/components/KanbanComponents.tsx",
       "source_location": "L85",
       "id": "components_kanbancomponents_kanbancard",
-      "community": 5,
+      "community": 11,
       "norm_label": "kanbancard()"
     },
     {
@@ -1890,7 +1890,7 @@
       "source_file": "next/src/presentation/views/shared/TicketCard.tsx",
       "source_location": "L7",
       "id": "shared_ticketcard_ticketcardprops",
-      "community": 16,
+      "community": 17,
       "norm_label": "ticketcardprops"
     },
     {
@@ -2034,7 +2034,7 @@
       "source_file": "next/src/presentation/views/ticket/EditarTicketView.tsx",
       "source_location": "L1",
       "id": "next_src_presentation_views_ticket_editarticketview_tsx",
-      "community": 0,
+      "community": 3,
       "norm_label": "editarticketview.tsx"
     },
     {
@@ -2187,7 +2187,7 @@
       "source_file": "next/src/lib/store.ts",
       "source_location": "L1",
       "id": "next_src_lib_store_ts",
-      "community": 13,
+      "community": 3,
       "norm_label": "store.ts"
     },
     {
@@ -2691,7 +2691,7 @@
       "source_file": "next/src/app/admin/cola/page.tsx",
       "source_location": "L1",
       "id": "next_src_app_admin_cola_page_tsx",
-      "community": 12,
+      "community": 3,
       "norm_label": "page.tsx"
     },
     {
@@ -2700,7 +2700,7 @@
       "source_file": "next/src/app/admin/cola/page.tsx",
       "source_location": "L9",
       "id": "cola_page_colapage",
-      "community": 12,
+      "community": 3,
       "norm_label": "colapage()"
     },
     {
@@ -2709,7 +2709,7 @@
       "source_file": "next/src/app/admin/tickets/page.tsx",
       "source_location": "L1",
       "id": "next_src_app_admin_tickets_page_tsx",
-      "community": 5,
+      "community": 3,
       "norm_label": "page.tsx"
     },
     {
@@ -2718,7 +2718,7 @@
       "source_file": "next/src/app/admin/tickets/page.tsx",
       "source_location": "L9",
       "id": "tickets_page_ticketsadminpage",
-      "community": 5,
+      "community": 3,
       "norm_label": "ticketsadminpage()"
     },
     {
@@ -2781,7 +2781,7 @@
       "source_file": "next/src/app/(mecanico)/dashboard/page.tsx",
       "source_location": "L1",
       "id": "next_src_app_mecanico_dashboard_page_tsx",
-      "community": 3,
+      "community": 0,
       "norm_label": "page.tsx"
     },
     {
@@ -2790,7 +2790,7 @@
       "source_file": "next/src/app/(mecanico)/dashboard/page.tsx",
       "source_location": "L9",
       "id": "dashboard_page_dashboardpage",
-      "community": 3,
+      "community": 0,
       "norm_label": "dashboardpage()"
     },
     {
@@ -2799,7 +2799,7 @@
       "source_file": "next/src/app/ticket/nuevo/page.tsx",
       "source_location": "L1",
       "id": "next_src_app_ticket_nuevo_page_tsx",
-      "community": 3,
+      "community": 0,
       "norm_label": "page.tsx"
     },
     {
@@ -2808,7 +2808,7 @@
       "source_file": "next/src/app/ticket/nuevo/page.tsx",
       "source_location": "L9",
       "id": "nuevo_page_nuevoticketpage",
-      "community": 3,
+      "community": 0,
       "norm_label": "nuevoticketpage()"
     },
     {
@@ -3294,7 +3294,7 @@
       "source_file": "next/src/modules/empleado/infrastructure/empleado-module.ts",
       "source_location": "L1",
       "id": "next_src_modules_empleado_infrastructure_empleado_module_ts",
-      "community": 3,
+      "community": 8,
       "norm_label": "empleado-module.ts"
     },
     {
@@ -3330,7 +3330,7 @@
       "source_file": "next/src/modules/ticket/infrastructure/ticket-module.ts",
       "source_location": "L1",
       "id": "next_src_modules_ticket_infrastructure_ticket_module_ts",
-      "community": 3,
+      "community": 47,
       "norm_label": "ticket-module.ts"
     },
     {
@@ -3339,7 +3339,7 @@
       "source_file": "next/src/modules/ticket/infrastructure/ticket-module.ts",
       "source_location": "L26",
       "id": "infrastructure_ticket_module_store",
-      "community": 3,
+      "community": 47,
       "norm_label": "store"
     },
     {
@@ -3348,7 +3348,7 @@
       "source_file": "next/src/modules/ticket/infrastructure/ticket-module.ts",
       "source_location": "L31",
       "id": "infrastructure_ticket_module_ticketmodule",
-      "community": 3,
+      "community": 47,
       "norm_label": "ticketmodule"
     },
     {
@@ -3834,7 +3834,7 @@
       "source_file": "packages/core/src/__tests__/crear-ticket.use-case.test.ts",
       "source_location": "L1",
       "id": "packages_core_src_tests_crear_ticket_use_case_test_ts",
-      "community": 1,
+      "community": 27,
       "norm_label": "crear-ticket.use-case.test.ts"
     },
     {
@@ -3843,7 +3843,7 @@
       "source_file": "packages/core/src/__tests__/crear-ticket.use-case.test.ts",
       "source_location": "L7",
       "id": "tests_crear_ticket_use_case_test_makerepo",
-      "community": 1,
+      "community": 27,
       "norm_label": "makerepo()"
     },
     {
@@ -3852,7 +3852,7 @@
       "source_file": "packages/core/src/__tests__/crear-ticket.use-case.test.ts",
       "source_location": "L19",
       "id": "tests_crear_ticket_use_case_test_dto",
-      "community": 1,
+      "community": 27,
       "norm_label": "dto"
     },
     {
@@ -3861,7 +3861,7 @@
       "source_file": "packages/core/src/__tests__/editar-ticket.use-case.test.ts",
       "source_location": "L1",
       "id": "packages_core_src_tests_editar_ticket_use_case_test_ts",
-      "community": 17,
+      "community": 12,
       "norm_label": "editar-ticket.use-case.test.ts"
     },
     {
@@ -3870,7 +3870,7 @@
       "source_file": "packages/core/src/__tests__/editar-ticket.use-case.test.ts",
       "source_location": "L7",
       "id": "tests_editar_ticket_use_case_test_makerepo",
-      "community": 17,
+      "community": 12,
       "norm_label": "makerepo()"
     },
     {
@@ -3879,7 +3879,7 @@
       "source_file": "packages/core/src/__tests__/editar-ticket.use-case.test.ts",
       "source_location": "L19",
       "id": "tests_editar_ticket_use_case_test_ticketde",
-      "community": 17,
+      "community": 12,
       "norm_label": "ticketde()"
     },
     {
@@ -3888,7 +3888,7 @@
       "source_file": "packages/core/src/__tests__/ticket.entity.test.ts",
       "source_location": "L1",
       "id": "packages_core_src_tests_ticket_entity_test_ts",
-      "community": 1,
+      "community": 5,
       "norm_label": "ticket.entity.test.ts"
     },
     {
@@ -3897,7 +3897,7 @@
       "source_file": "packages/core/src/__tests__/ticket.entity.test.ts",
       "source_location": "L4",
       "id": "tests_ticket_entity_test_base",
-      "community": 1,
+      "community": 5,
       "norm_label": "base"
     },
     {
@@ -3906,7 +3906,7 @@
       "source_file": "packages/core/src/__tests__/ticket.entity.test.ts",
       "source_location": "L18",
       "id": "tests_ticket_entity_test_t",
-      "community": 1,
+      "community": 5,
       "norm_label": "t"
     },
     {
@@ -3915,7 +3915,7 @@
       "source_file": "packages/core/src/__tests__/ticket.entity.test.ts",
       "source_location": "L46",
       "id": "tests_ticket_entity_test_ticketen",
-      "community": 1,
+      "community": 5,
       "norm_label": "ticketen()"
     },
     {
@@ -3924,7 +3924,7 @@
       "source_file": "packages/core/src/__tests__/ticket.entity.test.ts",
       "source_location": "L90",
       "id": "tests_ticket_entity_test_original",
-      "community": 1,
+      "community": 5,
       "norm_label": "original"
     },
     {
@@ -3933,7 +3933,7 @@
       "source_file": "packages/core/src/__tests__/ticket.entity.test.ts",
       "source_location": "L103",
       "id": "tests_ticket_entity_test_editado",
-      "community": 1,
+      "community": 5,
       "norm_label": "editado"
     },
     {
@@ -3942,7 +3942,7 @@
       "source_file": "packages/core/src/__tests__/cambiar-estado.use-case.test.ts",
       "source_location": "L1",
       "id": "packages_core_src_tests_cambiar_estado_use_case_test_ts",
-      "community": 17,
+      "community": 16,
       "norm_label": "cambiar-estado.use-case.test.ts"
     },
     {
@@ -3951,7 +3951,7 @@
       "source_file": "packages/core/src/__tests__/cambiar-estado.use-case.test.ts",
       "source_location": "L7",
       "id": "tests_cambiar_estado_use_case_test_makerepo",
-      "community": 17,
+      "community": 16,
       "norm_label": "makerepo()"
     },
     {
@@ -3960,7 +3960,7 @@
       "source_file": "packages/core/src/__tests__/cambiar-estado.use-case.test.ts",
       "source_location": "L19",
       "id": "tests_cambiar_estado_use_case_test_ticketen",
-      "community": 17,
+      "community": 16,
       "norm_label": "ticketen()"
     },
     {
@@ -3969,7 +3969,7 @@
       "source_file": "packages/core/src/__tests__/cambiar-estado.use-case.test.ts",
       "source_location": "L70",
       "id": "tests_cambiar_estado_use_case_test_r",
-      "community": 17,
+      "community": 16,
       "norm_label": "r"
     },
     {
@@ -3978,7 +3978,7 @@
       "source_file": "packages/core/src/__tests__/cambiar-estado.use-case.test.ts",
       "source_location": "L71",
       "id": "tests_cambiar_estado_use_case_test_uc",
-      "community": 17,
+      "community": 16,
       "norm_label": "uc"
     },
     {
@@ -4122,7 +4122,7 @@
       "source_file": "packages/core/src/__tests__/persistence/mock/mock-ticket-repository.test.ts",
       "source_location": "L1",
       "id": "packages_core_src_tests_persistence_mock_mock_ticket_repository_test_ts",
-      "community": 6,
+      "community": 1,
       "norm_label": "mock-ticket-repository.test.ts"
     },
     {
@@ -4131,7 +4131,7 @@
       "source_file": "packages/core/src/__tests__/persistence/mock/mock-ticket-repository.test.ts",
       "source_location": "L15",
       "id": "mock_mock_ticket_repository_test_ticketnuevo",
-      "community": 6,
+      "community": 1,
       "norm_label": "ticketnuevo()"
     },
     {
@@ -4140,7 +4140,7 @@
       "source_file": "packages/core/src/__tests__/persistence/mock/mock-ticket-repository.test.ts",
       "source_location": "L71",
       "id": "mock_mock_ticket_repository_test_t",
-      "community": 6,
+      "community": 1,
       "norm_label": "t"
     },
     {
@@ -4149,7 +4149,7 @@
       "source_file": "packages/core/src/__tests__/persistence/mock/mock-ticket-repository.test.ts",
       "source_location": "L91",
       "id": "mock_mock_ticket_repository_test_historial",
-      "community": 6,
+      "community": 1,
       "norm_label": "historial"
     },
     {
@@ -4158,7 +4158,7 @@
       "source_file": "packages/core/src/__tests__/persistence/mock/mock-ticket-repository.test.ts",
       "source_location": "L105",
       "id": "mock_mock_ticket_repository_test_actualizado",
-      "community": 6,
+      "community": 1,
       "norm_label": "actualizado"
     },
     {
@@ -4167,7 +4167,7 @@
       "source_file": "packages/core/src/__tests__/persistence/mock/mock-ticket-repository.test.ts",
       "source_location": "L113",
       "id": "mock_mock_ticket_repository_test_t2",
-      "community": 6,
+      "community": 1,
       "norm_label": "t2"
     },
     {
@@ -4176,7 +4176,7 @@
       "source_file": "packages/core/src/__tests__/persistence/mock/mock-ticket-repository.test.ts",
       "source_location": "L115",
       "id": "mock_mock_ticket_repository_test_t3",
-      "community": 6,
+      "community": 1,
       "norm_label": "t3"
     },
     {
@@ -4185,7 +4185,7 @@
       "source_file": "packages/core/src/__tests__/persistence/mock/mock-ticket-repository.test.ts",
       "source_location": "L117",
       "id": "mock_mock_ticket_repository_test_hist",
-      "community": 6,
+      "community": 1,
       "norm_label": "hist"
     },
     {
@@ -4194,7 +4194,7 @@
       "source_file": "packages/core/src/__tests__/persistence/mock/mock-ticket-repository.test.ts",
       "source_location": "L129",
       "id": "mock_mock_ticket_repository_test_uc",
-      "community": 6,
+      "community": 1,
       "norm_label": "uc"
     },
     {
@@ -4311,7 +4311,7 @@
       "source_file": "packages/core/src/modules/empleado/infrastructure/persistence/mock/mock-empleado.repository.ts",
       "source_location": "L6",
       "id": "mock_mock_empleado_repository_mockempleadorepository_constructor",
-      "community": 1,
+      "community": 8,
       "norm_label": ".constructor()"
     },
     {
@@ -4572,7 +4572,7 @@
       "source_file": "packages/core/src/modules/auth/infrastructure/pocketbase/pb-auth.provider.ts",
       "source_location": "L1",
       "id": "packages_core_src_modules_auth_infrastructure_pocketbase_pb_auth_provider_ts",
-      "community": 1,
+      "community": 13,
       "norm_label": "pb-auth.provider.ts"
     },
     {
@@ -4581,7 +4581,7 @@
       "source_file": "packages/core/src/modules/auth/infrastructure/pocketbase/pb-auth.provider.ts",
       "source_location": "L5",
       "id": "pocketbase_pb_auth_provider_pbauthprovider",
-      "community": 1,
+      "community": 13,
       "norm_label": "pbauthprovider"
     },
     {
@@ -4590,7 +4590,7 @@
       "source_file": "packages/core/src/modules/auth/infrastructure/pocketbase/pb-auth.provider.ts",
       "source_location": "L6",
       "id": "pocketbase_pb_auth_provider_pbauthprovider_constructor",
-      "community": 1,
+      "community": 13,
       "norm_label": ".constructor()"
     },
     {
@@ -4599,7 +4599,7 @@
       "source_file": "packages/core/src/modules/auth/infrastructure/pocketbase/pb-auth.provider.ts",
       "source_location": "L8",
       "id": "pocketbase_pb_auth_provider_pbauthprovider_autenticar",
-      "community": 1,
+      "community": 13,
       "norm_label": ".autenticar()"
     },
     {
@@ -4707,7 +4707,7 @@
       "source_file": "packages/core/src/modules/auth/domain/entities/sesion.entity.ts",
       "source_location": "L17",
       "id": "entities_sesion_entity_sesion_rol",
-      "community": 1,
+      "community": 13,
       "norm_label": ".rol()"
     },
     {
@@ -5202,7 +5202,7 @@
       "source_file": "packages/core/src/modules/shared/infrastructure/mock/store.ts",
       "source_location": "L84",
       "id": "mock_store_mockstore_getticketbyid",
-      "community": 17,
+      "community": 16,
       "norm_label": ".getticketbyid()"
     },
     {
@@ -5211,7 +5211,7 @@
       "source_file": "packages/core/src/modules/shared/infrastructure/mock/store.ts",
       "source_location": "L88",
       "id": "mock_store_mockstore_crearticket",
-      "community": 1,
+      "community": 27,
       "norm_label": ".crearticket()"
     },
     {
@@ -5283,7 +5283,7 @@
       "source_file": "packages/core/src/modules/shared/domain/ticket-estado.ts",
       "source_location": "L1",
       "id": "packages_core_src_modules_shared_domain_ticket_estado_ts",
-      "community": 1,
+      "community": 27,
       "norm_label": "ticket-estado.ts"
     },
     {
@@ -5292,7 +5292,7 @@
       "source_file": "packages/core/src/modules/shared/domain/ticket-estado.ts",
       "source_location": "L1",
       "id": "domain_ticket_estado_ticketestado",
-      "community": 1,
+      "community": 11,
       "norm_label": "ticketestado"
     },
     {
@@ -5301,7 +5301,7 @@
       "source_file": "packages/core/src/modules/shared/domain/ticket-estado.ts",
       "source_location": "L10",
       "id": "domain_ticket_estado_ticket_estado_transitions",
-      "community": 1,
+      "community": 27,
       "norm_label": "ticket_estado_transitions"
     },
     {
@@ -5310,7 +5310,7 @@
       "source_file": "packages/core/src/modules/shared/domain/ticket-estado.ts",
       "source_location": "L20",
       "id": "domain_ticket_estado_istransicionvalida",
-      "community": 1,
+      "community": 27,
       "norm_label": "istransicionvalida()"
     },
     {
@@ -5319,7 +5319,7 @@
       "source_file": "packages/core/src/modules/shared/domain/ticket-categoria.ts",
       "source_location": "L1",
       "id": "packages_core_src_modules_shared_domain_ticket_categoria_ts",
-      "community": 1,
+      "community": 0,
       "norm_label": "ticket-categoria.ts"
     },
     {
@@ -5328,7 +5328,7 @@
       "source_file": "packages/core/src/modules/shared/domain/ticket-categoria.ts",
       "source_location": "L1",
       "id": "domain_ticket_categoria_ticketcategoria",
-      "community": 1,
+      "community": 0,
       "norm_label": "ticketcategoria"
     },
     {
@@ -5346,7 +5346,7 @@
       "source_file": "packages/core/src/modules/shared/domain/rol.ts",
       "source_location": "L1",
       "id": "packages_core_src_modules_shared_domain_rol_ts",
-      "community": 1,
+      "community": 13,
       "norm_label": "rol.ts"
     },
     {
@@ -5355,7 +5355,7 @@
       "source_file": "packages/core/src/modules/shared/domain/rol.ts",
       "source_location": "L1",
       "id": "domain_rol_rol",
-      "community": 1,
+      "community": 13,
       "norm_label": "rol"
     },
     {
@@ -5364,7 +5364,7 @@
       "source_file": "packages/core/src/modules/shared/domain/aggregate-root.ts",
       "source_location": "L1",
       "id": "packages_core_src_modules_shared_domain_aggregate_root_ts",
-      "community": 8,
+      "community": 27,
       "norm_label": "aggregate-root.ts"
     },
     {
@@ -5373,7 +5373,7 @@
       "source_file": "packages/core/src/modules/shared/domain/aggregate-root.ts",
       "source_location": "L1",
       "id": "domain_aggregate_root_aggregateroot",
-      "community": 8,
+      "community": 27,
       "norm_label": "aggregateroot"
     },
     {
@@ -5382,7 +5382,7 @@
       "source_file": "packages/core/src/modules/shared/domain/index.ts",
       "source_location": "L1",
       "id": "packages_core_src_modules_shared_domain_index_ts",
-      "community": 1,
+      "community": 27,
       "norm_label": "index.ts"
     },
     {
@@ -5454,7 +5454,7 @@
       "source_file": "packages/core/src/modules/ticket/infrastructure/persistence/pocketbase/pb-ticket.mapper.ts",
       "source_location": "L28",
       "id": "pocketbase_pb_ticket_mapper_pbtickettoentity",
-      "community": 17,
+      "community": 48,
       "norm_label": "pbtickettoentity()"
     },
     {
@@ -5463,7 +5463,7 @@
       "source_file": "packages/core/src/modules/ticket/infrastructure/persistence/pocketbase/pb-ticket.mapper.ts",
       "source_location": "L45",
       "id": "pocketbase_pb_ticket_mapper_entitytopbticketdata",
-      "community": 17,
+      "community": 48,
       "norm_label": "entitytopbticketdata()"
     },
     {
@@ -5481,7 +5481,7 @@
       "source_file": "packages/core/src/modules/ticket/infrastructure/persistence/pocketbase/pb-ticket.mapper.ts",
       "source_location": "L71",
       "id": "pocketbase_pb_ticket_mapper_entitytopbhistorialdata",
-      "community": 17,
+      "community": 48,
       "norm_label": "entitytopbhistorialdata()"
     },
     {
@@ -5490,7 +5490,7 @@
       "source_file": "packages/core/src/modules/ticket/infrastructure/persistence/pocketbase/pb-ticket.repository.ts",
       "source_location": "L1",
       "id": "packages_core_src_modules_ticket_infrastructure_persistence_pocketbase_pb_ticket_repository_ts",
-      "community": 17,
+      "community": 48,
       "norm_label": "pb-ticket.repository.ts"
     },
     {
@@ -5499,7 +5499,7 @@
       "source_file": "packages/core/src/modules/ticket/infrastructure/persistence/pocketbase/pb-ticket.repository.ts",
       "source_location": "L6",
       "id": "pocketbase_pb_ticket_repository_pbticketrepository",
-      "community": 17,
+      "community": 48,
       "norm_label": "pbticketrepository"
     },
     {
@@ -5508,7 +5508,7 @@
       "source_file": "packages/core/src/modules/ticket/infrastructure/persistence/pocketbase/pb-ticket.repository.ts",
       "source_location": "L7",
       "id": "pocketbase_pb_ticket_repository_pbticketrepository_constructor",
-      "community": 17,
+      "community": 48,
       "norm_label": ".constructor()"
     },
     {
@@ -5517,7 +5517,7 @@
       "source_file": "packages/core/src/modules/ticket/infrastructure/persistence/pocketbase/pb-ticket.repository.ts",
       "source_location": "L9",
       "id": "pocketbase_pb_ticket_repository_pbticketrepository_getall",
-      "community": 17,
+      "community": 48,
       "norm_label": ".getall()"
     },
     {
@@ -5526,7 +5526,7 @@
       "source_file": "packages/core/src/modules/ticket/infrastructure/persistence/pocketbase/pb-ticket.repository.ts",
       "source_location": "L13",
       "id": "pocketbase_pb_ticket_repository_pbticketrepository_getbyid",
-      "community": 17,
+      "community": 48,
       "norm_label": ".getbyid()"
     },
     {
@@ -5535,7 +5535,7 @@
       "source_file": "packages/core/src/modules/ticket/infrastructure/persistence/pocketbase/pb-ticket.repository.ts",
       "source_location": "L18",
       "id": "pocketbase_pb_ticket_repository_pbticketrepository_getbyestado",
-      "community": 17,
+      "community": 48,
       "norm_label": ".getbyestado()"
     },
     {
@@ -5544,7 +5544,7 @@
       "source_file": "packages/core/src/modules/ticket/infrastructure/persistence/pocketbase/pb-ticket.repository.ts",
       "source_location": "L22",
       "id": "pocketbase_pb_ticket_repository_pbticketrepository_getbycreador",
-      "community": 17,
+      "community": 48,
       "norm_label": ".getbycreador()"
     },
     {
@@ -5553,7 +5553,7 @@
       "source_file": "packages/core/src/modules/ticket/infrastructure/persistence/pocketbase/pb-ticket.repository.ts",
       "source_location": "L26",
       "id": "pocketbase_pb_ticket_repository_pbticketrepository_save",
-      "community": 17,
+      "community": 48,
       "norm_label": ".save()"
     },
     {
@@ -5562,7 +5562,7 @@
       "source_file": "packages/core/src/modules/ticket/infrastructure/persistence/mock/mock-ticket.repository.ts",
       "source_location": "L1",
       "id": "packages_core_src_modules_ticket_infrastructure_persistence_mock_mock_ticket_repository_ts",
-      "community": 6,
+      "community": 1,
       "norm_label": "mock-ticket.repository.ts"
     },
     {
@@ -5571,7 +5571,7 @@
       "source_file": "packages/core/src/modules/ticket/infrastructure/persistence/mock/mock-ticket.repository.ts",
       "source_location": "L6",
       "id": "mock_mock_ticket_repository_mockticketrepository",
-      "community": 6,
+      "community": 1,
       "norm_label": "mockticketrepository"
     },
     {
@@ -5589,7 +5589,7 @@
       "source_file": "packages/core/src/modules/ticket/infrastructure/persistence/mock/mock-ticket.repository.ts",
       "source_location": "L9",
       "id": "mock_mock_ticket_repository_mockticketrepository_getall",
-      "community": 6,
+      "community": 1,
       "norm_label": ".getall()"
     },
     {
@@ -5598,7 +5598,7 @@
       "source_file": "packages/core/src/modules/ticket/infrastructure/persistence/mock/mock-ticket.repository.ts",
       "source_location": "L13",
       "id": "mock_mock_ticket_repository_mockticketrepository_getbyid",
-      "community": 6,
+      "community": 1,
       "norm_label": ".getbyid()"
     },
     {
@@ -5607,7 +5607,7 @@
       "source_file": "packages/core/src/modules/ticket/infrastructure/persistence/mock/mock-ticket.repository.ts",
       "source_location": "L18",
       "id": "mock_mock_ticket_repository_mockticketrepository_getbyestado",
-      "community": 1,
+      "community": 11,
       "norm_label": ".getbyestado()"
     },
     {
@@ -5616,7 +5616,7 @@
       "source_file": "packages/core/src/modules/ticket/infrastructure/persistence/mock/mock-ticket.repository.ts",
       "source_location": "L22",
       "id": "mock_mock_ticket_repository_mockticketrepository_getbycreador",
-      "community": 6,
+      "community": 1,
       "norm_label": ".getbycreador()"
     },
     {
@@ -5625,7 +5625,7 @@
       "source_file": "packages/core/src/modules/ticket/infrastructure/persistence/mock/mock-ticket.repository.ts",
       "source_location": "L26",
       "id": "mock_mock_ticket_repository_mockticketrepository_save",
-      "community": 6,
+      "community": 1,
       "norm_label": ".save()"
     },
     {
@@ -5634,7 +5634,7 @@
       "source_file": "packages/core/src/modules/ticket/infrastructure/persistence/mock/mock-ticket.mapper.ts",
       "source_location": "L1",
       "id": "packages_core_src_modules_ticket_infrastructure_persistence_mock_mock_ticket_mapper_ts",
-      "community": 6,
+      "community": 1,
       "norm_label": "mock-ticket.mapper.ts"
     },
     {
@@ -5643,7 +5643,7 @@
       "source_file": "packages/core/src/modules/ticket/infrastructure/persistence/mock/mock-ticket.mapper.ts",
       "source_location": "L5",
       "id": "mock_mock_ticket_mapper_mocktickettoentity",
-      "community": 6,
+      "community": 1,
       "norm_label": "mocktickettoentity()"
     },
     {
@@ -5652,7 +5652,7 @@
       "source_file": "packages/core/src/modules/ticket/infrastructure/persistence/mock/mock-ticket.mapper.ts",
       "source_location": "L22",
       "id": "mock_mock_ticket_mapper_entitytomockticket",
-      "community": 6,
+      "community": 1,
       "norm_label": "entitytomockticket()"
     },
     {
@@ -5661,7 +5661,7 @@
       "source_file": "packages/core/src/modules/ticket/infrastructure/persistence/mock/mock-ticket.mapper.ts",
       "source_location": "L38",
       "id": "mock_mock_ticket_mapper_mockhistorialtoentity",
-      "community": 6,
+      "community": 1,
       "norm_label": "mockhistorialtoentity()"
     },
     {
@@ -5670,7 +5670,7 @@
       "source_file": "packages/core/src/modules/ticket/infrastructure/persistence/mock/mock-ticket.mapper.ts",
       "source_location": "L50",
       "id": "mock_mock_ticket_mapper_entitytomockhistorial",
-      "community": 6,
+      "community": 1,
       "norm_label": "entitytomockhistorial()"
     },
     {
@@ -5679,7 +5679,7 @@
       "source_file": "packages/core/src/modules/ticket/infrastructure/persistence/mock/mock-historial.repository.ts",
       "source_location": "L1",
       "id": "packages_core_src_modules_ticket_infrastructure_persistence_mock_mock_historial_repository_ts",
-      "community": 6,
+      "community": 1,
       "norm_label": "mock-historial.repository.ts"
     },
     {
@@ -5688,7 +5688,7 @@
       "source_file": "packages/core/src/modules/ticket/infrastructure/persistence/mock/mock-historial.repository.ts",
       "source_location": "L5",
       "id": "mock_mock_historial_repository_mockhistorialrepository",
-      "community": 6,
+      "community": 1,
       "norm_label": "mockhistorialrepository"
     },
     {
@@ -5715,7 +5715,7 @@
       "source_file": "packages/core/src/modules/ticket/domain/index.ts",
       "source_location": "L1",
       "id": "packages_core_src_modules_ticket_domain_index_ts",
-      "community": 6,
+      "community": 47,
       "norm_label": "index.ts"
     },
     {
@@ -5742,7 +5742,7 @@
       "source_file": "packages/core/src/modules/ticket/domain/entities/historial-entry.entity.ts",
       "source_location": "L3",
       "id": "entities_historial_entry_entity_historialentryprops",
-      "community": 6,
+      "community": 1,
       "norm_label": "historialentryprops"
     },
     {
@@ -5850,7 +5850,7 @@
       "source_file": "packages/core/src/modules/ticket/domain/entities/ticket.entity.ts",
       "source_location": "L1",
       "id": "packages_core_src_modules_ticket_domain_entities_ticket_entity_ts",
-      "community": 1,
+      "community": 27,
       "norm_label": "ticket.entity.ts"
     },
     {
@@ -5859,7 +5859,7 @@
       "source_file": "packages/core/src/modules/ticket/domain/entities/ticket.entity.ts",
       "source_location": "L7",
       "id": "entities_ticket_entity_ticketprops",
-      "community": 6,
+      "community": 11,
       "norm_label": "ticketprops"
     },
     {
@@ -5868,7 +5868,7 @@
       "source_file": "packages/core/src/modules/ticket/domain/entities/ticket.entity.ts",
       "source_location": "L21",
       "id": "entities_ticket_entity_ticketcamposeditables",
-      "community": 17,
+      "community": 12,
       "norm_label": "ticketcamposeditables"
     },
     {
@@ -5877,7 +5877,7 @@
       "source_file": "packages/core/src/modules/ticket/domain/entities/ticket.entity.ts",
       "source_location": "L25",
       "id": "entities_ticket_entity_ticket",
-      "community": 16,
+      "community": 17,
       "norm_label": "ticket"
     },
     {
@@ -5895,7 +5895,7 @@
       "source_file": "packages/core/src/modules/ticket/domain/entities/ticket.entity.ts",
       "source_location": "L33",
       "id": "entities_ticket_entity_ticket_create",
-      "community": 16,
+      "community": 17,
       "norm_label": ".create()"
     },
     {
@@ -5904,7 +5904,7 @@
       "source_file": "packages/core/src/modules/ticket/domain/entities/ticket.entity.ts",
       "source_location": "L59",
       "id": "entities_ticket_entity_ticket_reconstitute",
-      "community": 16,
+      "community": 17,
       "norm_label": ".reconstitute()"
     },
     {
@@ -5913,7 +5913,7 @@
       "source_file": "packages/core/src/modules/ticket/domain/entities/ticket.entity.ts",
       "source_location": "L63",
       "id": "entities_ticket_entity_ticket_cambiarestado",
-      "community": 16,
+      "community": 17,
       "norm_label": ".cambiarestado()"
     },
     {
@@ -5922,7 +5922,7 @@
       "source_file": "packages/core/src/modules/ticket/domain/entities/ticket.entity.ts",
       "source_location": "L88",
       "id": "entities_ticket_entity_ticket_editar",
-      "community": 16,
+      "community": 17,
       "norm_label": ".editar()"
     },
     {
@@ -5940,7 +5940,7 @@
       "source_file": "packages/core/src/modules/ticket/domain/entities/ticket.entity.ts",
       "source_location": "L111",
       "id": "entities_ticket_entity_ticket_id",
-      "community": 16,
+      "community": 17,
       "norm_label": ".id()"
     },
     {
@@ -5949,7 +5949,7 @@
       "source_file": "packages/core/src/modules/ticket/domain/entities/ticket.entity.ts",
       "source_location": "L112",
       "id": "entities_ticket_entity_ticket_creationtime",
-      "community": 16,
+      "community": 17,
       "norm_label": ".creationtime()"
     },
     {
@@ -5958,7 +5958,7 @@
       "source_file": "packages/core/src/modules/ticket/domain/entities/ticket.entity.ts",
       "source_location": "L113",
       "id": "entities_ticket_entity_ticket_matricula",
-      "community": 16,
+      "community": 17,
       "norm_label": ".matricula()"
     },
     {
@@ -5967,7 +5967,7 @@
       "source_file": "packages/core/src/modules/ticket/domain/entities/ticket.entity.ts",
       "source_location": "L114",
       "id": "entities_ticket_entity_ticket_categoria",
-      "community": 16,
+      "community": 17,
       "norm_label": ".categoria()"
     },
     {
@@ -5976,7 +5976,7 @@
       "source_file": "packages/core/src/modules/ticket/domain/entities/ticket.entity.ts",
       "source_location": "L115",
       "id": "entities_ticket_entity_ticket_titulo",
-      "community": 16,
+      "community": 17,
       "norm_label": ".titulo()"
     },
     {
@@ -5985,7 +5985,7 @@
       "source_file": "packages/core/src/modules/ticket/domain/entities/ticket.entity.ts",
       "source_location": "L116",
       "id": "entities_ticket_entity_ticket_descripcion",
-      "community": 16,
+      "community": 17,
       "norm_label": ".descripcion()"
     },
     {
@@ -5994,7 +5994,7 @@
       "source_file": "packages/core/src/modules/ticket/domain/entities/ticket.entity.ts",
       "source_location": "L117",
       "id": "entities_ticket_entity_ticket_estado",
-      "community": 16,
+      "community": 17,
       "norm_label": ".estado()"
     },
     {
@@ -6003,7 +6003,7 @@
       "source_file": "packages/core/src/modules/ticket/domain/entities/ticket.entity.ts",
       "source_location": "L118",
       "id": "entities_ticket_entity_ticket_creadorid",
-      "community": 16,
+      "community": 17,
       "norm_label": ".creadorid()"
     },
     {
@@ -6012,7 +6012,7 @@
       "source_file": "packages/core/src/modules/ticket/domain/entities/ticket.entity.ts",
       "source_location": "L119",
       "id": "entities_ticket_entity_ticket_fechaultimamodificacion",
-      "community": 16,
+      "community": 17,
       "norm_label": ".fechaultimamodificacion()"
     },
     {
@@ -6021,7 +6021,7 @@
       "source_file": "packages/core/src/modules/ticket/domain/entities/ticket.entity.ts",
       "source_location": "L120",
       "id": "entities_ticket_entity_ticket_notaadmin",
-      "community": 16,
+      "community": 17,
       "norm_label": ".notaadmin()"
     },
     {
@@ -6030,7 +6030,7 @@
       "source_file": "packages/core/src/modules/ticket/domain/entities/ticket.entity.ts",
       "source_location": "L121",
       "id": "entities_ticket_entity_ticket_bahia",
-      "community": 16,
+      "community": 17,
       "norm_label": ".bahia()"
     },
     {
@@ -6039,7 +6039,7 @@
       "source_file": "packages/core/src/modules/ticket/domain/entities/ticket.entity.ts",
       "source_location": "L123",
       "id": "entities_ticket_entity_ticket_toplainobject",
-      "community": 16,
+      "community": 17,
       "norm_label": ".toplainobject()"
     },
     {
@@ -6057,7 +6057,7 @@
       "source_file": "packages/core/src/modules/ticket/domain/ports/historial.repository.port.ts",
       "source_location": "L3",
       "id": "ports_historial_repository_port_ihistorialrepository",
-      "community": 6,
+      "community": 47,
       "norm_label": "ihistorialrepository"
     },
     {
@@ -6066,7 +6066,7 @@
       "source_file": "packages/core/src/modules/ticket/domain/ports/ticket.repository.port.ts",
       "source_location": "L1",
       "id": "packages_core_src_modules_ticket_domain_ports_ticket_repository_port_ts",
-      "community": 1,
+      "community": 27,
       "norm_label": "ticket.repository.port.ts"
     },
     {
@@ -6075,7 +6075,7 @@
       "source_file": "packages/core/src/modules/ticket/domain/ports/ticket.repository.port.ts",
       "source_location": "L4",
       "id": "ports_ticket_repository_port_iticketrepository",
-      "community": 17,
+      "community": 48,
       "norm_label": "iticketrepository"
     },
     {
@@ -6084,7 +6084,7 @@
       "source_file": "packages/core/src/modules/ticket/domain/value-objects/matricula.vo.ts",
       "source_location": "L1",
       "id": "packages_core_src_modules_ticket_domain_value_objects_matricula_vo_ts",
-      "community": 6,
+      "community": 28,
       "norm_label": "matricula.vo.ts"
     },
     {
@@ -6093,7 +6093,7 @@
       "source_file": "packages/core/src/modules/ticket/domain/value-objects/matricula.vo.ts",
       "source_location": "L1",
       "id": "value_objects_matricula_vo_matricula",
-      "community": 6,
+      "community": 28,
       "norm_label": "matricula"
     },
     {
@@ -6102,7 +6102,7 @@
       "source_file": "packages/core/src/modules/ticket/domain/value-objects/matricula.vo.ts",
       "source_location": "L4",
       "id": "value_objects_matricula_vo_matricula_constructor",
-      "community": 6,
+      "community": 28,
       "norm_label": ".constructor()"
     },
     {
@@ -6111,7 +6111,7 @@
       "source_file": "packages/core/src/modules/ticket/domain/value-objects/matricula.vo.ts",
       "source_location": "L10",
       "id": "value_objects_matricula_vo_matricula_value",
-      "community": 6,
+      "community": 28,
       "norm_label": ".value()"
     },
     {
@@ -6120,7 +6120,7 @@
       "source_file": "packages/core/src/modules/ticket/domain/value-objects/matricula.vo.ts",
       "source_location": "L14",
       "id": "value_objects_matricula_vo_matricula_equals",
-      "community": 6,
+      "community": 28,
       "norm_label": ".equals()"
     },
     {
@@ -6129,7 +6129,7 @@
       "source_file": "packages/core/src/modules/ticket/domain/value-objects/matricula.vo.ts",
       "source_location": "L18",
       "id": "value_objects_matricula_vo_matricula_tostring",
-      "community": 6,
+      "community": 28,
       "norm_label": ".tostring()"
     },
     {
@@ -6138,7 +6138,7 @@
       "source_file": "packages/core/src/modules/ticket/application/index.ts",
       "source_location": "L1",
       "id": "packages_core_src_modules_ticket_application_index_ts",
-      "community": 17,
+      "community": 16,
       "norm_label": "index.ts"
     },
     {
@@ -6147,7 +6147,7 @@
       "source_file": "packages/core/src/modules/ticket/application/use-cases/cambiar-estado.use-case.ts",
       "source_location": "L1",
       "id": "packages_core_src_modules_ticket_application_use_cases_cambiar_estado_use_case_ts",
-      "community": 17,
+      "community": 16,
       "norm_label": "cambiar-estado.use-case.ts"
     },
     {
@@ -6156,7 +6156,7 @@
       "source_file": "packages/core/src/modules/ticket/application/use-cases/cambiar-estado.use-case.ts",
       "source_location": "L5",
       "id": "use_cases_cambiar_estado_use_case_cambiarestadousecase",
-      "community": 17,
+      "community": 16,
       "norm_label": "cambiarestadousecase"
     },
     {
@@ -6165,7 +6165,7 @@
       "source_file": "packages/core/src/modules/ticket/application/use-cases/cambiar-estado.use-case.ts",
       "source_location": "L6",
       "id": "use_cases_cambiar_estado_use_case_cambiarestadousecase_constructor",
-      "community": 17,
+      "community": 16,
       "norm_label": ".constructor()"
     },
     {
@@ -6174,7 +6174,7 @@
       "source_file": "packages/core/src/modules/ticket/application/use-cases/cambiar-estado.use-case.ts",
       "source_location": "L8",
       "id": "use_cases_cambiar_estado_use_case_cambiarestadousecase_execute",
-      "community": 17,
+      "community": 16,
       "norm_label": ".execute()"
     },
     {
@@ -6183,7 +6183,7 @@
       "source_file": "packages/core/src/modules/ticket/application/use-cases/crear-ticket.use-case.ts",
       "source_location": "L1",
       "id": "packages_core_src_modules_ticket_application_use_cases_crear_ticket_use_case_ts",
-      "community": 17,
+      "community": 27,
       "norm_label": "crear-ticket.use-case.ts"
     },
     {
@@ -6192,7 +6192,7 @@
       "source_file": "packages/core/src/modules/ticket/application/use-cases/crear-ticket.use-case.ts",
       "source_location": "L6",
       "id": "use_cases_crear_ticket_use_case_crearticketusecase",
-      "community": 17,
+      "community": 27,
       "norm_label": "crearticketusecase"
     },
     {
@@ -6201,7 +6201,7 @@
       "source_file": "packages/core/src/modules/ticket/application/use-cases/crear-ticket.use-case.ts",
       "source_location": "L7",
       "id": "use_cases_crear_ticket_use_case_crearticketusecase_constructor",
-      "community": 17,
+      "community": 27,
       "norm_label": ".constructor()"
     },
     {
@@ -6210,7 +6210,7 @@
       "source_file": "packages/core/src/modules/ticket/application/use-cases/crear-ticket.use-case.ts",
       "source_location": "L9",
       "id": "use_cases_crear_ticket_use_case_crearticketusecase_execute",
-      "community": 17,
+      "community": 27,
       "norm_label": ".execute()"
     },
     {
@@ -6219,7 +6219,7 @@
       "source_file": "packages/core/src/modules/ticket/application/use-cases/editar-ticket.use-case.ts",
       "source_location": "L1",
       "id": "packages_core_src_modules_ticket_application_use_cases_editar_ticket_use_case_ts",
-      "community": 17,
+      "community": 12,
       "norm_label": "editar-ticket.use-case.ts"
     },
     {
@@ -6228,7 +6228,7 @@
       "source_file": "packages/core/src/modules/ticket/application/use-cases/editar-ticket.use-case.ts",
       "source_location": "L5",
       "id": "use_cases_editar_ticket_use_case_editarticketusecase",
-      "community": 17,
+      "community": 12,
       "norm_label": "editarticketusecase"
     },
     {
@@ -6237,7 +6237,7 @@
       "source_file": "packages/core/src/modules/ticket/application/use-cases/editar-ticket.use-case.ts",
       "source_location": "L6",
       "id": "use_cases_editar_ticket_use_case_editarticketusecase_constructor",
-      "community": 17,
+      "community": 12,
       "norm_label": ".constructor()"
     },
     {
@@ -6246,7 +6246,7 @@
       "source_file": "packages/core/src/modules/ticket/application/use-cases/editar-ticket.use-case.ts",
       "source_location": "L8",
       "id": "use_cases_editar_ticket_use_case_editarticketusecase_execute",
-      "community": 17,
+      "community": 12,
       "norm_label": ".execute()"
     },
     {
@@ -6255,7 +6255,7 @@
       "source_file": "packages/core/src/modules/ticket/application/queries/get-tickets-por-estado.query.ts",
       "source_location": "L1",
       "id": "packages_core_src_modules_ticket_application_queries_get_tickets_por_estado_query_ts",
-      "community": 1,
+      "community": 47,
       "norm_label": "get-tickets-por-estado.query.ts"
     },
     {
@@ -6264,7 +6264,7 @@
       "source_file": "packages/core/src/modules/ticket/application/queries/get-tickets-por-estado.query.ts",
       "source_location": "L6",
       "id": "queries_get_tickets_por_estado_query_getticketsporestadoquery",
-      "community": 1,
+      "community": 47,
       "norm_label": "getticketsporestadoquery"
     },
     {
@@ -6273,7 +6273,7 @@
       "source_file": "packages/core/src/modules/ticket/application/queries/get-tickets-por-estado.query.ts",
       "source_location": "L7",
       "id": "queries_get_tickets_por_estado_query_getticketsporestadoquery_constructor",
-      "community": 1,
+      "community": 47,
       "norm_label": ".constructor()"
     },
     {
@@ -6282,7 +6282,7 @@
       "source_file": "packages/core/src/modules/ticket/application/queries/get-tickets-por-estado.query.ts",
       "source_location": "L9",
       "id": "queries_get_tickets_por_estado_query_getticketsporestadoquery_execute",
-      "community": 1,
+      "community": 11,
       "norm_label": ".execute()"
     },
     {
@@ -6291,7 +6291,7 @@
       "source_file": "packages/core/src/modules/ticket/application/queries/get-tickets-por-creador.query.ts",
       "source_location": "L1",
       "id": "packages_core_src_modules_ticket_application_queries_get_tickets_por_creador_query_ts",
-      "community": 17,
+      "community": 47,
       "norm_label": "get-tickets-por-creador.query.ts"
     },
     {
@@ -6300,7 +6300,7 @@
       "source_file": "packages/core/src/modules/ticket/application/queries/get-tickets-por-creador.query.ts",
       "source_location": "L5",
       "id": "queries_get_tickets_por_creador_query_getticketsporcreadorquery",
-      "community": 17,
+      "community": 47,
       "norm_label": "getticketsporcreadorquery"
     },
     {
@@ -6309,7 +6309,7 @@
       "source_file": "packages/core/src/modules/ticket/application/queries/get-tickets-por-creador.query.ts",
       "source_location": "L6",
       "id": "queries_get_tickets_por_creador_query_getticketsporcreadorquery_constructor",
-      "community": 17,
+      "community": 47,
       "norm_label": ".constructor()"
     },
     {
@@ -6318,7 +6318,7 @@
       "source_file": "packages/core/src/modules/ticket/application/queries/get-tickets-por-creador.query.ts",
       "source_location": "L8",
       "id": "queries_get_tickets_por_creador_query_getticketsporcreadorquery_execute",
-      "community": 17,
+      "community": 47,
       "norm_label": ".execute()"
     },
     {
@@ -6327,7 +6327,7 @@
       "source_file": "packages/core/src/modules/ticket/application/queries/get-ticket-by-id.query.ts",
       "source_location": "L1",
       "id": "packages_core_src_modules_ticket_application_queries_get_ticket_by_id_query_ts",
-      "community": 17,
+      "community": 16,
       "norm_label": "get-ticket-by-id.query.ts"
     },
     {
@@ -6336,7 +6336,7 @@
       "source_file": "packages/core/src/modules/ticket/application/queries/get-ticket-by-id.query.ts",
       "source_location": "L5",
       "id": "queries_get_ticket_by_id_query_getticketbyidquery",
-      "community": 17,
+      "community": 16,
       "norm_label": "getticketbyidquery"
     },
     {
@@ -6345,7 +6345,7 @@
       "source_file": "packages/core/src/modules/ticket/application/queries/get-ticket-by-id.query.ts",
       "source_location": "L6",
       "id": "queries_get_ticket_by_id_query_getticketbyidquery_constructor",
-      "community": 17,
+      "community": 16,
       "norm_label": ".constructor()"
     },
     {
@@ -6354,7 +6354,7 @@
       "source_file": "packages/core/src/modules/ticket/application/queries/get-ticket-by-id.query.ts",
       "source_location": "L8",
       "id": "queries_get_ticket_by_id_query_getticketbyidquery_execute",
-      "community": 17,
+      "community": 16,
       "norm_label": ".execute()"
     },
     {
@@ -6399,7 +6399,7 @@
       "source_file": "packages/core/src/modules/ticket/application/queries/get-historial.query.ts",
       "source_location": "L1",
       "id": "packages_core_src_modules_ticket_application_queries_get_historial_query_ts",
-      "community": 6,
+      "community": 47,
       "norm_label": "get-historial.query.ts"
     },
     {
@@ -6408,7 +6408,7 @@
       "source_file": "packages/core/src/modules/ticket/application/queries/get-historial.query.ts",
       "source_location": "L5",
       "id": "queries_get_historial_query_gethistorialquery",
-      "community": 6,
+      "community": 47,
       "norm_label": "gethistorialquery"
     },
     {
@@ -6417,7 +6417,7 @@
       "source_file": "packages/core/src/modules/ticket/application/queries/get-historial.query.ts",
       "source_location": "L6",
       "id": "queries_get_historial_query_gethistorialquery_constructor",
-      "community": 6,
+      "community": 47,
       "norm_label": ".constructor()"
     },
     {
@@ -6435,7 +6435,7 @@
       "source_file": "packages/core/src/modules/ticket/application/dtos/crear-ticket.dto.ts",
       "source_location": "L1",
       "id": "packages_core_src_modules_ticket_application_dtos_crear_ticket_dto_ts",
-      "community": 17,
+      "community": 27,
       "norm_label": "crear-ticket.dto.ts"
     },
     {
@@ -6444,7 +6444,7 @@
       "source_file": "packages/core/src/modules/ticket/application/dtos/crear-ticket.dto.ts",
       "source_location": "L3",
       "id": "dtos_crear_ticket_dto_crearticketdto",
-      "community": 17,
+      "community": 27,
       "norm_label": "crearticketdto"
     },
     {
@@ -6453,7 +6453,7 @@
       "source_file": "packages/core/src/modules/ticket/application/dtos/cambiar-estado.dto.ts",
       "source_location": "L1",
       "id": "packages_core_src_modules_ticket_application_dtos_cambiar_estado_dto_ts",
-      "community": 17,
+      "community": 16,
       "norm_label": "cambiar-estado.dto.ts"
     },
     {
@@ -6462,7 +6462,7 @@
       "source_file": "packages/core/src/modules/ticket/application/dtos/cambiar-estado.dto.ts",
       "source_location": "L4",
       "id": "dtos_cambiar_estado_dto_cambiarestadodto",
-      "community": 17,
+      "community": 16,
       "norm_label": "cambiarestadodto"
     },
     {
@@ -6471,7 +6471,7 @@
       "source_file": "packages/core/src/modules/ticket/application/dtos/editar-ticket.dto.ts",
       "source_location": "L1",
       "id": "packages_core_src_modules_ticket_application_dtos_editar_ticket_dto_ts",
-      "community": 17,
+      "community": 12,
       "norm_label": "editar-ticket.dto.ts"
     },
     {
@@ -6480,7 +6480,7 @@
       "source_file": "packages/core/src/modules/ticket/application/dtos/editar-ticket.dto.ts",
       "source_location": "L4",
       "id": "dtos_editar_ticket_dto_editarticketdto",
-      "community": 17,
+      "community": 12,
       "norm_label": "editarticketdto"
     },
     {
@@ -6507,7 +6507,7 @@
       "source_file": "packages/core/src/modules/ticket/application/ports-in/crear-ticket.use-case.port.ts",
       "source_location": "L1",
       "id": "packages_core_src_modules_ticket_application_ports_in_crear_ticket_use_case_port_ts",
-      "community": 17,
+      "community": 27,
       "norm_label": "crear-ticket.use-case.port.ts"
     },
     {
@@ -6516,7 +6516,7 @@
       "source_file": "packages/core/src/modules/ticket/application/ports-in/crear-ticket.use-case.port.ts",
       "source_location": "L3",
       "id": "ports_in_crear_ticket_use_case_port_icrearticketusecase",
-      "community": 17,
+      "community": 27,
       "norm_label": "icrearticketusecase"
     },
     {
@@ -6525,7 +6525,7 @@
       "source_file": "packages/core/src/modules/ticket/application/ports-in/cambiar-estado.use-case.port.ts",
       "source_location": "L1",
       "id": "packages_core_src_modules_ticket_application_ports_in_cambiar_estado_use_case_port_ts",
-      "community": 17,
+      "community": 16,
       "norm_label": "cambiar-estado.use-case.port.ts"
     },
     {
@@ -6534,7 +6534,7 @@
       "source_file": "packages/core/src/modules/ticket/application/ports-in/cambiar-estado.use-case.port.ts",
       "source_location": "L3",
       "id": "ports_in_cambiar_estado_use_case_port_icambiarestadousecase",
-      "community": 17,
+      "community": 16,
       "norm_label": "icambiarestadousecase"
     },
     {
@@ -6543,7 +6543,7 @@
       "source_file": "packages/core/src/modules/ticket/application/ports-in/get-historial.query.port.ts",
       "source_location": "L1",
       "id": "packages_core_src_modules_ticket_application_ports_in_get_historial_query_port_ts",
-      "community": 6,
+      "community": 47,
       "norm_label": "get-historial.query.port.ts"
     },
     {
@@ -6552,7 +6552,7 @@
       "source_file": "packages/core/src/modules/ticket/application/ports-in/get-historial.query.port.ts",
       "source_location": "L3",
       "id": "ports_in_get_historial_query_port_igethistorialquery",
-      "community": 6,
+      "community": 47,
       "norm_label": "igethistorialquery"
     },
     {
@@ -6561,7 +6561,7 @@
       "source_file": "packages/core/src/modules/ticket/application/ports-in/get-ticket-by-id.query.port.ts",
       "source_location": "L1",
       "id": "packages_core_src_modules_ticket_application_ports_in_get_ticket_by_id_query_port_ts",
-      "community": 17,
+      "community": 16,
       "norm_label": "get-ticket-by-id.query.port.ts"
     },
     {
@@ -6570,7 +6570,7 @@
       "source_file": "packages/core/src/modules/ticket/application/ports-in/get-ticket-by-id.query.port.ts",
       "source_location": "L3",
       "id": "ports_in_get_ticket_by_id_query_port_igetticketbyidquery",
-      "community": 17,
+      "community": 16,
       "norm_label": "igetticketbyidquery"
     },
     {
@@ -6579,7 +6579,7 @@
       "source_file": "packages/core/src/modules/ticket/application/ports-in/get-tickets-por-creador.query.port.ts",
       "source_location": "L1",
       "id": "packages_core_src_modules_ticket_application_ports_in_get_tickets_por_creador_query_port_ts",
-      "community": 17,
+      "community": 47,
       "norm_label": "get-tickets-por-creador.query.port.ts"
     },
     {
@@ -6588,7 +6588,7 @@
       "source_file": "packages/core/src/modules/ticket/application/ports-in/get-tickets-por-creador.query.port.ts",
       "source_location": "L3",
       "id": "ports_in_get_tickets_por_creador_query_port_igetticketsporcreadorquery",
-      "community": 17,
+      "community": 47,
       "norm_label": "igetticketsporcreadorquery"
     },
     {
@@ -6597,7 +6597,7 @@
       "source_file": "packages/core/src/modules/ticket/application/ports-in/get-tickets-por-estado.query.port.ts",
       "source_location": "L1",
       "id": "packages_core_src_modules_ticket_application_ports_in_get_tickets_por_estado_query_port_ts",
-      "community": 1,
+      "community": 47,
       "norm_label": "get-tickets-por-estado.query.port.ts"
     },
     {
@@ -6606,7 +6606,7 @@
       "source_file": "packages/core/src/modules/ticket/application/ports-in/get-tickets-por-estado.query.port.ts",
       "source_location": "L4",
       "id": "ports_in_get_tickets_por_estado_query_port_igetticketsporestadoquery",
-      "community": 1,
+      "community": 47,
       "norm_label": "igetticketsporestadoquery"
     },
     {
@@ -6615,7 +6615,7 @@
       "source_file": "packages/core/src/modules/ticket/application/ports-in/editar-ticket.use-case.port.ts",
       "source_location": "L1",
       "id": "packages_core_src_modules_ticket_application_ports_in_editar_ticket_use_case_port_ts",
-      "community": 17,
+      "community": 12,
       "norm_label": "editar-ticket.use-case.port.ts"
     },
     {
@@ -6624,7 +6624,7 @@
       "source_file": "packages/core/src/modules/ticket/application/ports-in/editar-ticket.use-case.port.ts",
       "source_location": "L3",
       "id": "ports_in_editar_ticket_use_case_port_ieditarticketusecase",
-      "community": 17,
+      "community": 12,
       "norm_label": "ieditarticketusecase"
     },
     {
@@ -7022,186 +7022,6 @@
       "id": "servicar_readme_servicar",
       "community": 35,
       "norm_label": "servicar"
-    },
-    {
-      "label": "despliegue-railway.md",
-      "file_type": "document",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L1",
-      "id": "poket_docs_despliegue_railway_md",
-      "community": 11,
-      "norm_label": "despliegue-railway.md"
-    },
-    {
-      "label": "Gu\u00eda de Integraci\u00f3n y Despliegue en Railway (PocketBase + Next.js)",
-      "file_type": "document",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L1",
-      "id": "poket_docs_despliegue_railway_gu\u00eda_de_integraci\u00f3n_y_despliegue_en_railway_pocketbase_next_js",
-      "community": 11,
-      "norm_label": "guia de integracion y despliegue en railway (pocketbase + next.js)"
-    },
-    {
-      "label": "Arquitectura en Railway",
-      "file_type": "document",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L7",
-      "id": "poket_docs_despliegue_railway_arquitectura_en_railway",
-      "community": 11,
-      "norm_label": "arquitectura en railway"
-    },
-    {
-      "label": "code:block1 (Usuario (Navegador))",
-      "file_type": "document",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L11",
-      "id": "poket_docs_despliegue_railway_codeblock_1",
-      "community": 11,
-      "norm_label": "code:block1 (usuario (navegador))"
-    },
-    {
-      "label": "Paso 1: Desplegar PocketBase en Railway",
-      "file_type": "document",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L23",
-      "id": "poket_docs_despliegue_railway_paso_1_desplegar_pocketbase_en_railway",
-      "community": 11,
-      "norm_label": "paso 1: desplegar pocketbase en railway"
-    },
-    {
-      "label": "Opci\u00f3n A: Despliegue usando Docker Image (Recomendado y m\u00e1s r\u00e1pido)",
-      "file_type": "document",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L27",
-      "id": "poket_docs_despliegue_railway_opci\u00f3n_a_despliegue_usando_docker_image_recomendado_y_m\u00e1s_r\u00e1pido",
-      "community": 11,
-      "norm_label": "opcion a: despliegue usando docker image (recomendado y mas rapido)"
-    },
-    {
-      "label": "Opci\u00f3n B: Despliegue usando Dockerfile personalizado",
-      "file_type": "document",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L33",
-      "id": "poket_docs_despliegue_railway_opci\u00f3n_b_despliegue_usando_dockerfile_personalizado",
-      "community": 11,
-      "norm_label": "opcion b: despliegue usando dockerfile personalizado"
-    },
-    {
-      "label": "code:dockerfile (FROM alpine:3.19)",
-      "file_type": "document",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L36",
-      "id": "poket_docs_despliegue_railway_codeblock_2",
-      "community": 11,
-      "norm_label": "code:dockerfile (from alpine:3.19)"
-    },
-    {
-      "label": "Configuraci\u00f3n Cr\u00edtica en Railway para PocketBase:",
-      "file_type": "document",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L59",
-      "id": "poket_docs_despliegue_railway_configuraci\u00f3n_cr\u00edtica_en_railway_para_pocketbase",
-      "community": 11,
-      "norm_label": "configuracion critica en railway para pocketbase:"
-    },
-    {
-      "label": "1. A\u00f1adir Volumen de Persistencia (Crucial)",
-      "file_type": "document",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L61",
-      "id": "poket_docs_despliegue_railway_1_a\u00f1adir_volumen_de_persistencia_crucial",
-      "community": 11,
-      "norm_label": "1. anadir volumen de persistencia (crucial)"
-    },
-    {
-      "label": "1. A\u00f1adir Volumen de Persistencia (Crucial)",
-      "file_type": "document",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L62",
-      "id": "poket_docs_despliegue_railway_1_a\u00f1adir_volumen_de_persistencia_crucial_62",
-      "community": 11,
-      "norm_label": "1. anadir volumen de persistencia (crucial)"
-    },
-    {
-      "label": "code:bash (2026/06/24 18:00:00 Server started at http://0.0.0.0:8080)",
-      "file_type": "document",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L73",
-      "id": "poket_docs_despliegue_railway_codeblock_3",
-      "community": 11,
-      "norm_label": "code:bash (2026/06/24 18:00:00 server started at http://0.0.0.0:8080)"
-    },
-    {
-      "label": "2. Configurar Variables de Entorno del Servicio:",
-      "file_type": "document",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L80",
-      "id": "poket_docs_despliegue_railway_2_configurar_variables_de_entorno_del_servicio",
-      "community": 11,
-      "norm_label": "2. configurar variables de entorno del servicio:"
-    },
-    {
-      "label": "Paso 2: Configuraci\u00f3n Inicial de PocketBase en Railway",
-      "file_type": "document",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L86",
-      "id": "poket_docs_despliegue_railway_paso_2_configuraci\u00f3n_inicial_de_pocketbase_en_railway",
-      "community": 11,
-      "norm_label": "paso 2: configuracion inicial de pocketbase en railway"
-    },
-    {
-      "label": "Paso 3: Ejecutar el Seed de forma remota",
-      "file_type": "document",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L94",
-      "id": "poket_docs_despliegue_railway_paso_3_ejecutar_el_seed_de_forma_remota",
-      "community": 11,
-      "norm_label": "paso 3: ejecutar el seed de forma remota"
-    },
-    {
-      "label": "code:bash (PB_URL=https://tu-servicio-pb.up.railway.app \\)",
-      "file_type": "document",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L101",
-      "id": "poket_docs_despliegue_railway_codeblock_4",
-      "community": 11,
-      "norm_label": "code:bash (pb_url=https://tu-servicio-pb.up.railway.app \\)"
-    },
-    {
-      "label": "Paso 4: Desplegar el Frontend de Next.js en Railway",
-      "file_type": "document",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L112",
-      "id": "poket_docs_despliegue_railway_paso_4_desplegar_el_frontend_de_next_js_en_railway",
-      "community": 11,
-      "norm_label": "paso 4: desplegar el frontend de next.js en railway"
-    },
-    {
-      "label": "Variables de Entorno para Next.js en Railway:",
-      "file_type": "document",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L120",
-      "id": "poket_docs_despliegue_railway_variables_de_entorno_para_next_js_en_railway",
-      "community": 11,
-      "norm_label": "variables de entorno para next.js en railway:"
-    },
-    {
-      "label": "Nota sobre el Build en Railway:",
-      "file_type": "document",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L130",
-      "id": "poket_docs_despliegue_railway_nota_sobre_el_build_en_railway",
-      "community": 11,
-      "norm_label": "nota sobre el build en railway:"
-    },
-    {
-      "label": "Resumen de Troubleshooting en Railway",
-      "file_type": "document",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L135",
-      "id": "poket_docs_despliegue_railway_resumen_de_troubleshooting_en_railway",
-      "community": 11,
-      "norm_label": "resumen de troubleshooting en railway"
     },
     {
       "label": "esquemas.md",
@@ -7793,7 +7613,7 @@
       "file_type": "code",
       "source_file": "next/src/presentation/view-models/admin/useTicketsViewModel.ts",
       "source_location": "L13",
-      "community": 5,
+      "community": 11,
       "norm_label": "ticketsvm",
       "id": "admin_useticketsviewmodel_ticketsvm"
     },
@@ -7802,7 +7622,7 @@
       "file_type": "code",
       "source_file": "next/src/presentation/view-models/admin/useTicketsViewModel.ts",
       "source_location": "L29",
-      "community": 5,
+      "community": 3,
       "norm_label": "isactivo()",
       "id": "admin_useticketsviewmodel_isactivo"
     },
@@ -7820,7 +7640,7 @@
       "file_type": "code",
       "source_file": "next/src/presentation/view-models/admin/useColaViewModel.ts",
       "source_location": "L12",
-      "community": 12,
+      "community": 3,
       "norm_label": "action",
       "id": "admin_usecolaviewmodel_action"
     },
@@ -7829,7 +7649,7 @@
       "file_type": "code",
       "source_file": "next/src/presentation/view-models/admin/useColaViewModel.ts",
       "source_location": "L14",
-      "community": 12,
+      "community": 3,
       "norm_label": "pendingaction",
       "id": "admin_usecolaviewmodel_pendingaction"
     },
@@ -7838,7 +7658,7 @@
       "file_type": "code",
       "source_file": "next/src/presentation/view-models/admin/useColaViewModel.ts",
       "source_location": "L20",
-      "community": 12,
+      "community": 3,
       "norm_label": "colavm",
       "id": "admin_usecolaviewmodel_colavm"
     },
@@ -7919,7 +7739,7 @@
       "file_type": "code",
       "source_file": "next/src/presentation/view-models/mecanico/useFichasViewModel.ts",
       "source_location": "L14",
-      "community": 5,
+      "community": 11,
       "norm_label": "fichasvm",
       "id": "mecanico_usefichasviewmodel_fichasvm"
     },
@@ -7928,7 +7748,7 @@
       "file_type": "code",
       "source_file": "next/src/presentation/view-models/mecanico/useFichasViewModel.ts",
       "source_location": "L24",
-      "community": 0,
+      "community": 3,
       "norm_label": "usefichasviewmodel()",
       "id": "mecanico_usefichasviewmodel_usefichasviewmodel"
     },
@@ -7973,7 +7793,7 @@
       "file_type": "code",
       "source_file": "next/src/presentation/view-models/mecanico/useTallerViewModel.ts",
       "source_location": "L25",
-      "community": 5,
+      "community": 11,
       "norm_label": "tallervm",
       "id": "mecanico_usetallerviewmodel_tallervm"
     },
@@ -7991,7 +7811,7 @@
       "file_type": "code",
       "source_file": "next/src/presentation/views/admin/TicketsView.tsx",
       "source_location": "L9",
-      "community": 5,
+      "community": 11,
       "norm_label": "estado_actions",
       "id": "admin_ticketsview_estado_actions"
     },
@@ -8000,7 +7820,7 @@
       "file_type": "code",
       "source_file": "next/src/presentation/views/admin/TicketsView.tsx",
       "source_location": "L108",
-      "community": 5,
+      "community": 11,
       "norm_label": "kanbancolumn()",
       "id": "admin_ticketsview_kanbancolumn"
     },
@@ -8009,7 +7829,7 @@
       "file_type": "code",
       "source_file": "next/src/presentation/views/admin/TicketsView.tsx",
       "source_location": "L152",
-      "community": 5,
+      "community": 11,
       "norm_label": "kanbancard()",
       "id": "admin_ticketsview_kanbancard"
     },
@@ -8018,7 +7838,7 @@
       "file_type": "code",
       "source_file": "next/src/presentation/views/admin/ColaView.tsx",
       "source_location": "L155",
-      "community": 12,
+      "community": 3,
       "norm_label": "confirmmodal()",
       "id": "admin_colaview_confirmmodal"
     },
@@ -8027,7 +7847,7 @@
       "file_type": "code",
       "source_file": "next/src/presentation/views/admin/ColaView.tsx",
       "source_location": "L224",
-      "community": 12,
+      "community": 3,
       "norm_label": "triagerow()",
       "id": "admin_colaview_triagerow"
     },
@@ -8054,7 +7874,7 @@
       "file_type": "code",
       "source_file": "next/src/presentation/views/admin/ColaView.tsx",
       "source_location": "L279",
-      "community": 12,
+      "community": 3,
       "norm_label": "kpicard()",
       "id": "admin_colaview_kpicard"
     },
@@ -8306,7 +8126,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 11,
       "norm_label": "ticket",
       "id": "core_ticket_type"
     },
@@ -8319,7 +8139,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 11,
       "norm_label": "empleado",
       "id": "core_empleado_type"
     },
@@ -8345,7 +8165,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 11,
       "norm_label": "ticketestado",
       "id": "core_ticketestado_type"
     },
@@ -8436,7 +8256,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 11,
       "norm_label": "editarticketvm (interface)",
       "id": "vm_editarticket_editarticketvm"
     },
@@ -8527,7 +8347,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 12,
+      "community": 3,
       "norm_label": "usecolaviewmodel",
       "id": "vm_cola_usecolaviewmodel"
     },
@@ -8540,7 +8360,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 3,
       "norm_label": "useticketsviewmodel",
       "id": "vm_tickets_useticketviewmodel"
     },
@@ -8566,7 +8386,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 3,
+      "community": 0,
       "norm_label": "mecanicocoordinator",
       "id": "coordinators_mecanicocoordinator"
     },
@@ -8618,7 +8438,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 3,
+      "community": 0,
       "norm_label": "nuevoticketpage",
       "id": "ticket_nuevo_page"
     },
@@ -8631,7 +8451,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 11,
       "norm_label": "editarticketpage",
       "id": "ticket_editar_page"
     },
@@ -8657,7 +8477,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 17,
+      "community": 16,
       "norm_label": "cambiarestadousecase",
       "id": "ticket_uc_cambiar_estado"
     },
@@ -8670,7 +8490,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 17,
+      "community": 12,
       "norm_label": "editarticketusecase",
       "id": "ticket_uc_editar_ticket"
     },
@@ -8683,7 +8503,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 1,
+      "community": 27,
       "norm_label": "cambiarestadodto",
       "id": "ticket_dto_cambiar_estado"
     },
@@ -8696,7 +8516,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 3,
+      "community": 0,
       "norm_label": "rf-1: creacion de tickets",
       "id": "requisitos_rf1_creacion_tickets"
     },
@@ -8735,7 +8555,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 17,
+      "community": 12,
       "norm_label": "rf-3: edicion de tickets (rol-based ownership)",
       "id": "requisitos_rf3_edicion_tickets"
     },
@@ -8787,7 +8607,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 17,
+      "community": 16,
       "norm_label": "ticket state machine (pendiente\u2192aprobado\u2192en_progreso\u2192finalizado)",
       "id": "concept_ticket_state_machine"
     },
@@ -8800,7 +8620,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 17,
+      "community": 12,
       "norm_label": "role-based ticket ownership (mecanico owns, admin can all)",
       "id": "concept_role_based_ownership"
     },
@@ -33805,206 +33625,6 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "poket_docs_despliegue_railway_md",
-      "target": "poket_docs_despliegue_railway_gu\u00eda_de_integraci\u00f3n_y_despliegue_en_railway_pocketbase_next_js"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L7",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "poket_docs_despliegue_railway_gu\u00eda_de_integraci\u00f3n_y_despliegue_en_railway_pocketbase_next_js",
-      "target": "poket_docs_despliegue_railway_arquitectura_en_railway"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L23",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "poket_docs_despliegue_railway_gu\u00eda_de_integraci\u00f3n_y_despliegue_en_railway_pocketbase_next_js",
-      "target": "poket_docs_despliegue_railway_paso_1_desplegar_pocketbase_en_railway"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L74",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "poket_docs_despliegue_railway_gu\u00eda_de_integraci\u00f3n_y_despliegue_en_railway_pocketbase_next_js",
-      "target": "poket_docs_despliegue_railway_paso_2_configuraci\u00f3n_inicial_de_pocketbase_en_railway"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L82",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "poket_docs_despliegue_railway_gu\u00eda_de_integraci\u00f3n_y_despliegue_en_railway_pocketbase_next_js",
-      "target": "poket_docs_despliegue_railway_paso_3_ejecutar_el_seed_de_forma_remota"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L100",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "poket_docs_despliegue_railway_gu\u00eda_de_integraci\u00f3n_y_despliegue_en_railway_pocketbase_next_js",
-      "target": "poket_docs_despliegue_railway_paso_4_desplegar_el_frontend_de_next_js_en_railway"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L123",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "poket_docs_despliegue_railway_gu\u00eda_de_integraci\u00f3n_y_despliegue_en_railway_pocketbase_next_js",
-      "target": "poket_docs_despliegue_railway_resumen_de_troubleshooting_en_railway"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L11",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "poket_docs_despliegue_railway_arquitectura_en_railway",
-      "target": "poket_docs_despliegue_railway_codeblock_1"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L27",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "poket_docs_despliegue_railway_paso_1_desplegar_pocketbase_en_railway",
-      "target": "poket_docs_despliegue_railway_opci\u00f3n_a_despliegue_usando_docker_image_recomendado_y_m\u00e1s_r\u00e1pido"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L33",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "poket_docs_despliegue_railway_paso_1_desplegar_pocketbase_en_railway",
-      "target": "poket_docs_despliegue_railway_opci\u00f3n_b_despliegue_usando_dockerfile_personalizado"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L59",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "poket_docs_despliegue_railway_paso_1_desplegar_pocketbase_en_railway",
-      "target": "poket_docs_despliegue_railway_configuraci\u00f3n_cr\u00edtica_en_railway_para_pocketbase"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L36",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "poket_docs_despliegue_railway_opci\u00f3n_b_despliegue_usando_dockerfile_personalizado",
-      "target": "poket_docs_despliegue_railway_codeblock_2"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L61",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "poket_docs_despliegue_railway_configuraci\u00f3n_cr\u00edtica_en_railway_para_pocketbase",
-      "target": "poket_docs_despliegue_railway_1_a\u00f1adir_volumen_de_persistencia_crucial"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L62",
-      "weight": 1.0,
-      "source": "poket_docs_despliegue_railway_configuraci\u00f3n_cr\u00edtica_en_railway_para_pocketbase",
-      "target": "poket_docs_despliegue_railway_1_a\u00f1adir_volumen_de_persistencia_crucial_62",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L68",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "poket_docs_despliegue_railway_configuraci\u00f3n_cr\u00edtica_en_railway_para_pocketbase",
-      "target": "poket_docs_despliegue_railway_2_configurar_variables_de_entorno_del_servicio"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L73",
-      "weight": 1.0,
-      "source": "poket_docs_despliegue_railway_1_a\u00f1adir_volumen_de_persistencia_crucial_62",
-      "target": "poket_docs_despliegue_railway_codeblock_3",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L89",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "poket_docs_despliegue_railway_paso_3_ejecutar_el_seed_de_forma_remota",
-      "target": "poket_docs_despliegue_railway_codeblock_3"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L101",
-      "weight": 1.0,
-      "source": "poket_docs_despliegue_railway_paso_3_ejecutar_el_seed_de_forma_remota",
-      "target": "poket_docs_despliegue_railway_codeblock_4",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L108",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "poket_docs_despliegue_railway_paso_4_desplegar_el_frontend_de_next_js_en_railway",
-      "target": "poket_docs_despliegue_railway_variables_de_entorno_para_next_js_en_railway"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "poket-docs/despliegue-railway.md",
-      "source_location": "L118",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "poket_docs_despliegue_railway_paso_4_desplegar_el_frontend_de_next_js_en_railway",
-      "target": "poket_docs_despliegue_railway_nota_sobre_el_build_en_railway"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
       "source_file": "poket-docs/esquemas.md",
       "source_location": "L1",
       "weight": 1.0,
@@ -34058,9 +33678,9 @@
       "source_file": "poket-docs/resolucion-problemas.md",
       "source_location": "L1",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "poket_docs_resolucion_problemas_md",
-      "target": "poket_docs_resolucion_problemas_resoluci\u00f3n_de_problemas_esquema_y_ordenamiento_en_pocketbase_v0_23"
+      "target": "poket_docs_resolucion_problemas_resoluci\u00f3n_de_problemas_esquema_y_ordenamiento_en_pocketbase_v0_23",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -34068,9 +33688,9 @@
       "source_file": "poket-docs/resolucion-problemas.md",
       "source_location": "L7",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "poket_docs_resolucion_problemas_resoluci\u00f3n_de_problemas_esquema_y_ordenamiento_en_pocketbase_v0_23",
-      "target": "poket_docs_resolucion_problemas_1_s\u00edntomas_y_diagn\u00f3stico_inicial"
+      "target": "poket_docs_resolucion_problemas_1_s\u00edntomas_y_diagn\u00f3stico_inicial",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -34078,9 +33698,9 @@
       "source_file": "poket-docs/resolucion-problemas.md",
       "source_location": "L36",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "poket_docs_resolucion_problemas_resoluci\u00f3n_de_problemas_esquema_y_ordenamiento_en_pocketbase_v0_23",
-      "target": "poket_docs_resolucion_problemas_2_causas_ra\u00edz_el_porqu\u00e9_del_fallo"
+      "target": "poket_docs_resolucion_problemas_2_causas_ra\u00edz_el_porqu\u00e9_del_fallo",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -34088,9 +33708,9 @@
       "source_file": "poket-docs/resolucion-problemas.md",
       "source_location": "L66",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "poket_docs_resolucion_problemas_resoluci\u00f3n_de_problemas_esquema_y_ordenamiento_en_pocketbase_v0_23",
-      "target": "poket_docs_resolucion_problemas_3_soluciones_implementadas"
+      "target": "poket_docs_resolucion_problemas_3_soluciones_implementadas",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -34098,9 +33718,9 @@
       "source_file": "poket-docs/resolucion-problemas.md",
       "source_location": "L122",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "poket_docs_resolucion_problemas_resoluci\u00f3n_de_problemas_esquema_y_ordenamiento_en_pocketbase_v0_23",
-      "target": "poket_docs_resolucion_problemas_4_resultados_obtenidos"
+      "target": "poket_docs_resolucion_problemas_4_resultados_obtenidos",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -34108,9 +33728,9 @@
       "source_file": "poket-docs/resolucion-problemas.md",
       "source_location": "L9",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "poket_docs_resolucion_problemas_1_s\u00edntomas_y_diagn\u00f3stico_inicial",
-      "target": "poket_docs_resolucion_problemas_el_error_en_consola"
+      "target": "poket_docs_resolucion_problemas_el_error_en_consola",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -34118,9 +33738,9 @@
       "source_file": "poket-docs/resolucion-problemas.md",
       "source_location": "L21",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "poket_docs_resolucion_problemas_1_s\u00edntomas_y_diagn\u00f3stico_inicial",
-      "target": "poket_docs_resolucion_problemas_pruebas_con_curl"
+      "target": "poket_docs_resolucion_problemas_pruebas_con_curl",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -34128,9 +33748,9 @@
       "source_file": "poket-docs/resolucion-problemas.md",
       "source_location": "L12",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "poket_docs_resolucion_problemas_el_error_en_consola",
-      "target": "poket_docs_resolucion_problemas_codeblock_1"
+      "target": "poket_docs_resolucion_problemas_codeblock_1",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -34138,9 +33758,9 @@
       "source_file": "poket-docs/resolucion-problemas.md",
       "source_location": "L31",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "poket_docs_resolucion_problemas_pruebas_con_curl",
-      "target": "poket_docs_resolucion_problemas_hallazgo_clave"
+      "target": "poket_docs_resolucion_problemas_hallazgo_clave",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -34148,9 +33768,9 @@
       "source_file": "poket-docs/resolucion-problemas.md",
       "source_location": "L38",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "poket_docs_resolucion_problemas_2_causas_ra\u00edz_el_porqu\u00e9_del_fallo",
-      "target": "poket_docs_resolucion_problemas_causa_a_el_cambio_de_comportamiento_de_created_y_updated_en_v0_23"
+      "target": "poket_docs_resolucion_problemas_causa_a_el_cambio_de_comportamiento_de_created_y_updated_en_v0_23",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -34158,9 +33778,9 @@
       "source_file": "poket-docs/resolucion-problemas.md",
       "source_location": "L43",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "poket_docs_resolucion_problemas_2_causas_ra\u00edz_el_porqu\u00e9_del_fallo",
-      "target": "poket_docs_resolucion_problemas_causa_b_uso_de_la_propiedad_obsoleta_schema"
+      "target": "poket_docs_resolucion_problemas_causa_b_uso_de_la_propiedad_obsoleta_schema",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -34168,9 +33788,9 @@
       "source_file": "poket-docs/resolucion-problemas.md",
       "source_location": "L46",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "poket_docs_resolucion_problemas_2_causas_ra\u00edz_el_porqu\u00e9_del_fallo",
-      "target": "poket_docs_resolucion_problemas_causa_c_configuraci\u00f3n_anidada_en_campos_select"
+      "target": "poket_docs_resolucion_problemas_causa_c_configuraci\u00f3n_anidada_en_campos_select",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -34178,9 +33798,9 @@
       "source_file": "poket-docs/resolucion-problemas.md",
       "source_location": "L49",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "poket_docs_resolucion_problemas_2_causas_ra\u00edz_el_porqu\u00e9_del_fallo",
-      "target": "poket_docs_resolucion_problemas_causa_d_omisi\u00f3n_de_actualizaciones_en_colecciones_existentes"
+      "target": "poket_docs_resolucion_problemas_causa_d_omisi\u00f3n_de_actualizaciones_en_colecciones_existentes",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -34188,9 +33808,9 @@
       "source_file": "poket-docs/resolucion-problemas.md",
       "source_location": "L61",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "poket_docs_resolucion_problemas_2_causas_ra\u00edz_el_porqu\u00e9_del_fallo",
-      "target": "poket_docs_resolucion_problemas_causa_e_riesgo_de_sobreescritura_en_users"
+      "target": "poket_docs_resolucion_problemas_causa_e_riesgo_de_sobreescritura_en_users",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -34198,9 +33818,9 @@
       "source_file": "poket-docs/resolucion-problemas.md",
       "source_location": "L51",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "poket_docs_resolucion_problemas_causa_d_omisi\u00f3n_de_actualizaciones_en_colecciones_existentes",
-      "target": "poket_docs_resolucion_problemas_codeblock_2"
+      "target": "poket_docs_resolucion_problemas_codeblock_2",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -34208,9 +33828,9 @@
       "source_file": "poket-docs/resolucion-problemas.md",
       "source_location": "L70",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "poket_docs_resolucion_problemas_3_soluciones_implementadas",
-      "target": "poket_docs_resolucion_problemas_1_declaraci\u00f3n_expl\u00edcita_de_campos_autodate"
+      "target": "poket_docs_resolucion_problemas_1_declaraci\u00f3n_expl\u00edcita_de_campos_autodate",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -34218,9 +33838,9 @@
       "source_file": "poket-docs/resolucion-problemas.md",
       "source_location": "L77",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "poket_docs_resolucion_problemas_3_soluciones_implementadas",
-      "target": "poket_docs_resolucion_problemas_2_aplanado_de_campos_select"
+      "target": "poket_docs_resolucion_problemas_2_aplanado_de_campos_select",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -34228,9 +33848,9 @@
       "source_file": "poket-docs/resolucion-problemas.md",
       "source_location": "L89",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "poket_docs_resolucion_problemas_3_soluciones_implementadas",
-      "target": "poket_docs_resolucion_problemas_3_sincronizaci\u00f3n_activa_de_esquemas_en_ensurecollection"
+      "target": "poket_docs_resolucion_problemas_3_sincronizaci\u00f3n_activa_de_esquemas_en_ensurecollection",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -34238,9 +33858,9 @@
       "source_file": "poket-docs/resolucion-problemas.md",
       "source_location": "L110",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "poket_docs_resolucion_problemas_3_soluciones_implementadas",
-      "target": "poket_docs_resolucion_problemas_4_mezcla_segura_de_campos_en_users"
+      "target": "poket_docs_resolucion_problemas_4_mezcla_segura_de_campos_en_users",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -34248,9 +33868,9 @@
       "source_file": "poket-docs/resolucion-problemas.md",
       "source_location": "L117",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "poket_docs_resolucion_problemas_3_soluciones_implementadas",
-      "target": "poket_docs_resolucion_problemas_5_logging_detallado_de_errores"
+      "target": "poket_docs_resolucion_problemas_5_logging_detallado_de_errores",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -34258,9 +33878,9 @@
       "source_file": "poket-docs/resolucion-problemas.md",
       "source_location": "L72",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "poket_docs_resolucion_problemas_1_declaraci\u00f3n_expl\u00edcita_de_campos_autodate",
-      "target": "poket_docs_resolucion_problemas_codeblock_3"
+      "target": "poket_docs_resolucion_problemas_codeblock_3",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -34268,9 +33888,9 @@
       "source_file": "poket-docs/resolucion-problemas.md",
       "source_location": "L79",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "poket_docs_resolucion_problemas_2_aplanado_de_campos_select",
-      "target": "poket_docs_resolucion_problemas_codeblock_4"
+      "target": "poket_docs_resolucion_problemas_codeblock_4",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -34278,9 +33898,9 @@
       "source_file": "poket-docs/resolucion-problemas.md",
       "source_location": "L91",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "poket_docs_resolucion_problemas_3_sincronizaci\u00f3n_activa_de_esquemas_en_ensurecollection",
-      "target": "poket_docs_resolucion_problemas_codeblock_5"
+      "target": "poket_docs_resolucion_problemas_codeblock_5",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -34288,9 +33908,9 @@
       "source_file": "poket-docs/resolucion-problemas.md",
       "source_location": "L112",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "poket_docs_resolucion_problemas_4_mezcla_segura_de_campos_en_users",
-      "target": "poket_docs_resolucion_problemas_codeblock_6"
+      "target": "poket_docs_resolucion_problemas_codeblock_6",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -36107,5 +35727,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "70a7c071560a5ee99230a626da33302ee5b7ac4b"
+  "built_at_commit": "888f5ad7c7783704c21eb7c87f4ab48037eac574"
 }
