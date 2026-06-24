@@ -908,25 +908,5 @@
     "mtime": 1782241565.86075,
     "ast_hash": "f3e4b82262d860631a8ad0f96dcc4715",
     "semantic_hash": ""
-  },
-  "/home/hermandev/Documents/proyectos/1/servicar/poket-docs/esquemas.md": {
-    "mtime": 1782241989.6132848,
-    "ast_hash": "c5cdacbc8258477f248f5a8e5e2c0010",
-    "semantic_hash": ""
-  },
-  "/home/hermandev/Documents/proyectos/1/servicar/poket-docs/README.md": {
-    "mtime": 1782241983.4662335,
-    "ast_hash": "9e911b83a4136aa8434c06fda5d4ba55",
-    "semantic_hash": ""
-  },
-  "/home/hermandev/Documents/proyectos/1/servicar/poket-docs/reglas-api.md": {
-    "mtime": 1782241995.6973355,
-    "ast_hash": "c3068cccb30d4d11caa382da7f6022b3",
-    "semantic_hash": ""
-  },
-  "/home/hermandev/Documents/proyectos/1/servicar/poket-docs/resolucion-problemas.md": {
-    "mtime": 1782254408.6960032,
-    "ast_hash": "4c180c870c4b14c3db490e5b2e85914a",
-    "semantic_hash": ""
   }
 }

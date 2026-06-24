@@ -1320,3 +1320,19 @@ Autorización granular (quién puede editar qué) sigue en los use cases del dom
 **Outputs actualizados:** `graphify-out/graph.html`, `graphify-out/graph.json`, `graphify-out/GRAPH_REPORT.md`, `graphify-out/manifest.json`
 
 **Nota:** conteo bajó respecto a build anterior (883→712) porque `build_merge()` deduplicó nodos fuzzy-duplicados acumulados en builds previos.
+
+---
+
+### Corrección de esquema y ordenamiento en PocketBase (v0.23+) ✅
+
+*   **Identificación del bug:** Al iniciar sesión o cargar la app con una sesión activa, el frontend realizaba peticiones de tickets y del historial de ediciones ordenando por fecha de creación (`sort: "-created"` / `sort: "+created"`). Estas peticiones fallaban con un error `ClientResponseError 400` ("Something went wrong while processing your request").
+*   **Causa raíz:** 
+    1. El script de inicialización `seed.ts` utilizaba la propiedad obsoleta `schema` en lugar de la propiedad `fields` introducida en la API de PocketBase v0.23+ al crear y actualizar colecciones. Esto provocaba que las colecciones se crearan sin campos personalizados.
+    2. Asimismo, en PocketBase v0.23+, los campos de fecha del sistema `created` y `updated` son ahora campos `autodate` opcionales en el esquema. Al ejecutar una actualización del esquema sin definirlos de manera explícita en la lista de `fields`, PocketBase los eliminaba de la colección, haciendo imposible realizar ordenamientos basados en ellos.
+    3. `ensureCollection` omitía las colecciones si ya existían, imposibilitando corregir su esquema de forma automática al volver a correr el seed.
+*   **Fix aplicado en `packages/core/seed.ts`:**
+    *   Se reestructuraron las definiciones de campos de tipo `select` (`categoria`, `estado`, `tipoAccion`), aplanando las opciones `values` y `maxSelect` al nivel raíz del objeto del campo.
+    *   Se agregaron explícitamente los campos de tipo `autodate` (`created` y `updated`) en la declaración de las colecciones `tickets` e `historial_ediciones` para evitar que PocketBase los elimine de la base de datos al regenerar el esquema.
+    *   Se modificó `ensureCollection` para que realice un `update` y aplique el nuevo esquema a las tablas de SQLite incluso si la colección ya existe.
+    *   Se integró una mezcla (merge) segura en `ensureUsersSchema` para que al actualizar los campos `nombre` y `rol` del usuario en la colección `users`, no se elimine ningún otro campo del sistema.
+*   **Ejecución y Verificación:** Se corrió el script de seed en el servidor del usuario y se verificó mediante peticiones HTTP que las colecciones se actualizaron de forma exitosa y ahora es posible realizar ordenamientos sobre `created` sin errores (retorna `200 OK`). El grafo de dependencias se actualizó a 888 nodos.

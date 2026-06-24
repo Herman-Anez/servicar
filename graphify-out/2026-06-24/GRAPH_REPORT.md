@@ -1,11 +1,11 @@
-# Graph Report - servicar  (2026-06-24)
+# Graph Report - servicar  (2026-06-23)
 
 ## Corpus Check
-- 180 files · ~50,123 words
+- 179 files · ~49,149 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 934 nodes · 2550 edges · 49 communities (41 shown, 8 thin omitted)
+- 909 nodes · 2526 edges · 46 communities (38 shown, 8 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 25 edges (avg confidence: 0.83)
 - Token cost: 0 input · 0 output
 
@@ -55,9 +55,6 @@
 - [[_COMMUNITY_Graphify Workflow|Graphify Workflow]]
 - [[_COMMUNITY_Community 44|Community 44]]
 - [[_COMMUNITY_Community 45|Community 45]]
-- [[_COMMUNITY_Community 46|Community 46]]
-- [[_COMMUNITY_Community 47|Community 47]]
-- [[_COMMUNITY_Community 48|Community 48]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `Ticket` - 110 edges
@@ -83,23 +80,23 @@
 - `NuevoTicketPage` --references--> `RF-1: Creación de Tickets`  [INFERRED]
   next/src/app/ticket/nuevo/page.tsx → requisitos-requerimientos.md
 
-## Communities (49 total, 8 thin omitted)
+## Communities (46 total, 8 thin omitted)
 
 ### Community 0 - "Mecánico MVVM-C (Coordinators)"
-Cohesion: 0.06
-Nodes (48): MecanicoCoordinator, MecanicoCoordinator, DashboardPage(), TicketCategoria, WORKSHOP_CATEGORIAS, FichasPage(), DashboardView(), FichasView() (+40 more)
+Cohesion: 0.08
+Nodes (41): DashboardPage(), FichasPage(), empleadoModule, DashboardView(), FichasView(), TABS, TallerView(), DashboardVM (+33 more)
 
 ### Community 1 - "Auth & Service Locators"
-Cohesion: 0.07
-Nodes (34): TicketCategoria, HistorialEntryProps, MOCK_EMPLEADOS, MOCK_HISTORIAL, MOCK_TICKETS, MockDraft, MockEmpleado, MockHistorial (+26 more)
+Cohesion: 0.06
+Nodes (40): provider, store, MOCK_EMPLEADOS, MOCK_HISTORIAL, MOCK_TICKETS, MockEmpleado, MockHistorial, MockTicket (+32 more)
 
 ### Community 2 - "Mock/PB Infrastructure"
 Cohesion: 0.15
-Nodes (12): Mock Mode (NEXT_PUBLIC_USE_MOCK=true), Optimistic Cache Pattern (PbStore write-through), PocketBase Real-time Subscriptions, docker-compose.mock.yml (Mock build config), PbUser, PbHistorialRepository, Listener, PbStore (+4 more)
+Nodes (12): Mock Mode (NEXT_PUBLIC_USE_MOCK=true), Optimistic Cache Pattern (PbStore write-through), PocketBase Real-time Subscriptions, docker-compose.mock.yml (Mock build config), PbUser, pbUserToEmpleado(), PbEmpleadoRepository, Listener (+4 more)
 
 ### Community 3 - "Admin UI Components"
-Cohesion: 0.06
-Nodes (76): AdminLayoutView(), AdminLayoutViewProps, HamburgerIcon(), NAV, TicketsIcon(), TriageIcon(), ColaView(), AdminLayout() (+68 more)
+Cohesion: 0.05
+Nodes (67): AdminLayoutView(), AdminLayoutViewProps, HamburgerIcon(), NAV, TicketsIcon(), TriageIcon(), ColaView(), ESTADO_CFG (+59 more)
 
 ### Community 4 - "NPM Dependencies"
 Cohesion: 0.05
@@ -110,16 +107,16 @@ Cohesion: 0.33
 Nodes (4): BASE, editado, original, t
 
 ### Community 6 - "HistorialEntry Domain"
-Cohesion: 0.12
-Nodes (11): ESTADO_CFG, HistorialView(), HistorialTab, HistorialTab, AuditTimeline(), AuditTimelineProps, InfoRow(), InfoRowProps (+3 more)
+Cohesion: 0.15
+Nodes (10): AuditTimelineProps, HistorialEntry, HistorialEntry, HistorialEntryProps, TipoAccion, PbHistorialRepository, pbHistorialToEntity(), IHistorialRepository (+2 more)
 
 ### Community 7 - "Deployment & Architecture Docs"
 Cohesion: 0.07
 Nodes (28): Arquitectura de Producción, Backend PocketBase, Paquete Core Domain (@servicar/core), Frontend Next.js, Once UI Framework, 1. Desplegar PocketBase, 2. Desplegar Next.js, 3. Proxy reverso con HTTPS (Caddy — recomendado) (+20 more)
 
 ### Community 8 - "Shared Domain + Pages"
-Cohesion: 0.13
-Nodes (11): Empleado, EmpleadoProps, mockEmpleadoToEntity(), MockEmpleadoRepository, pbUserToEmpleado(), PbEmpleadoRepository, IEmpleadoRepository, IGetEmpleadoByIdQuery (+3 more)
+Cohesion: 0.06
+Nodes (42): AdminLayout (page component), MecanicoLayout (page component), AdminCoordinator, AdminCoordinator, IMecanicoCoordinator, MecanicoCoordinator, MecanicoCoordinator, TicketCategoria (+34 more)
 
 ### Community 9 - "Auth Session Layer"
 Cohesion: 0.16
@@ -130,39 +127,39 @@ Cohesion: 0.08
 Nodes (23): compilerOptions, allowJs, esModuleInterop, incremental, isolatedModules, jsx, lib, module (+15 more)
 
 ### Community 11 - "Aggregate Root & DTOs"
-Cohesion: 0.17
-Nodes (19): ESTADO_ACTIONS, KanbanColumn(), TicketsView(), TicketsVM, TicketsVM, ESTADO_ACTIONS, KanbanCard(), KanbanCardProps (+11 more)
+Cohesion: 0.21
+Nodes (9): TicketsVM, TicketEstado, AggregateRoot, isTransicionValida(), TICKET_ESTADO_TRANSITIONS, TicketEstado, TicketProps, IGetTicketsPorEstadoQuery (+1 more)
 
 ### Community 12 - "Business Rules & ticketModule"
-Cohesion: 0.26
-Nodes (9): Role-based Ticket Ownership (mecánico owns, admin can all), EditarTicketDTO, TicketCamposEditables, IEditarTicketUseCase, RF-3: Edición de Tickets (rol-based ownership), makeRepo(), ticketDe(), EditarTicketUseCase (+1 more)
+Cohesion: 0.15
+Nodes (16): Role-based Ticket Ownership (mecánico owns, admin can all), EditarTicketDTO, TicketCamposEditables, store, IEditarTicketUseCase, IGetTicketByIdQuery, IGetTicketsQuery, GetTicketByIdQuery (+8 more)
 
 ### Community 13 - "Admin Cola (Triage) View"
-Cohesion: 0.12
-Nodes (15): provider, useCase, provider, store, Rol, AutenticarDTO, Sesion, SesionProps (+7 more)
+Cohesion: 0.13
+Nodes (14): provider, useCase, Rol, AutenticarDTO, EmpleadoProps, Sesion, SesionProps, authModule (+6 more)
 
 ### Community 14 - "Once UI Config Types"
-Cohesion: 0.05
-Nodes (55): NotFound(), sitemap(), Footer(), Header(), Providers(), DYNAMIC_ROUTE_PREFIXES, RouteGuard(), RouteGuardProps (+47 more)
+Cohesion: 0.06
+Nodes (54): NotFound(), sitemap(), Footer(), Header(), Providers(), DYNAMIC_ROUTE_PREFIXES, RouteGuard(), RouteGuardProps (+46 more)
 
 ### Community 15 - "Linter/Formatter Config"
 Cohesion: 0.12
 Nodes (19): files, ignoreUnknown, formatter, enabled, indentStyle, indentWidth, lineWidth, quoteStyle (+11 more)
 
 ### Community 16 - "Mock Ticket Repository"
-Cohesion: 0.18
-Nodes (9): Ticket State Machine (pendiente→aprobado→en_progreso→finalizado), CambiarEstadoDTO, ICambiarEstadoUseCase, IGetTicketByIdQuery, GetTicketByIdQuery, r, uc, CambiarEstadoUseCase (+1 more)
+Cohesion: 0.22
+Nodes (7): Ticket State Machine (pendiente→aprobado→en_progreso→finalizado), CambiarEstadoDTO, ICambiarEstadoUseCase, r, uc, CambiarEstadoUseCase, CambiarEstadoUseCase
 
 ### Community 17 - "Root Layout & SEO"
-Cohesion: 0.11
-Nodes (4): Ticket, IGetTicketsQuery, GetTicketsQuery, TicketCardProps
+Cohesion: 0.10
+Nodes (8): Ticket, entityToPbHistorialData(), entityToPbTicketData(), pbTicketToEntity(), PbTicketRepository, IGetTicketsPorCreadorQuery, ITicketRepository, GetTicketsPorCreadorQuery
 
 ### Community 18 - "Icon Library"
 Cohesion: 0.39
 Nodes (8): createHistorial(), createTicket(), ensureCollection(), ensureUser(), ensureUsersSchema(), main(), pb, setRules()
 
 ### Community 19 - "IAuthSessionService"
-Cohesion: 0.33
+Cohesion: 0.35
 Nodes (4): MockSessionService, PbSessionService, IAuthSessionService, SessionPayload
 
 ### Community 20 - "Package.json Core"
@@ -190,12 +187,12 @@ Cohesion: 0.25
 Nodes (8): Entidad Ticket, Historial de Ediciones Inmutable, Máquina de Estados de Ticket, Modo Offline y Borradores, Rol Administrador, Rol Cliente, Rol Mecánico, Servicar System
 
 ### Community 26 - "Public Ticket Portal"
-Cohesion: 0.40
-Nodes (7): TicketPublicoPage(), ESTADO_CFG, formatDate(), PublicoTicketView(), TagVariant, PublicoTicketVM, usePublicoTicketViewModel()
+Cohesion: 0.35
+Nodes (8): TicketPublicoPage(), ticketModule, ESTADO_CFG, formatDate(), PublicoTicketView(), TagVariant, PublicoTicketVM, usePublicoTicketViewModel()
 
 ### Community 27 - "Shell Components"
-Cohesion: 0.22
-Nodes (9): AggregateRoot, isTransicionValida(), TICKET_ESTADO_TRANSITIONS, CrearTicketDTO, ICrearTicketUseCase, DTO, makeRepo(), CambiarEstadoDTO (+1 more)
+Cohesion: 0.33
+Nodes (5): CrearTicketDTO, ICrearTicketUseCase, DTO, makeRepo(), CrearTicketUseCase
 
 ### Community 29 - "Workspace Root Package"
 Cohesion: 0.50
@@ -213,37 +210,25 @@ Nodes (5): 1. Colección `users` (Colección de tipo Auth), 2. Colección `ticke
 Cohesion: 0.40
 Nodes (4): Explicación de las Reglas, Reglas de Seguridad y API en PocketBase, Separación de Responsabilidades: API Rules vs Reglas de Dominio, Tabla de Reglas de Acceso (API Rules)
 
-### Community 46 - "Community 46"
-Cohesion: 0.08
-Nodes (24): 1. Declaración explícita de campos `autodate`, 1. Síntomas y Diagnóstico Inicial, 2. Aplanado de campos `select`, 2. Causas Raíz (El porqué del fallo), 3. Sincronización activa de esquemas en `ensureCollection`, 3. Soluciones Implementadas, 4. Mezcla segura de campos en `users`, 4. Resultados Obtenidos (+16 more)
-
-### Community 47 - "Community 47"
-Cohesion: 0.19
-Nodes (9): store, ticketModule, IHistorialRepository, IGetHistorialQuery, IGetTicketsPorCreadorQuery, IGetTicketsPorEstadoQuery, GetHistorialQuery, GetTicketsPorCreadorQuery (+1 more)
-
-### Community 48 - "Community 48"
-Cohesion: 0.36
-Nodes (5): entityToPbHistorialData(), entityToPbTicketData(), pbTicketToEntity(), PbTicketRepository, ITicketRepository
-
 ## Knowledge Gaps
-- **205 isolated node(s):** `name`, `private`, `workspaces`, `$schema`, `clientKind` (+200 more)
+- **192 isolated node(s):** `name`, `private`, `workspaces`, `$schema`, `clientKind` (+187 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **8 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `Ticket` connect `Root Layout & SEO` to `Mecánico MVVM-C (Coordinators)`, `Auth & Service Locators`, `Mock/PB Infrastructure`, `Admin UI Components`, `Ticket Domain Entity`, `HistorialEntry Domain`, `Deployment & Architecture Docs`, `Aggregate Root & DTOs`, `Business Rules & ticketModule`, `Community 47`, `Mock Ticket Repository`, `Community 48`, `Domain Concepts (Docs)`, `Public Ticket Portal`, `Shell Components`, `Ticket Entity Tests`?**
-  _High betweenness centrality (0.112) - this node is a cross-community bridge._
-- **Why does `ITicketRepository` connect `Community 48` to `Auth & Service Locators`, `Mock/PB Infrastructure`, `Admin UI Components`, `Deployment & Architecture Docs`, `Aggregate Root & DTOs`, `Business Rules & ticketModule`, `Community 47`, `Mock Ticket Repository`, `Root Layout & SEO`, `Shell Components`?**
-  _High betweenness centrality (0.058) - this node is a cross-community bridge._
-- **Why does `Empleado` connect `Shared Domain + Pages` to `Mecánico MVVM-C (Coordinators)`, `Admin UI Components`, `HistorialEntry Domain`, `Auth Session Layer`, `Aggregate Root & DTOs`, `Shell Components`?**
-  _High betweenness centrality (0.051) - this node is a cross-community bridge._
+- **Why does `Ticket` connect `Root Layout & SEO` to `Mecánico MVVM-C (Coordinators)`, `Auth & Service Locators`, `Admin UI Components`, `Ticket Domain Entity`, `HistorialEntry Domain`, `Deployment & Architecture Docs`, `Shared Domain + Pages`, `Aggregate Root & DTOs`, `Business Rules & ticketModule`, `Mock Ticket Repository`, `Domain Concepts (Docs)`, `Public Ticket Portal`, `Shell Components`, `Ticket Entity Tests`?**
+  _High betweenness centrality (0.118) - this node is a cross-community bridge._
+- **Why does `ITicketRepository` connect `Root Layout & SEO` to `Auth & Service Locators`, `Mock/PB Infrastructure`, `Admin UI Components`, `HistorialEntry Domain`, `Deployment & Architecture Docs`, `Aggregate Root & DTOs`, `Business Rules & ticketModule`, `Mock Ticket Repository`, `Shell Components`?**
+  _High betweenness centrality (0.062) - this node is a cross-community bridge._
+- **Why does `Empleado` connect `Admin UI Components` to `Mecánico MVVM-C (Coordinators)`, `Auth & Service Locators`, `Mock/PB Infrastructure`, `HistorialEntry Domain`, `Shared Domain + Pages`, `Auth Session Layer`, `Aggregate Root & DTOs`, `Business Rules & ticketModule`?**
+  _High betweenness centrality (0.054) - this node is a cross-community bridge._
 - **Are the 2 inferred relationships involving `Ticket` (e.g. with `Entidad Ticket` and `Paquete Core Domain (@servicar/core)`) actually correct?**
   _`Ticket` has 2 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `name`, `private`, `workspaces` to the rest of the system?**
-  _208 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _195 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Mecánico MVVM-C (Coordinators)` be split into smaller, more focused modules?**
-  _Cohesion score 0.05980861244019139 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.08123904149620105 - nodes in this community are weakly interconnected._
 - **Should `Auth & Service Locators` be split into smaller, more focused modules?**
-  _Cohesion score 0.0670762928827445 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.056679151061173536 - nodes in this community are weakly interconnected._

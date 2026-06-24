@@ -56,17 +56,42 @@ async function ensureUser(data: {
 
 const AUTHENTICATED = '@request.auth.id != ""';
 
-async function ensureCollection(name: string, schema: object[]): Promise<void> {
+async function ensureCollection(name: string, fields: object[]): Promise<void> {
+  let exists = false;
+  let colId = "";
   try {
-    await pb.collections.getOne(name);
-    console.log(`  collection exists: ${name}`);
+    const col = await pb.collections.getOne(name);
+    exists = true;
+    colId = col.id;
   } catch {
-    await pb.collections.create({
-      name,
-      type: "base",
-      schema,
-    });
-    console.log(`  created collection: ${name}`);
+    // Doesn't exist, we will create it
+  }
+
+  if (exists) {
+    try {
+      console.log(`  collection exists: ${name}. Updating fields to ensure consistency...`);
+      await pb.collections.update(colId, {
+        name,
+        type: "base",
+        fields,
+      });
+      console.log(`  collection updated: ${name}`);
+    } catch (err: any) {
+      console.error(`  Failed to update collection ${name}:`, err.message, JSON.stringify(err.response?.data || err.data || {}));
+      throw err;
+    }
+  } else {
+    try {
+      await pb.collections.create({
+        name,
+        type: "base",
+        fields,
+      });
+      console.log(`  created collection: ${name}`);
+    } catch (err: any) {
+      console.error(`  Failed to create collection ${name}:`, err.message, JSON.stringify(err.response?.data || err.data || {}));
+      throw err;
+    }
   }
 }
 
@@ -100,7 +125,8 @@ async function ensureUsersSchema(): Promise<void> {
     return;
   }
 
-  await pb.collections.update(col.id, { fields: toAdd });
+  const newFields = [...existing, ...toAdd];
+  await pb.collections.update(col.id, { fields: newFields });
   console.log(`  added fields to users: ${toAdd.map((f: any) => f.name).join(", ")}`);
 }
 
@@ -142,24 +168,27 @@ async function main() {
   console.log();
 
   // ── Collections ────────────────────────────────────────────────────────────
-  console.log("Ensuring collections...");
   await ensureCollection("tickets", [
     { name: "matricula",               type: "text",   required: true },
-    { name: "categoria",               type: "select", required: true, options: { values: ["mantenimiento","frenos","aceite","neumaticos","electrico","carroceria","otros"] } },
+    { name: "categoria",               type: "select", required: true, maxSelect: 1, values: ["mantenimiento","frenos","aceite","neumaticos","electrico","carroceria","otros"] },
     { name: "titulo",                  type: "text",   required: true },
     { name: "descripcion",             type: "text",   required: true },
-    { name: "estado",                  type: "select", required: true, options: { values: ["pendiente_revision","aprobado","requiere_cambios","en_progreso","urgente","bloqueado","finalizado"] } },
+    { name: "estado",                  type: "select", required: true, maxSelect: 1, values: ["pendiente_revision","aprobado","requiere_cambios","en_progreso","urgente","bloqueado","finalizado"] },
     { name: "creadorId",               type: "text",   required: true },
     { name: "fechaUltimaModificacion", type: "number", required: true },
     { name: "notaAdmin",               type: "text" },
     { name: "bahia",                   type: "text" },
+    { name: "created",                 type: "autodate", onCreate: true, onUpdate: false },
+    { name: "updated",                 type: "autodate", onCreate: true, onUpdate: true },
   ]);
 
   await ensureCollection("historial_ediciones", [
     { name: "ticketId",      type: "text", required: true },
     { name: "empleadoId",    type: "text", required: true },
-    { name: "tipoAccion",    type: "select", required: true, options: { values: ["CREACION","CAMBIO_ESTADO","EDICION_TEXTO"] } },
+    { name: "tipoAccion",    type: "select", required: true, maxSelect: 1, values: ["CREACION","CAMBIO_ESTADO","EDICION_TEXTO"] },
     { name: "detallesCambio", type: "text" },
+    { name: "created",                 type: "autodate", onCreate: true, onUpdate: false },
+    { name: "updated",                 type: "autodate", onCreate: true, onUpdate: true },
   ]);
 
   // ── API Rules ───────────────────────────────────────────────────────────────

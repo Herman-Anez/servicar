@@ -379,7 +379,7 @@ Auth enforcement probado a nivel de use case:
 ```bash
 PB_URL=http://192.168.0.222:8090 PB_ADMIN_EMAIL=<su> PB_ADMIN_PASS=<pass> npx tsx packages/core/seed.ts
 ```
-Crea 2 mecánicos + 1 admin (password `Password1234!`), 1 ticket por mecánico, historial de creación. Idempotente en usuarios; borra y recrea tickets.
+Crea 2 mecánicos + 1 admin (password `Password1234!`), 1 ticket por mecánico, historial de creación. Idempotente en usuarios; borra y recrea tickets. Nota: El seed está adaptado para PocketBase v0.23+, forzando la actualización de esquemas (usando `fields` en lugar de `schema`, y declarando explícitamente los campos autodate de `created`/`updated` para evitar su eliminación y asegurar el soporte para ordenamientos en las queries del frontend).
 
 El seed también setea API rules en `users`, `tickets`, `historial_ediciones` (list/view/create para usuarios autenticados, delete solo superusers). Sin esto PocketBase retorna 403 al listar usuarios.
 
